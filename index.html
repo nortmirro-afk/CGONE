@@ -3,156 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CG Apex | Chhattisgarh Education & Career Portal</title>
+  <title>CG 360 Apex | All-in-One Chhattisgarh Super Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #060913;
     }
-    
     .glass-nav {
-      background: rgba(10, 15, 29, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
-
     .glass-card {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.01) 100%);
+      backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
     .glass-card:hover {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
       transform: translateY(-2px);
     }
-
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-card {
-      animation: fadeIn 0.35s ease-out forwards;
+    .animate-in {
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   </style>
 </head>
-<body class="text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white pb-20 antialiased">
+<body class="text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white pb-24 antialiased">
 
-  <!-- Ambient Dynamic Lighting Elements -->
+  <!-- Ambient Background Lighting -->
   <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-transparent rounded-full blur-[130px]"></div>
-    <div class="absolute bottom-10 right-0 w-[450px] h-[300px] bg-blue-600/10 rounded-full blur-[140px]"></div>
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[340px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-transparent rounded-full blur-[130px]"></div>
+    <div class="absolute bottom-10 right-0 w-[420px] h-[320px] bg-blue-600/10 rounded-full blur-[140px]"></div>
   </div>
 
-  <!-- Navigation -->
+  <!-- Header -->
   <header class="border-b border-white/5 glass-nav sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-purple-600 p-[1px] shadow-lg shadow-indigo-500/20">
+    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-purple-600 p-[1px] shadow-lg shadow-indigo-500/25">
           <div class="w-full h-full bg-[#0b0f1e] rounded-[15px] flex items-center justify-center font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-indigo-300 to-white text-base">
             CG
           </div>
         </div>
         <div>
           <h1 class="font-extrabold text-sm sm:text-base tracking-tight text-white flex items-center gap-2">
-            CG Desk <span class="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Pro</span>
+            CG 360 Apex <span class="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Pro</span>
           </h1>
-          <p class="text-[11px] text-slate-400 font-medium">All Universities & State Exams</p>
+          <p class="text-[10px] text-slate-400 font-medium">Bastar & Chhattisgarh Super Desk</p>
         </div>
       </div>
-
       <div class="flex items-center gap-2">
-        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Online</span>
-        </div>
+        <span class="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Cloudflare Edge
+        </span>
       </div>
     </div>
   </header>
 
-  <!-- Hero Content -->
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-8">
-    <div class="text-center max-w-xl mx-auto mb-8">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-medium text-slate-300 mb-3 backdrop-blur">
-        <span>✨ Official Verified Links</span>
-        <span class="text-slate-600">•</span>
-        <span class="text-indigo-400">Zero Redirect Traps</span>
-      </div>
-      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
-        Chhattisgarh Education Hub
-      </h2>
-      <p class="text-xs sm:text-sm text-slate-400 mt-2 font-normal leading-relaxed">
-        Access real-time exam circulars, syllabus repositories, semester results, and public recruitment without digging through outdated portals.
-      </p>
-    </div>
+  <!-- Main View -->
+  <main class="max-w-4xl mx-auto px-4 pt-6">
 
-    <!-- Modern Search Bar -->
-    <div class="relative max-w-2xl mx-auto mb-8">
-      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </div>
-      <input 
-        id="searchInput" 
-        type="text" 
-        placeholder="Quick search: 'SMKV', 'Botany NEP', 'Result', 'Vyapam'..."
-        class="w-full pl-11 pr-4 py-3.5 bg-slate-900/60 border border-white/10 rounded-2xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition backdrop-blur shadow-2xl"
-        oninput="filterFeed()"
-      >
-    </div>
-
-    <!-- 1. University Filter Pills -->
+    <!-- MASTER MODULE SWITCHER (The Core Hub) -->
     <div class="mb-5">
-      <div class="flex items-center justify-between mb-2.5 px-1">
-        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">1. Select Institution</span>
-        <span id="activeUniIndicator" class="text-xs text-indigo-400 font-semibold">All Entities</span>
+      <div class="flex items-center justify-between mb-2 px-1">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Master Service Modules</span>
+        <span id="activeModuleTitle" class="text-xs text-indigo-400 font-semibold">Academic & Govt Hub</span>
       </div>
-      <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold" id="uniSwitchGroup">
-        <button onclick="setUniversity('all', this)" class="uni-btn px-4 py-2 rounded-xl bg-indigo-600 text-white whitespace-nowrap shadow-md shadow-indigo-600/20">All CG</button>
-        <button onclick="setUniversity('SMKV Bastar', this)" class="uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">SMKV Bastar</button>
-        <button onclick="setUniversity('PRSU Raipur', this)" class="uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">PRSU Raipur</button>
-        <button onclick="setUniversity('ABVV Bilaspur', this)" class="uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">ABVV Bilaspur</button>
-        <button onclick="setUniversity('CSVTU Bhilai', this)" class="uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">CSVTU Bhilai</button>
-        <button onclick="setUniversity('Durg University', this)" class="uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">Durg (HYV)</button>
-        <button onclick="setUniversity('Govt Recruitment', this)" class="uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">CG Vyapam / PSC</button>
-      </div>
-    </div>
-
-    <!-- 2. Category Filter Tabs -->
-    <div class="mb-6">
-      <div class="flex items-center justify-between mb-2.5 px-1">
-        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">2. Select Stream</span>
-        <span id="counterText" class="text-xs text-slate-500 font-medium">8 records available</span>
-      </div>
-      <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold" id="categoryGroup">
-        <button onclick="setTab('all', this)" class="cat-btn px-3.5 py-2 rounded-xl bg-white/10 text-white whitespace-nowrap border border-white/10">All Feeds</button>
-        <button onclick="setTab('syllabus', this)" class="cat-btn px-3.5 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">📚 Syllabus Bank</button>
-        <button onclick="setTab('results', this)" class="cat-btn px-3.5 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🎓 Exam Results</button>
-        <button onclick="setTab('exams', this)" class="cat-btn px-3.5 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">📅 Timetables</button>
-        <button onclick="setTab('jobs', this)" class="cat-btn px-3.5 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">💼 Jobs & Bharti</button>
-        <button onclick="setTab('notices', this)" class="cat-btn px-3.5 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">📢 Official Orders</button>
+      <div class="flex gap-2 overflow-x-auto pb-1.5 no-scrollbar text-xs font-semibold" id="moduleSwitchBar">
+        <button onclick="setMasterModule('academics', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-indigo-600 text-white whitespace-nowrap shadow-md shadow-indigo-600/20">🎓 Exams & Jobs</button>
+        <button onclick="setMasterModule('emergency', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🚑 Emergency Help</button>
+        <button onclick="setMasterModule('calculator', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🧮 CGPA Calculator</button>
+        <button onclick="setMasterModule('haat', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🌿 Haat Bazaars</button>
+        <button onclick="setMasterModule('art', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🎨 Bastar Art</button>
+        <button onclick="setMasterModule('mandi', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🌾 Mandi Rates</button>
+        <button onclick="setMasterModule('hostel', this)" class="mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800">🏠 Student Hostels</button>
       </div>
     </div>
 
-    <!-- Cards List -->
-    <div id="feedList" class="space-y-3.5"></div>
+    <!-- DYNAMIC MODULE CONTAINER -->
+    <div id="moduleWorkspace" class="animate-in">
+      <!-- Injected dynamically by JS -->
+    </div>
+
   </main>
 
   <script>
-    const DATA = [
+    // ==========================================
+    // 1. DATA REPOSITORIES
+    // ==========================================
+
+    const ACADEMIC_DATA = [
       // SMKV Bastar
       {
         university: 'SMKV Bastar',
         category: 'syllabus',
         title: 'SMKV UG / PG & NEP 2020 Affiliated Colleges Syllabus Directory',
-        date: 'Academic Year 2026-27',
+        date: 'Session 2026-27',
         tag: 'Official Framework',
         badge: 'NEP 2020',
         badgeType: 'blue',
@@ -165,7 +121,7 @@
         title: 'Bachelor of Laws (LL.B.) 3-Year Degree Curriculum & Scheme',
         date: 'Semester System',
         tag: 'Direct Syllabus PDF',
-        badge: 'PDF (48 Pgs)',
+        badge: 'PDF Download',
         badgeType: 'emerald',
         linkText: 'Download PDF',
         link: 'https://www.smkvbastar.ac.in/Admin/Files/Academic/07172023022714_BACHELOR%20OF%20LAWS%20(L.L.B.).pdf'
@@ -175,7 +131,7 @@
         category: 'results',
         title: 'SMKV Semester / Annual Exam Marksheet & Revaluation Portal',
         date: 'Session 2026 Updated',
-        tag: 'Official Marks Portal',
+        tag: 'Marks Server',
         badge: 'Live Results',
         badgeType: 'purple',
         linkText: 'Check Marks',
@@ -185,7 +141,7 @@
         university: 'SMKV Bastar',
         category: 'exams',
         title: 'July-Dec Semester Online Examination Forms & Centre List Orders',
-        date: 'Current Cycle',
+        date: 'Active Session',
         tag: 'Exam Notification',
         badge: 'Urgent',
         badgeType: 'rose',
@@ -209,8 +165,8 @@
         university: 'PRSU Raipur',
         category: 'results',
         title: 'PRSU Annual & Semester Examination Results Dashboard',
-        date: 'Real-time Feeds',
-        tag: 'Mark Sheet Server',
+        date: 'Real-time Server',
+        tag: 'Mark Sheet Portal',
         badge: 'Results Out',
         badgeType: 'purple',
         linkText: 'Access Results',
@@ -222,7 +178,7 @@
         university: 'ABVV Bilaspur',
         category: 'results',
         title: 'Bilaspur University (ABVV) UG, PG & UFM Revaluation Portal',
-        date: 'Active Term',
+        date: 'Current Semester',
         tag: 'Official Mark Server',
         badge: 'Live',
         badgeType: 'emerald',
@@ -272,7 +228,7 @@
         university: 'Govt Recruitment',
         category: 'syllabus',
         title: 'CGPSC State Service Exam (Prelims & Mains) Pattern & Detailed Syllabus',
-        date: 'Commission Gazette',
+        date: 'Official Pattern',
         tag: 'Exam Pattern',
         badge: 'Syllabus PDF',
         badgeType: 'emerald',
@@ -281,34 +237,386 @@
       }
     ];
 
+    const EMERGENCY_DATA = [
+      { name: "Medical Emergency Ambulance", number: "108", note: "Govt 24x7 Free Service across CG", type: "Free Toll-Free", urgent: true },
+      { name: "Police Emergency Helpline", number: "112", note: "Centralized Emergency Quick Response", type: "Emergency", urgent: true },
+      { name: "Dimrapal Medical College Hospital (Jagdalpur)", number: "07782-231403", note: "Trauma Care & Snakebite Antivenom Centre", type: "Govt Hospital" },
+      { name: "Maharani District Hospital Jagdalpur", number: "07782-222340", note: "24x7 Emergency Casualty & In-patient", type: "Govt Hospital" },
+      { name: "District Hospital Blood Bank Jagdalpur", number: "07782-222340", note: "Blood Bank & Component Separation Unit", type: "Blood Bank" },
+      { name: "Women Helpline (Chhattisgarh)", number: "181", note: "24/7 Dedicated Support & Counselling", type: "Helpline" }
+    ];
+
+    const HAAT_DATA = [
+      { day: "Sunday", places: ["Asna (Near Jagdalpur)", "Dantewada Town Center", "Bhanpuri (Bastar)"] },
+      { day: "Monday", places: ["Tokapal", "Lohandiguda (Chitrakote road)", "Kondagaon Main"] },
+      { day: "Tuesday", places: ["Nagarnar (Steel Plant Area)", "Bakawand", "Geedam (Dantewada)"] },
+      { day: "Wednesday", places: ["Dimrapal (Near Hospital)", "Chitrakote Road Bazaar", "Keshkal"] },
+      { day: "Thursday", places: ["Bastanar (Ghat Section)", "Kilikpal", "Jagdalpur Hat-Ghar"] },
+      { day: "Friday", places: ["Dharampura (University Road)", "Chingalur", "Narayanpur Main"] },
+      { day: "Saturday", places: ["Kukanar (Sukma border)", "Puspal", "Jagdalpur Sanichari Bazaar"] }
+    ];
+
+    const ART_DATA = [
+      { 
+        craft: "Dhokra Bell Metal Art", 
+        artisan: "Kondagaon Shilpgram Cooperative", 
+        desc: "Ancient 4,000-year-old lost-wax bronze casting technique creating tribal figurines, horses, and lamps.", 
+        wa: "919425200000",
+        location: "Kondagaon, CG"
+      },
+      { 
+        craft: "Loha Shilp (Wrought Iron)", 
+        artisan: "Bastar Traditional Lohar Shilpis", 
+        desc: "Hand-beaten iron diyas, musician groups, wall decor, and ceremonial weapons crafted without welding.", 
+        wa: "919425200000",
+        location: "Bastar Cluster"
+      },
+      { 
+        craft: "Terracotta & Ritual Clay Art", 
+        artisan: "Kumhar Para Artisan Guild", 
+        desc: "Fired clay temple votive elephants, masks, and traditional decorative roof tiles.", 
+        wa: "919425200000",
+        location: "Nagarnar, Jagdalpur"
+      }
+    ];
+
+    const MANDI_DATA = [
+      { produce: "Tendu Patta (Standard Bag)", rate: 5500, unit: "Per Standard Bag", desc: "Procured by CG Minor Forest Produce Federation" },
+      { produce: "Kodo & Kutki (Millets)", rate: 4200, unit: "Per Quintal", desc: "Procured under State Millet Mission MSP" },
+      { produce: "Ragi (Finger Millet)", rate: 4290, unit: "Per Quintal", desc: "Government Minimum Support Price (MSP)" },
+      { produce: "Mahua Flowers (Dry Cleaned)", rate: 3500, unit: "Per Quintal (₹35/kg)", desc: "Primary Tribal Cooperative Collection rate" },
+      { produce: "Imli (Seeded Tamarind)", rate: 3600, unit: "Per Quintal", desc: "Forest produce support price" }
+    ];
+
+    const HOSTEL_DATA = [
+      {
+        name: "Maa Danteshwari Girls PG & Hostel",
+        location: "Dharampura-2, Jagdalpur (Walking distance to SMKV)",
+        rent: "₹2,500 / month (Sharing)",
+        facilities: "Mess food available, CCTV, Ro water, Wi-Fi",
+        wa: "919425200000"
+      },
+      {
+        name: "Shri Ram Boys Student Lodge",
+        location: "Near Sanjay Market, Jagdalpur",
+        rent: "₹1,800 / month (Room only)",
+        facilities: "24/7 Water, Quiet study environment, Bike parking",
+        wa: "919425200000"
+      },
+      {
+        name: "Pragati Coaching & College Hostel",
+        location: "Kota Road, Raipur (Near PRSU Campus)",
+        rent: "₹4,500 / month (Including Mess)",
+        facilities: "3 Times Food, Library Hall, Power backup",
+        wa: "919425200000"
+      }
+    ];
+
+    // ==========================================
+    // 2. STATE CONTROLLER
+    // ==========================================
+    let currentModule = 'academics';
     let currentUniversity = 'all';
     let currentCategory = 'all';
 
-    function setUniversity(uni, btn) {
+    function setMasterModule(mod, btn) {
+      currentModule = mod;
+      document.querySelectorAll('.mod-pill').forEach(b => {
+        b.className = 'mod-pill px-4 py-2.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800';
+      });
+      btn.className = 'mod-pill px-4 py-2.5 rounded-xl bg-indigo-600 text-white whitespace-nowrap shadow-md shadow-indigo-600/20';
+
+      const titleMap = {
+        academics: 'Academic & Govt Hub',
+        emergency: 'Emergency Speed-Dial',
+        calculator: 'NEP CGPA Calculator',
+        haat: 'Weekly Haat Calendar',
+        art: 'Bastar Tribal Art Directory',
+        mandi: 'Mandi Rates & MSP Payout',
+        hostel: 'Student Rooms & Hostels'
+      };
+      document.getElementById('activeModuleTitle').innerText = titleMap[mod] || '';
+      renderActiveModule();
+    }
+
+    function renderActiveModule() {
+      const workspace = document.getElementById('moduleWorkspace');
+      workspace.innerHTML = '';
+
+      // --- MODULE: ACADEMICS & EXAMS ---
+      if (currentModule === 'academics') {
+        workspace.innerHTML = `
+          <!-- Search Bar -->
+          <div class="relative max-w-2xl mx-auto mb-6">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input 
+              id="searchInput" 
+              type="text" 
+              placeholder="Search: 'SMKV', 'Botany NEP', 'Result', 'Vyapam Teacher'..."
+              class="w-full pl-11 pr-4 py-3.5 bg-slate-900/60 border border-white/10 rounded-2xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-2xl transition"
+              oninput="filterAcademicFeed()"
+            >
+          </div>
+
+          <!-- University Filters -->
+          <div class="mb-4">
+            <div class="flex items-center justify-between mb-2 px-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">1. Select University / Board</span>
+              <span id="activeUniIndicator" class="text-xs text-indigo-400 font-semibold">${currentUniversity === 'all' ? 'All Entities' : currentUniversity}</span>
+            </div>
+            <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold">
+              <button onclick="setUniFilter('all', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">All CG</button>
+              <button onclick="setUniFilter('SMKV Bastar', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'SMKV Bastar' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">SMKV Bastar</button>
+              <button onclick="setUniFilter('PRSU Raipur', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'PRSU Raipur' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">PRSU Raipur</button>
+              <button onclick="setUniFilter('ABVV Bilaspur', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'ABVV Bilaspur' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">ABVV Bilaspur</button>
+              <button onclick="setUniFilter('CSVTU Bhilai', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'CSVTU Bhilai' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">CSVTU Bhilai</button>
+              <button onclick="setUniFilter('Durg University', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'Durg University' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">Durg (HYV)</button>
+              <button onclick="setUniFilter('Govt Recruitment', this)" class="uni-pill px-3.5 py-1.5 rounded-xl ${currentUniversity === 'Govt Recruitment' ? 'bg-indigo-600 text-white' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">CG Vyapam / PSC</button>
+            </div>
+          </div>
+
+          <!-- Category Filters -->
+          <div class="mb-5">
+            <div class="flex items-center justify-between mb-2 px-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">2. Select Stream</span>
+              <span id="academicCounter" class="text-xs text-slate-500 font-medium">Loading updates...</span>
+            </div>
+            <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold">
+              <button onclick="setCatFilter('all', this)" class="cat-pill px-3.5 py-1.5 rounded-xl ${currentCategory === 'all' ? 'bg-white/10 text-white border border-white/10' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">All Streams</button>
+              <button onclick="setCatFilter('syllabus', this)" class="cat-pill px-3.5 py-1.5 rounded-xl ${currentCategory === 'syllabus' ? 'bg-white/10 text-white border border-white/10' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">📚 Syllabus Bank</button>
+              <button onclick="setCatFilter('results', this)" class="cat-pill px-3.5 py-1.5 rounded-xl ${currentCategory === 'results' ? 'bg-white/10 text-white border border-white/10' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">🎓 Exam Results</button>
+              <button onclick="setCatFilter('exams', this)" class="cat-pill px-3.5 py-1.5 rounded-xl ${currentCategory === 'exams' ? 'bg-white/10 text-white border border-white/10' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">📅 Timetables</button>
+              <button onclick="setCatFilter('jobs', this)" class="cat-pill px-3.5 py-1.5 rounded-xl ${currentCategory === 'jobs' ? 'bg-white/10 text-white border border-white/10' : 'bg-slate-900/80 text-slate-400 border border-white/5'} whitespace-nowrap">💼 Jobs & Bharti</button>
+            </div>
+          </div>
+
+          <!-- Feed Container -->
+          <div id="academicFeed" class="space-y-3.5"></div>
+        `;
+        filterAcademicFeed();
+      }
+
+      // --- MODULE: EMERGENCY ---
+      else if (currentModule === 'emergency') {
+        workspace.innerHTML = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-300">
+              🚨 <strong>Instant One-Tap Dial:</strong> Directly contacts Bastar and CG emergency response networks.
+            </div>
+            <div class="space-y-3">
+              ${EMERGENCY_DATA.map(e => `
+                <div class="glass-card p-4 rounded-2xl border border-white/5 flex items-center justify-between gap-3">
+                  <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${e.urgent ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-white/5 text-slate-400 border border-white/10'}">${e.type}</span>
+                    <h4 class="font-bold text-sm text-white mt-1.5">${e.name}</h4>
+                    <p class="text-xs text-slate-400">${e.note}</p>
+                  </div>
+                  <a href="tel:${e.number}" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-lg shadow-rose-600/30 whitespace-nowrap active:scale-95 transition flex items-center gap-1.5">
+                    📞 Dial ${e.number}
+                  </a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // --- MODULE: CGPA CALCULATOR ---
+      else if (currentModule === 'calculator') {
+        workspace.innerHTML = `
+          <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/5 max-w-lg mx-auto">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xl">🧮</span>
+              <h3 class="font-extrabold text-base text-white">SMKV / PRSU NEP Grade Calculator</h3>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Standard CG University Formula: Percentage (%) = CGPA × 9.5</p>
+
+            <div class="space-y-5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-2">Enter Cumulative CGPA (e.g. 7.84)</label>
+                <input id="cgpaVal" type="number" step="0.01" min="0" max="10" placeholder="Type CGPA (0 - 10)..." class="w-full px-4 py-3.5 bg-slate-900 border border-white/10 rounded-2xl text-white text-base focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="runCGPACalc()">
+              </div>
+
+              <div class="p-5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Calculated Equivalent Percentage</span>
+                <div id="cgpaResult" class="text-3xl sm:text-4xl font-extrabold text-indigo-400 mt-1">0.00 %</div>
+                <div id="cgpaDivision" class="text-xs font-semibold text-slate-400 mt-1.5">Awaiting CGPA score</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/50 border border-white/5 text-[11px] text-slate-500 leading-relaxed">
+                💡 Useful for CGPSC, CG Vyapam, and higher education admission forms requiring converted percentage equivalent.
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // --- MODULE: HAAT BAZAAR ---
+      else if (currentModule === 'haat') {
+        const today = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date());
+        workspace.innerHTML = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300">
+              🌿 <strong>Today is ${today}!</strong> Tribal Haats feature unique forest honey, Mahua syrup, brass crafts, and traditional cuisine.
+            </div>
+            <div class="space-y-3">
+              ${HAAT_DATA.map(h => {
+                const isToday = h.day === today;
+                return `
+                  <div class="p-4.5 rounded-2xl border transition ${isToday ? 'bg-indigo-600/15 border-indigo-500/40 shadow-xl' : 'glass-card border-white/5'}">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="font-extrabold text-sm ${isToday ? 'text-indigo-300' : 'text-slate-300'}">${h.day}</span>${isToday ? '<span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500 text-white animate-pulse">Happening Today</span>' : ''}
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                      ${h.places.map(p => `<span class="text-xs px-3 py-1 rounded-xl bg-white/5 border border-white/10 text-slate-300 font-medium">${p}</span>`).join('')}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // --- MODULE: BASTAR ART ---
+      else if (currentModule === 'art') {
+        workspace.innerHTML = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300">
+              🎨 <strong>Direct Artisan Connect:</strong> Tap below to open a pre-filled WhatsApp conversation with verified master artisans without middleman markups.
+            </div>
+            <div class="grid gap-3.5">
+              ${ART_DATA.map(a => `
+                <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between gap-4">
+                  <div>
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-extrabold text-white text-base">${a.craft}</h4>
+                      <span class="text-[11px] font-semibold text-slate-400">📍 ${a.location}</span>
+                    </div>
+                    <span class="text-xs text-indigo-400 font-bold block mt-0.5">${a.artisan}</span>
+                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">${a.desc}</p>
+                  </div>
+                  <div class="pt-3 border-t border-white/5 flex justify-end">
+                    <a href="https://wa.me/${a.wa}?text=Hello,\%20I\%20am\%20interested\%20in\%20your\%20${encodeURIComponent(a.craft)}" target="_blank" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95 transition">
+                      💬 Connect on WhatsApp
+                    </a>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // --- MODULE: MANDI & PRODUCE RATES ---
+      else if (currentModule === 'mandi') {
+        workspace.innerHTML = `
+          <div class="space-y-5">
+            <!-- Produce Rate Cards -->
+            <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300">
+              🌾 <strong>Government Minimum Support Price (MSP):</strong> Fixed procurement baseline for minor forest produce and millets.
+            </div>
+            <div class="space-y-3">
+              ${MANDI_DATA.map(m => `
+                <div class="glass-card p-4 rounded-2xl border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h4 class="font-bold text-sm text-white">${m.produce}</h4>
+                    <p class="text-xs text-slate-400">${m.desc}</p>
+                  </div>
+                  <span class="text-xs font-bold px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 whitespace-nowrap self-start sm:self-auto">
+                    ₹${m.rate}${m.unit}
+                  </span>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Instant Payout Calculator -->
+            <div class="glass-card p-6 rounded-3xl border border-white/5 mt-6">
+              <h4 class="font-bold text-sm text-white mb-1">🌾 Produce Payout Estimator</h4>
+              <p class="text-xs text-slate-400 mb-4">Calculate estimated payout for your stock based on MSP rate.</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div>
+                  <label class="text-[11px] font-semibold text-slate-300 block mb-1">Select Crop / Produce</label>
+                  <select id="mandiCropSelect" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white" onchange="calcMandiPayout()">
+                    ${MANDI_DATA.map((m, idx) => `<option value="${idx}">₹${m.rate} -${m.produce}</option>`).join('')}
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[11px] font-semibold text-slate-300 block mb-1">Quantity (in Bags or Quintals)</label>
+                  <input id="mandiQty" type="number" min="1" value="1" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white" oninput="calcMandiPayout()">
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                <span class="text-xs text-slate-400">Total Fair Estimated Payout:</span>
+                <div id="mandiTotalPayout" class="text-2xl font-extrabold text-amber-400 mt-0.5">₹5,500</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // --- MODULE: STUDENT HOSTELS ---
+      else if (currentModule === 'hostel') {
+        workspace.innerHTML = `
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300">
+              🏠 <strong>Verified Student Rooms:</strong> Clean accommodation near SMKV Jagdalpur and PRSU Raipur campuses.
+            </div>
+            <div class="grid gap-3.5">
+              ${HOSTEL_DATA.map(h => `
+                <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col justify-between gap-3">
+                  <div>
+                    <h4 class="font-extrabold text-white text-base">${h.name}</h4>
+                    <span class="text-xs text-indigo-400 font-semibold block mt-0.5">📍 ${h.location}</span>
+                    <p class="text-xs text-slate-300 mt-2 font-medium">💰 Rent: ${h.rent}</p>
+                    <p class="text-xs text-slate-400 mt-1">✨ Facilities: ${h.facilities}</p>
+                  </div>
+                  <div class="pt-3 border-t border-white/5 flex justify-end">
+                    <a href="https://wa.me/${h.wa}?text=Hello,\%20inquiring\%20about\%20room\%20availability\%20at\%20${encodeURIComponent(h.name)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs inline-flex items-center gap-1.5 shadow active:scale-95 transition">
+                      💬 WhatsApp Owner
+                    </a>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ==========================================
+    // 3. FILTERING & MATH FUNCTIONS
+    // ==========================================
+
+    function setUniFilter(uni, btn) {
       currentUniversity = uni;
-      document.querySelectorAll('.uni-btn').forEach(b => {
-        b.className = 'uni-btn px-4 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800';
+      document.querySelectorAll('.uni-pill').forEach(b => {
+        b.className = 'uni-pill px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap';
       });
-      btn.className = 'uni-btn px-4 py-2 rounded-xl bg-indigo-600 text-white whitespace-nowrap shadow-md shadow-indigo-600/20';
+      btn.className = 'uni-pill px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white whitespace-nowrap shadow';
       document.getElementById('activeUniIndicator').innerText = uni === 'all' ? 'All Entities' : uni;
-      filterFeed();
+      filterAcademicFeed();
     }
 
-    function setTab(cat, btn) {
+    function setCatFilter(cat, btn) {
       currentCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => {
-        b.className = 'cat-btn px-3.5 py-2 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap hover:text-white hover:bg-slate-800';
+      document.querySelectorAll('.cat-pill').forEach(b => {
+        b.className = 'cat-pill px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-400 border border-white/5 whitespace-nowrap';
       });
-      btn.className = 'cat-btn px-3.5 py-2 rounded-xl bg-white/10 text-white whitespace-nowrap border border-white/10';
-      filterFeed();
+      btn.className = 'cat-pill px-3.5 py-1.5 rounded-xl bg-white/10 text-white border border-white/10 whitespace-nowrap';
+      filterAcademicFeed();
     }
 
-    function filterFeed() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      const container = document.getElementById('feedList');
+    function filterAcademicFeed() {
+      const searchEl = document.getElementById('searchInput');
+      const q = searchEl ? searchEl.value.toLowerCase() : '';
+      const container = document.getElementById('academicFeed');
+      if (!container) return;
       container.innerHTML = '';
 
-      const filtered = DATA.filter(item => {
+      const filtered = ACADEMIC_DATA.filter(item => {
         const matchUni = currentUniversity === 'all' || item.university === currentUniversity;
         const matchCat = currentCategory === 'all' || item.category === currentCategory;
         const matchSearch = item.title.toLowerCase().includes(q) || 
@@ -317,13 +625,14 @@
         return matchUni && matchCat && matchSearch;
       });
 
-      document.getElementById('counterText').innerText = `${filtered.length} updates found`;
+      const counterEl = document.getElementById('academicCounter');
+      if (counterEl) counterEl.innerText = `${filtered.length} updates found`;
 
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div class="p-12 text-center bg-slate-900/30 rounded-3xl border border-white/5">
-            <p class="text-sm text-slate-400 font-medium">No results found for your selection.</p>
-            <p class="text-xs text-slate-600 mt-1">Try switching to "All CG" or clearing your search keywords.</p>
+          <div class="p-10 text-center bg-slate-900/30 rounded-3xl border border-white/5">
+            <p class="text-sm text-slate-400 font-medium">No results match your selection.</p>
+            <p class="text-xs text-slate-600 mt-1">Try switching to "All CG" or clearing search keywords.</p>
           </div>
         `;
         return;
@@ -336,8 +645,8 @@
         if (item.badgeType === 'rose') badgeColor = 'bg-rose-500/10 text-rose-400 border-rose-500/20';
 
         const card = document.createElement('div');
-        card.className = 'animate-card glass-card rounded-2xl p-5 border border-white/5 hover:border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4';
-        card.style.animationDelay = `${index * 40}ms`;
+        card.className = 'glass-card rounded-2xl p-4.5 border border-white/5 hover:border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-in';
+        card.style.animationDelay = `${index * 35}ms`;
 
         card.innerHTML = `
           <div class="space-y-1.5 flex-1">
@@ -352,7 +661,7 @@
             </p>
           </div>
           <div class="pt-2 sm:pt-0 border-t sm:border-0 border-white/5 flex items-center justify-end">
-            <a href="${item.link}" target="_blank" class="w-full sm:w-auto text-center text-xs font-bold px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white inline-flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition active:scale-95">
+            <a href="${item.link}" target="_blank" class="w-full sm:w-auto text-center text-xs font-bold px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white inline-flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-600/20 active:scale-95 transition">
               <span>${item.linkText}</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
@@ -362,8 +671,34 @@
       });
     }
 
-    // Initialize list
-    filterFeed();
+    function runCGPACalc() {
+      const val = parseFloat(document.getElementById('cgpaVal').value);
+      const out = document.getElementById('cgpaResult');
+      const div = document.getElementById('cgpaDivision');
+      if (!val || isNaN(val) || val <= 0) {
+        out.innerText = '0.00 %';
+        div.innerText = 'Awaiting CGPA score';
+        return;
+      }
+      const pct = (val * 9.5).toFixed(2);
+      out.innerText = `${pct} %`;
+      let divisionText = "Second Division";
+      if (pct >= 75) divisionText = "First Class with Distinction";
+      else if (pct >= 60) divisionText = "First Division";
+      else if (pct < 50) divisionText = "Pass Division";
+      div.innerText = `Equivalent: ${divisionText}`;
+    }
+
+    function calcMandiPayout() {
+      const idx = parseInt(document.getElementById('mandiCropSelect').value);
+      const qty = parseFloat(document.getElementById('mandiQty').value) || 0;
+      const rate = MANDI_DATA[idx].rate;
+      const total = qty * rate;
+      document.getElementById('mandiTotalPayout').innerText = `₹${total.toLocaleString('en-IN')}`;
+    }
+
+    // Initialize Default View on Page Load
+    renderActiveModule();
   </script>
 </body>
 </html>
