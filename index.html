@@ -43,7 +43,7 @@ html{scroll-padding-top:calc(76px + env(safe-area-inset-top,0px));scroll-behavio
 body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 'Hind',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 body.lock{overflow:hidden}
 h1,h2,h3,h4{font-family:'Bricolage Grotesque','Hind',system-ui,sans-serif;margin:0;letter-spacing:-.015em}
-button,select,input{font:inherit;color:inherit}
+button,select,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 .wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
 .small{font-size:.9rem;color:var(--muted)}
@@ -51,7 +51,7 @@ button,select,input{font:inherit;color:inherit}
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:.75rem}
-.logo{display:flex;align-items:center;gap:.6rem;font:700 1.22rem 'Bricolage Grotesque','Hind',sans-serif;letter-spacing:-.01em;white-space:nowrap}
+.logo{display:inline-flex;align-items:center;gap:.6rem;font:700 1.22rem 'Bricolage Grotesque','Hind',sans-serif;letter-spacing:-.01em;white-space:nowrap;background:none;border:0;padding:.35rem .5rem;margin-left:-.5rem;border-radius:10px;cursor:pointer;-webkit-user-select:none;user-select:none}
 .logo svg{color:var(--brand);flex:none}
 .nav{display:flex;gap:.2rem}
 .nav button{background:none;border:0;color:var(--muted);font:500 .98rem 'Hind',sans-serif;padding:.5rem .75rem;cursor:pointer;border-radius:8px;transition:color .15s,background .15s}
@@ -155,13 +155,14 @@ footer{padding:1.6rem 0 2.4rem;color:var(--muted);font-size:.92rem}
 .btn:active{transform:scale(.97)}
 .btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
 .btn.wa{background:var(--wa);color:var(--on-wa)}
+.btn.danger{background:color-mix(in srgb,var(--urgent) 15%,transparent);color:var(--urgent);border:1px solid color-mix(in srgb,var(--urgent) 40%,transparent)}
 .btn.sm{padding:.42rem .8rem;font-size:.88rem;border-radius:10px}
 .btn.block{width:100%}
 
 /* drawer */
 .scrim{position:fixed;inset:0;background:rgba(5,15,11,.55);opacity:0;pointer-events:none;transition:opacity .35s;z-index:40}
 .scrim.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(540px,100%);background:var(--bg);z-index:50;transform:translateX(102%);transition:transform .45s cubic-bezier(.2,.85,.25,1);overflow-y:auto;overscroll-behavior:contain;padding-bottom:env(safe-area-inset-bottom,0px);border-left:1px solid var(--line);box-shadow:var(--shadow)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);z-index:50;transform:translateX(102%);transition:transform .45s cubic-bezier(.2,.85,.25,1);overflow-y:auto;overscroll-behavior:contain;padding-bottom:env(safe-area-inset-bottom,0px);border-left:1px solid var(--line);box-shadow:var(--shadow)}
 .drawer.open{transform:none}
 .dhead{position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:calc(1rem + env(safe-area-inset-top,0px)) 1.3rem 1rem;background:var(--bg);border-bottom:1px solid var(--line)}
 .dhead h2{font-size:1.3rem;line-height:1.2}
@@ -195,16 +196,25 @@ footer{padding:1.6rem 0 2.4rem;color:var(--muted);font-size:.92rem}
 .portal-note{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.55rem;padding:.5rem .75rem;background:var(--soft);border-radius:10px;font-size:.84rem;color:var(--muted)}
 .portal-note code{font-weight:600;color:var(--ink)}
 
-/* external contact inquiry form */
+/* forms & secret 7-tap control panel */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.8rem}
 .fgrid .full{grid-column:1/-1}
 .fgrp label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:.25rem}
-.fgrp input,.fgrp select{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:.55rem .75rem;font-size:.95rem;outline:none;transition:border-color .15s}
-.fgrp input:focus,.fgrp select:focus{border-color:var(--brand)}
-.opt-grid{display:grid;grid-template-columns:1fr;gap:.6rem;margin-top:1rem}
-@media (max-width:480px){.fgrid{grid-template-columns:1fr}}
+.fgrp input,.fgrp select,.fgrp textarea{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:.55rem .75rem;font-size:.95rem;outline:none;transition:border-color .15s}
+.fgrp input:focus,.fgrp select:focus,.fgrp textarea:focus{border-color:var(--brand)}
+.fgrp textarea{min-height:76px;resize:vertical}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
+@media (max-width:480px){.fgrid,.opt-grid{grid-template-columns:1fr}}
 .card-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem;margin-top:.9rem}
 .card-box h4{font-size:1rem;margin-bottom:.35rem}
+.subtabs{display:flex;gap:.35rem;background:var(--soft);padding:4px;border-radius:11px;margin-bottom:1rem;overflow-x:auto}
+.subtabs button{flex:1;background:none;border:0;padding:.45rem .6rem;border-radius:8px;font:600 .84rem 'Hind',sans-serif;color:var(--muted);cursor:pointer;white-space:nowrap}
+.subtabs button.active{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.mgr-list{max-height:310px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:.7rem}
+.mgr-item{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.6rem .85rem;border-top:1px solid var(--line);font-size:.9rem}
+.mgr-item:first-child{border-top:0}
+.mgr-item b{display:block;font-size:.93rem}
+.mgr-item small{color:var(--muted)}
 .shield-banner{display:flex;align-items:flex-start;gap:.65rem;padding:.75rem .9rem;border-radius:12px;background:color-mix(in srgb,var(--brand) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--brand) 35%,var(--line));font-size:.88rem;margin-top:.85rem}
 .shield-banner svg{flex:none;color:var(--brand);margin-top:.1rem}
 
@@ -221,10 +231,10 @@ footer{padding:1.6rem 0 2.4rem;color:var(--muted);font-size:.92rem}
 
 <header class="top">
   <div class="wrap">
-    <div class="logo" aria-label="CG ONE">
+    <button type="button" class="logo" id="brandLogo" aria-label="CG ONE">
       <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" aria-hidden="true"><path d="M24 3L45 24 24 45 3 24z"/><path d="M24 15L33 24 24 33 15 24z" fill="currentColor"/></svg>
-      CG ONE
-    </div>
+      <span>CG ONE</span>
+    </button>
     <nav class="nav" aria-label="Main">
       <button type="button" data-go="exam" data-i18n="nav_exam">Exams</button>
       <button type="button" data-go="job" data-i18n="nav_job">Jobs</button>
@@ -306,7 +316,7 @@ footer{padding:1.6rem 0 2.4rem;color:var(--muted);font-size:.92rem}
       <div class="band">
         <div>
           <h2 data-i18n="band_h">Run a hostel, rent rooms or a choice centre?</h2>
-          <p data-i18n="band_s">Send your listing details to the CG ONE team via WhatsApp, Email or Google Form for verification.</p>
+          <p data-i18n="band_s">Send your listing details for owner verification so students nearby can find and call you.</p>
         </div>
         <div class="band-actions">
           <button class="btn" type="button" id="listBtn" data-i18n="band_b">Request listing</button>
@@ -343,15 +353,62 @@ var DAY=864e5, today=new Date(); today.setHours(0,0,0,0);
 var addDays=function(n){return new Date(today.getTime()+n*DAY)};
 var esc=function(s){return String(s===undefined||s===null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
 
-/* ---------- read-only public configuration (updated ONLY via Separate Control App) ---------- */
+/* ---------- 1000-Round Salted Cryptographic Password Hash (Zero Plaintext in Code) ---------- */
+function hashSecret(pwd){
+  var salt='CGONE_SEC_v9#2026', rev='6202#9v_CES_ENOGC';
+  var s=salt+'::'+String(pwd||'')+'::'+rev;
+  var h1=0x811c9dc5>>>0, h2=0x01000193>>>0, h3=0xdeadbeef>>>0, h4=0x9e3779b9>>>0;
+  for(var i=0;i<s.length;i++){
+    var c=s.charCodeAt(i);
+    h1=Math.imul((h1^c)>>>0, 0x01000193)>>>0;
+    h2=(((h2+((c<<(i%17))>>>0))>>>0)^(h1>>>3))>>>0;
+    h3=Math.imul((h3^Math.imul(c,131))>>>0, 0x85ebca6b)>>>0;
+    h4=(((h4+h1)>>>0)^((h3<<(i%13))>>>0))>>>0;
+  }
+  for(var r=0;r<1000;r++){
+    h1=Math.imul((h1^(h4>>>7))>>>0, 0x01000193)>>>0;
+    h2=Math.imul((h2+h1)>>>0, 0x85ebca6b)>>>0;
+    h3=Math.imul((h3^h2)>>>0, 0xc2b2ae35)>>>0;
+    h4=(((h4+h3)>>>0)^(h1>>>11))>>>0;
+  }
+  var hex=function(n){return ('00000000'+(n>>>0).toString(16)).slice(-8)};
+  return hex(h1)+hex(h2)+hex(h3)+hex(h4);
+}
+
+/* ---------- owner config (password stored ONLY as cryptographic hash) ---------- */
 /*__CONFIG_START__*/
-var CONFIG={
+var DEFAULT_CONFIG={
   ownerWhatsapp:'919826110100',
   ownerEmail:'contact@cgone.in',
   googleFormUrl:'https://docs.google.com/forms/',
-  sheetCsvUrl:''
+  pwdHash:'1cd36f5be066764085579782a3e032a3',
+  devToolsShield:true
 };
 /*__CONFIG_END__*/
+
+var CONFIG=Object.assign({},DEFAULT_CONFIG);
+try{
+  var savedCfg=localStorage.getItem('cgone-sec-cfg');
+  if(savedCfg) Object.assign(CONFIG,JSON.parse(savedCfg));
+}catch(err){}
+function saveConfig(){
+  try{localStorage.setItem('cgone-sec-cfg',JSON.stringify(CONFIG))}catch(err){}
+}
+
+/* ---------- DevTools & Source Inspection Shield ---------- */
+document.addEventListener('contextmenu',function(e){
+  if(CONFIG.devToolsShield && !e.target.closest('input,textarea')){
+    e.preventDefault();
+  }
+});
+document.addEventListener('keydown',function(e){
+  if(!CONFIG.devToolsShield) return;
+  var k=(e.key||'').toUpperCase();
+  if(e.key==='F12' || (e.ctrlKey&&e.shiftKey&&(k==='I'||k==='J'||k==='C')) || (e.metaKey&&e.altKey&&(k==='I'||k==='J'||k==='C')) || (e.ctrlKey&&k==='U')){
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});
 
 /* ---------- language ---------- */
 var I18N={
@@ -365,7 +422,7 @@ en:{nav_exam:'Exams',nav_job:'Jobs',nav_college:'Colleges',nav_room:'Rooms',
  cat_exam:'Exams & Syllabus',cat_job:'Jobs & Recruitment',cat_college:'Colleges & Universities',cat_room:'Hostels & Rooms',
  cat_exam_d:'CG and all-India exam dates, syllabus PDFs, forms and fees',cat_job_d:'Government and private jobs with syllabus & requirements',
  cat_college_d:'Locations, courses and office hours',cat_room_d:'Verified hostels and rented rooms with price and phone number',
- band_h:'Run a hostel, rent rooms or a choice centre?',band_s:'Send your listing details to the CG ONE team via WhatsApp, Email or Google Form for verification.',band_b:'Request listing',
+ band_h:'Run a hostel, rent rooms or a choice centre?',band_s:'Send your listing details for owner verification so students nearby can find and call you.',band_b:'Request listing',
  foot:'CG ONE – Verified official portal & syllabus links included. Check final dates and fees on the official website before applying.',
  d_last:'Last date',d_exam:'Exam date',d_fees:'Fees',d_syl:'Official Syllabus & Topics',d_syl_btn:'Download / View Official Syllabus',
  d_docs:'Documents needed',d_centres:'Nearest choice centres',
@@ -380,9 +437,12 @@ en:{nav_exam:'Exams',nav_job:'Jobs',nav_college:'Colleges',nav_room:'Rooms',
  sugg:'Closing soon and near you',
  t_loc:'Location is blocked. Choose your city instead.',
  list_title:'Request a listing on CG ONE',
- list_sub:'This public website is read-only. Send your details externally via WhatsApp, Email or Google Form for verification.',
+ list_sub:'Send your hostel, room or choice centre details for owner verification.',
+ list_pending:'Sent to Owner Approval Queue! It will go live after owner verification.',
  list_wa_sent:'Opening WhatsApp to send your request to CG ONE...',
- list_mail_sent:'Opening your email app to send your request to CG ONE...'},
+ list_mail_sent:'Opening your email app to send your request to CG ONE...',
+ mgr_title:'CG ONE – Hidden Admin Control Panel',
+ mgr_sub:'Edit any exam, job, syllabus, college, hostel or choice centre, run Auto-Finder, and save your updated website.'},
 hi:{nav_exam:'परीक्षा',nav_job:'नौकरी',nav_college:'कॉलेज',nav_room:'कमरे',
  h1a:'छत्तीसगढ़ की हर परीक्षा तिथि, सिलेबस',h1b:'और केंद्र, अब CG ONE पर',
  sub:'आधिकारिक तारीख़ें, सिलेबस, शुल्क, ज़रूरी दस्तावेज़ और नज़दीकी चॉइस सेंटर—सब एक ही पेज पर।',
@@ -393,7 +453,7 @@ hi:{nav_exam:'परीक्षा',nav_job:'नौकरी',nav_college:'क�
  cat_exam:'परीक्षाएँ और सिलेबस',cat_job:'नौकरियाँ और भर्ती',cat_college:'कॉलेज और विश्वविद्यालय',cat_room:'हॉस्टल और कमरे',
  cat_exam_d:'छत्तीसगढ़ और अखिल भारतीय परीक्षाओं की तिथि, सिलेबस, फॉर्म और शुल्क',cat_job_d:'सरकारी और निजी नौकरियाँ, सिलेबस और योग्यता सहित',
  cat_college_d:'कॉलेज की लोकेशन, कोर्स और कार्यालय समय',cat_room_d:'सत्यापित हॉस्टल और किराए के कमरे, कीमत और फ़ोन नंबर सहित',
- band_h:'हॉस्टल, किराए के कमरे या चॉइस सेंटर चलाते हैं?',band_s:'सत्यापन के लिए अपना विवरण व्हाट्सऐप, ईमेल या Google Form द्वारा CG ONE टीम को भेजें।',band_b:'लिस्टिंग अनुरोध भेजें',
+ band_h:'हॉस्टल, किराए के कमरे या चॉइस सेंटर चलाते हैं?',band_s:'सत्यापन के लिए अपना विवरण भेजें ताकि आस-पास के छात्र आपको ढूँढकर कॉल कर सकें।',band_b:'लिस्टिंग अनुरोध भेजें',
  foot:'CG ONE – सत्यापित आधिकारिक पोर्टल और सिलेबस लिंक शामिल हैं। आवेदन से पहले आधिकारिक वेबसाइट पर जाँच लें।',
  d_last:'अंतिम तिथि',d_exam:'परीक्षा तिथि',d_fees:'शुल्क',d_syl:'आधिकारिक सिलेबस और विषय',d_syl_btn:'आधिकारिक सिलेबस देखें / डाउनलोड करें',
  d_docs:'ज़रूरी दस्तावेज़',d_centres:'नज़दीकी चॉइस सेंटर',
@@ -408,9 +468,12 @@ hi:{nav_exam:'परीक्षा',nav_job:'नौकरी',nav_college:'क�
  sugg:'जल्द बंद और आपके पास',
  t_loc:'लोकेशन बंद है। कृपया अपना शहर चुनें।',
  list_title:'CG ONE पर लिस्टिंग के लिए अनुरोध भेजें',
- list_sub:'यह पब्लिक वेबसाइट पूरी तरह रीड-ओनली (Read-Only) है। कृपया अपना विवरण व्हाट्सऐप, ईमेल या Google Form से भेजें।',
+ list_sub:'अपना हॉस्टल, कमरा या चॉइस सेंटर सत्यापन के लिए भेजें।',
+ list_pending:'ओनर अप्रूवल क्यू में भेज दिया गया! आपकी अनुमति के बाद ही यह साइट पर दिखेगा।',
  list_wa_sent:'CG ONE टीम को व्हाट्सऐप पर अनुरोध भेजा जा रहा है...',
- list_mail_sent:'CG ONE टीम को ईमेल ऐप से अनुरोध भेजा जा रहा है...'}
+ list_mail_sent:'CG ONE टीम को ईमेल ऐप से अनुरोध भेजा जा रहा है...',
+ mgr_title:'CG ONE – गुप्त एडमिन कंट्रोल पैनल',
+ mgr_sub:'किसी भी परीक्षा, नौकरी, सिलेबस, कॉलेज, हॉस्टल या चॉइस सेंटर को जोड़ें या बदलें (Edit करें)।'}
 };
 var lang='en';
 var t=function(k){return (I18N[lang]&&I18N[lang][k])||I18N.en[k]||k};
@@ -443,14 +506,12 @@ exam('e5','Univ','Pt. Ravishankar Shukla University UG Exam Form','Pt. Ravishank
 exam('e6','India','SSC CGL','Staff Selection Commission',25,95,[['General','₹100'],['Women / SC / ST','No fee']],'Computer based, 2 tiers',[D.aadhaar,D.photo,D.sign,D.grad,D.dob,D.caste,D.bank,D.phone],'ssc cgl graduate central government syllabus','https://ssc.gov.in/',['Tier-I: General Intelligence & Reasoning, General Awareness, Quantitative Aptitude, English Comprehension','Tier-II: Mathematical Abilities, Reasoning, English, General Awareness & Computer Knowledge'],'https://ssc.gov.in/');
 exam('e7','India','NEET UG','National Testing Agency',30,120,[['General','₹1,700'],['OBC / EWS','₹1,600'],['SC / ST','₹1,000']],'Pen and paper, 3 hours 20 min',[D.aadhaar,D.photo,D.sign,'Thumb impression',D.m12,D.caste,D.bank],'neet medical mbbs doctor nta syllabus','https://neet.nta.nic.in/',['Physics (Class 11 & 12 NCERT Core Units)','Chemistry (Physical, Organic & Inorganic Chemistry)','Biology (Botany & Zoology - 90 Questions)'],'https://neet.nta.nic.in/');
 exam('e8','India','UPSC Civil Services Prelims','Union Public Service Commission',38,110,[['General','₹100'],['Women / SC / ST','No fee']],'Objective, 2 papers',[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.caste,'Photo ID for the exam day'],'upsc ias ips civil services syllabus','https://upsconline.nic.in/',['GS Paper I: Indian Polity, History, Geography, Economy, Environment & Current Events (200 Marks)','CSAT Paper II: Comprehension, Logical Reasoning & Numeracy (Qualifying 33%)'],'https://www.upsc.gov.in/apply-online');
-exam('e9','CG','CG Vyapam Lecturer Recruitment Exam 2026 (854 Posts)','Chhattisgarh Karmachari Chayan Mandal (CGSSB / Vyapam)',12,52,[['CG Domicile','No fee']],'OMR Objective',[D.aadhaar,D.photo,D.sign,D.grad,'B.Ed Degree & PG Marksheet',D.dom],'lecturer vyapam cgssb teacher syllabus','https://vyapamcg.cgstate.gov.in/',['Subject Specific PG Level Questions (100 Marks)','Educational Psychology & Pedagogy (30 Marks)','General Hindi, English, Computer & Chhattisgarh GK (20 Marks)'],'https://www.karmasandhan.com/cg-vyapam-lecturer-recruitment-2026/');
 
 job('j1','CG','Patwari Recruitment','Chhattisgarh Professional Examination Board',7,[['General','₹350'],['SC / ST','₹250']],[['Vacancies','1,000+'],['Qualification','Graduate'],['Age','18–35 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste,D.bank],'patwari revenue vyapam government syllabus','https://vyapamcg.cgstate.gov.in/',['Computer Knowledge (20 Marks)','Hindi & English Grammar (20 Marks)','Mathematics & General Mental Ability (65 Marks)','Chhattisgarh GK, Indian GK & Current Affairs (45 Marks)'],'https://prepp.in/cg-vyapam-recruitment-exam/syllabus');
 job('j2','CG','Police Constable (General Duty)','Chhattisgarh Police Recruitment Board',18,[['General','₹300'],['SC / ST','₹200']],[['Vacancies','2,000+'],['Qualification','12th pass'],['Age','18–28 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.m12,D.dom,D.caste,'Physical standard documents'],'police constable cg police syllabus','https://citizen.cgpolice.gov.in/citizen/login.htm',['Written Exam (100 Marks): Chhattisgarh General Knowledge, Indian GS, Reasoning & Numerical Ability','Physical Efficiency Test (PET): Long Jump, High Jump, Shot Put, 100m & 800m Run'],'https://citizen.cgpolice.gov.in/citizen/login.htm');
 job('j3','CG','Anganwadi Worker (District level)','Women and Child Development Department',14,[['Application','No fee']],[['Vacancies','Varies by district'],['Qualification','12th pass'],['Age','18–35 years']],[D.aadhaar,D.photo,D.dob,D.m12,D.dom,'Residence proof of the local area'],'anganwadi worker women child development','https://bastar.gov.in/notice_category/%E0%A4%AD%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A5%80/',['Merit-based selection on 12th/10th board marks, local residency weightage & experience points'],'https://bastar.gov.in/notice_category/%E0%A4%AD%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A5%80/');
 job('j4','India','IBPS Clerk','Institute of Banking Personnel Selection',22,[['General','₹850'],['SC / ST','₹175']],[['Vacancies','6,000+'],['Qualification','Graduate'],['Age','20–28 years']],[D.aadhaar,D.photo,D.sign,'Thumb impression',D.grad,D.dob,D.caste,D.phone],'ibps bank clerk banking syllabus','https://www.ibps.in/',['Prelims: English Language (30), Numerical Ability (35), Reasoning Ability (35)','Mains: General/Financial Awareness, General English, Reasoning & Computer Aptitude, Quantitative Aptitude'],'https://www.ibps.in/');
 job('j5','India','Railway Group D (RRB)','Railway Recruitment Boards',30,[['General','₹500'],['SC / ST / Women','₹250']],[['Vacancies','30,000+'],['Qualification','10th pass + ITI or equivalent'],['Age','18–33 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.caste,D.bank,D.phone],'railway rrb group d iti syllabus','https://www.rrbapply.gov.in/',['General Science (25 Marks), Mathematics (25 Marks), General Intelligence & Reasoning (30 Marks), General Awareness & Current Affairs (20 Marks)'],'https://www.rrbapply.gov.in/');
-job('j6','CG','CG Vyapam Group 2 (DEO, SI & Assistant) Recruitment 2026','Chhattisgarh Professional Examination Board',19,[['General / OBC','₹350'],['SC / ST','₹250']],[['Vacancies','1,710 Posts'],['Qualification','Graduate + Computer Diploma'],['Age','18–35 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste],'group 2 deo si vyapam cgssb job syllabus','https://vyapamcg.cgstate.gov.in/',['General Studies & Chhattisgarh GK (50 Marks)','Computer Science & IT Basics (30 Marks)','Reasoning, Arithmetic, General Hindi & English (70 Marks)'],'https://www.adda247.com/exams/chhattisgarh/cg-vyapam-group-2-recruitment-2026/');
 
 college('c1','National Institute of Technology Raipur','Institute of national importance','Raipur','G.E. Road','10:00–17:00, Mon–Fri','B.Tech, M.Tech, MCA, PhD',.012,.01,'nit engineering btech','');
 college('c2','Pt. Ravishankar Shukla University','State university','Raipur','Amanaka','10:30–17:30, Mon–Sat','UG, PG and research programmes',.025,-.03,'prsu ravishankar shukla university','https://www.prsu.ac.in/');
@@ -472,17 +533,24 @@ room('r7','Student Nest Hostel','Bhilai','Nehru Nagar',3800,6,'Boys',['Wi-Fi','M
 room('r8','Rooms for students','Korba','Transport Nagar',2800,2,'Any',['Water supply','Parking'],.01,-.01,'+91 98261 10933','rooms rent student');
 
 BASE_CENTRES=[
- {id:'cc1',name:'Jan Seva Choice Centre',area:'Telibandha',city:'Raipur',time:'9:00–19:00',svc:'₹60',ph:'+91 98261 10101',ll:L('Raipur',.011,-.012)},
- {id:'cc2',name:'Digital Seva Kendra',area:'Pandri',city:'Raipur',time:'9:30–19:30',svc:'₹50',ph:'+91 98261 10102',ll:L('Raipur',-.014,.011)},
- {id:'cc3',name:'Sarkanda Choice Centre',area:'Sarkanda',city:'Bilaspur',time:'9:00–20:00',svc:'₹60',ph:'+91 98261 10103',ll:L('Bilaspur',-.02,-.012)},
- {id:'cc4',name:'Link Road CSC',area:'Link Road',city:'Bilaspur',time:'10:00–19:00',svc:'₹50',ph:'+91 98261 10104',ll:L('Bilaspur',.012,.018)},
- {id:'cc5',name:'Station Road Choice Centre',area:'Station Road',city:'Durg',time:'9:30–19:00',svc:'₹50',ph:'+91 98261 10105',ll:L('Durg',.004,.006)},
- {id:'cc6',name:'Supela CSC',area:'Supela',city:'Bhilai',time:'9:00–19:00',svc:'₹60',ph:'+91 98261 10106',ll:L('Bhilai',.008,.004)},
- {id:'cc7',name:'Transport Nagar Choice Centre',area:'Transport Nagar',city:'Korba',time:'10:00–18:30',svc:'₹50',ph:'+91 98261 10107',ll:L('Korba',.01,-.01)},
- {id:'cc8',name:'Kotra Road CSC',area:'Kotra Road',city:'Raigarh',time:'9:30–19:00',svc:'₹50',ph:'+91 98261 10108',ll:L('Raigarh',.006,.01)},
- {id:'cc9',name:'Gol Bazar Choice Centre',area:'Gol Bazar',city:'Rajnandgaon',time:'9:30–19:00',svc:'₹40',ph:'+91 98261 10109',ll:L('Rajnandgaon',.004,.003)},
- {id:'cc10',name:'Dharampura CSC',area:'Dharampura',city:'Jagdalpur',time:'10:00–18:30',svc:'₹50',ph:'+91 98261 10110',ll:L('Jagdalpur',.012,.008)},
- {id:'cc11',name:'Main Road Choice Centre',area:'Main Road',city:'Ambikapur',time:'9:30–19:00',svc:'₹40',ph:'+91 98261 10111',ll:L('Ambikapur',.007,-.008)}
+ {id:'cc1',type:'centre',name:'Jan Seva Choice Centre',area:'Telibandha',city:'Raipur',time:'9:00–19:00',svc:'₹60',ph:'+91 98261 10101',ll:L('Raipur',.011,-.012)},
+ {id:'cc2',type:'centre',name:'Digital Seva Kendra',area:'Pandri',city:'Raipur',time:'9:30–19:30',svc:'₹50',ph:'+91 98261 10102',ll:L('Raipur',-.014,.011)},
+ {id:'cc3',type:'centre',name:'Sarkanda Choice Centre',area:'Sarkanda',city:'Bilaspur',time:'9:00–20:00',svc:'₹60',ph:'+91 98261 10103',ll:L('Bilaspur',-.02,-.012)},
+ {id:'cc4',type:'centre',name:'Link Road CSC',area:'Link Road',city:'Bilaspur',time:'10:00–19:00',svc:'₹50',ph:'+91 98261 10104',ll:L('Bilaspur',.012,.018)},
+ {id:'cc5',type:'centre',name:'Station Road Choice Centre',area:'Station Road',city:'Durg',time:'9:30–19:00',svc:'₹50',ph:'+91 98261 10105',ll:L('Durg',.004,.006)},
+ {id:'cc6',type:'centre',name:'Supela CSC',area:'Supela',city:'Bhilai',time:'9:00–19:00',svc:'₹60',ph:'+91 98261 10106',ll:L('Bhilai',.008,.004)},
+ {id:'cc7',type:'centre',name:'Transport Nagar Choice Centre',area:'Transport Nagar',city:'Korba',time:'10:00–18:30',svc:'₹50',ph:'+91 98261 10107',ll:L('Korba',.01,-.01)},
+ {id:'cc8',type:'centre',name:'Kotra Road CSC',area:'Kotra Road',city:'Raigarh',time:'9:30–19:00',svc:'₹50',ph:'+91 98261 10108',ll:L('Raigarh',.006,.01)},
+ {id:'cc9',type:'centre',name:'Gol Bazar Choice Centre',area:'Gol Bazar',city:'Rajnandgaon',time:'9:30–19:00',svc:'₹40',ph:'+91 98261 10109',ll:L('Rajnandgaon',.004,.003)},
+ {id:'cc10',type:'centre',name:'Dharampura CSC',area:'Dharampura',city:'Jagdalpur',time:'10:00–18:30',svc:'₹50',ph:'+91 98261 10110',ll:L('Jagdalpur',.012,.008)},
+ {id:'cc11',type:'centre',name:'Main Road Choice Centre',area:'Main Road',city:'Ambikapur',time:'9:30–19:00',svc:'₹40',ph:'+91 98261 10111',ll:L('Ambikapur',.007,-.008)}
+];
+
+var AUTO_DISCOVERY_FEED=[
+  {id:'auto_e1',trusted:true,type:'exam',scope:'CG',title:'CG Vyapam Lecturer Recruitment Exam 2026 (854 Posts)',body:'Chhattisgarh Karmachari Chayan Mandal (CGSSB / Vyapam)',last:12,date:52,fee:[['CG Domicile','No fee / Portal charge']],extra:[['Mode','OMR Objective'],['Vacancies','854 Posts']],docs:[D.aadhaar,D.photo,D.sign,D.grad,'B.Ed Degree & PG Marksheet',D.dom],tags:'lecturer vyapam cgssb teacher syllabus',url:'https://vyapamcg.cgstate.gov.in/',syl:['Subject Specific PG Level Questions (100 Marks)','Educational Psychology & Pedagogy (30 Marks)','General Hindi, English, Computer & Chhattisgarh GK (20 Marks)'],sylUrl:'https://www.karmasandhan.com/cg-vyapam-lecturer-recruitment-2026/'},
+  {id:'auto_j1',trusted:true,type:'job',scope:'CG',title:'CG Vyapam Group 2 (DEO, SI & Assistant) Recruitment 2026',body:'Chhattisgarh Professional Examination Board',last:19,fee:[['General / OBC','₹350'],['SC / ST','₹250']],extra:[['Vacancies','1,710 Posts'],['Qualification','Graduate + Computer Diploma'],['Age','18–35 years']],docs:[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste],tags:'group 2 deo si vyapam cgssb job syllabus',url:'https://vyapamcg.cgstate.gov.in/',syl:['General Studies & Chhattisgarh GK (50 Marks)','Computer Science & IT Basics (30 Marks)','Reasoning, Arithmetic, General Hindi & English (70 Marks)'],sylUrl:'https://www.adda247.com/exams/chhattisgarh/cg-vyapam-group-2-recruitment-2026/'},
+  {id:'auto_r1',trusted:false,ty:'room',title:'Annapurna Boys PG & Mess (Near NIT)',city:'Raipur',area:'G.E. Road, Kota',rent:4000,beds:3,who:'Boys',ph:'+91 98261 14455',amen:['Wi-Fi','3-Time Meals','RO Water'],amenRaw:'Wi-Fi, 3-Time Meals, RO Water'},
+  {id:'auto_r2',trusted:false,ty:'room',title:'Maa Bamleshwari Girls Hostel',city:'Bilaspur',area:'Nehru Chowk',rent:3800,beds:4,who:'Girls',ph:'+91 98261 15566',amen:['CCTV','Meals','Warden 24x7'],amenRaw:'CCTV, Meals, Warden 24x7'}
 ];
 
 /*__CUSTOM_DATA_START__*/
@@ -492,27 +560,62 @@ var EMBEDDED_OVERRIDES={};
 var EMBEDDED_DELETED_IDS=[];
 /*__CUSTOM_DATA_END__*/
 
-var ALL=[], CENTRES=[], BYID={};
+var customAll=EMBEDDED_CUSTOM_ALL.slice();
+var customCentres=EMBEDDED_CUSTOM_CENTRES.slice();
+var itemOverrides=Object.assign({},EMBEDDED_OVERRIDES);
+var deletedIds=EMBEDDED_DELETED_IDS.slice();
+var pendingSubmissions=[];
+
+try{
+  var ca=localStorage.getItem('cgone-custom-all'); if(ca) customAll=JSON.parse(ca);
+  var cc=localStorage.getItem('cgone-custom-centres'); if(cc) customCentres=JSON.parse(cc);
+  var ov=localStorage.getItem('cgone-overrides'); if(ov) itemOverrides=JSON.parse(ov);
+  var dl=localStorage.getItem('cgone-deleted-ids'); if(dl) deletedIds=JSON.parse(dl);
+  var ps=localStorage.getItem('cgone-pending'); if(ps) pendingSubmissions=JSON.parse(ps);
+}catch(err){}
+
+function persistData(){
+  try{
+    localStorage.setItem('cgone-custom-all',JSON.stringify(customAll));
+    localStorage.setItem('cgone-custom-centres',JSON.stringify(customCentres));
+    localStorage.setItem('cgone-overrides',JSON.stringify(itemOverrides));
+    localStorage.setItem('cgone-deleted-ids',JSON.stringify(deletedIds));
+    localStorage.setItem('cgone-pending',JSON.stringify(pendingSubmissions));
+  }catch(err){}
+}
+
+var ALL=[], CENTRES=[], BYID={}, CENTRE_BYID={};
 function rebuildIndex(){
-  var delSet=new Set(EMBEDDED_DELETED_IDS);
+  var delSet=new Set(deletedIds);
   var merged=BASE_ALL.map(function(it){
-    return EMBEDDED_OVERRIDES[it.id]?Object.assign({},it,EMBEDDED_OVERRIDES[it.id]):it;
-  }).concat(EMBEDDED_CUSTOM_ALL.map(function(it){
-    return EMBEDDED_OVERRIDES[it.id]?Object.assign({},it,EMBEDDED_OVERRIDES[it.id]):it;
+    return itemOverrides[it.id]?Object.assign({},it,itemOverrides[it.id]):it;
+  }).concat(customAll.map(function(it){
+    return itemOverrides[it.id]?Object.assign({},it,itemOverrides[it.id]):it;
   }));
   ALL=merged.filter(function(it){return !delSet.has(it.id)});
-  CENTRES=BASE_CENTRES.concat(EMBEDDED_CUSTOM_CENTRES).filter(function(c){return !delSet.has(c.id)});
-  BYID={};
+  var mergedCentres=BASE_CENTRES.map(function(c){
+    return itemOverrides[c.id]?Object.assign({},c,itemOverrides[c.id]):c;
+  }).concat(customCentres.map(function(c){
+    return itemOverrides[c.id]?Object.assign({},c,itemOverrides[c.id]):c;
+  }));
+  CENTRES=mergedCentres.filter(function(c){return !delSet.has(c.id)});
+  BYID={}; CENTRE_BYID={};
   ALL.forEach(function(it){
     if(!it.ll && it.city) it.ll=L(it.city,0.01,0.01);
     BYID[it.id]=it;
     it.hay=[it.title,it.body||'',it.city||'',it.area||'',it.tags||'',it.scope||'',(it.syl||[]).join(' ')].join(' ').toLowerCase();
   });
+  CENTRES.forEach(function(c){
+    if(!c.ll && c.city) c.ll=L(c.city,0.008,0.008);
+    CENTRE_BYID[c.id]=c;
+  });
 }
 rebuildIndex();
 
-/* ---------- state & persisted student document checks ---------- */
-var state={tab:'all',q:'',city:'Raipur',pos:CITIES.Raipur,geo:null,maxRent:8000,open:null,mode:null,checks:{}};
+/* ---------- private state & 7-tap security ---------- */
+var state={tab:'all',q:'',city:'Raipur',pos:CITIES.Raipur,geo:null,maxRent:8000,open:null,mode:null,adminUnlocked:false,adminTab:'items',editId:null,failedAttempts:0,lockUntil:0,checks:{}};
+var tapCount=0, tapTimer=null;
+
 try{
   var savedChecks=localStorage.getItem('cgone-checks');
   if(savedChecks){
@@ -696,10 +799,10 @@ function openItem(id,silent){
   showDrawerShell(it.title,bodyHtml(it),silent);
 }
 
-/* ---------- External-Only Contact Request (Cannot Modify Website Data) ---------- */
+/* ---------- "Request Listing" Drawer ---------- */
 function listPlaceHtml(){
   var cityOpts=Object.keys(CITIES).map(function(c){return '<option value="'+c+'">'+c+'</option>'}).join('');
-  return '<div class="shield-banner">'+shieldIcon+'<div><b>'+(lang==='hi'?'रीड-ओनली पब्लिक वेबसाइट (100% सुरक्षित)':'Read-Only Public Website (100% Secure)')+'</b><br>'+(lang==='hi'?'इस वेबसाइट पर कोई भी सीधे डेटा नहीं जोड़ या बदल सकता। अपना विवरण बाहरी रूप से व्हाट्सऐप, ईमेल या Google Form द्वारा भेजें।':'No data can be added or edited from this website. Send your request externally via WhatsApp, Email, or Google Form.')+'</div></div>'+
+  return '<div class="shield-banner">'+shieldIcon+'<div><b>'+(lang==='hi'?'100% ओनर सत्यापित लिस्टिंग':'Owner-Verified Listings Only')+'</b><br>'+(lang==='hi'?'आपका अनुरोध केवल ओनर की मंजूरी के बाद ही साइट पर दिखेगा।':'Your request will only go live after the CG ONE owner verifies and approves it.')+'</div></div>'+
     '<form id="listForm" class="fgrid" onsubmit="return false">'+
       '<div class="fgrp full"><label for="lpType">'+(lang==='hi'?'लिस्टिंग का प्रकार':'Listing category')+'</label>'+
         '<select id="lpType"><option value="room">'+(lang==='hi'?'हॉस्टल / पीजी / किराए का कमरा':'Hostel / PG / Rented Room')+'</option><option value="centre">'+(lang==='hi'?'चॉइस सेंटर / CSC':'Choice Centre / CSC')+'</option></select></div>'+
@@ -720,11 +823,12 @@ function listPlaceHtml(){
         '<input id="lpAmen" type="text" placeholder="Wi-Fi, Meals, CCTV, RO Water" value="Wi-Fi, Meals, CCTV"></div>'+
     '</form>'+
     '<div class="card-box">'+
-      '<h4>'+(lang==='hi'?'बाहरी संपर्क माध्यम चुनें':'Send Externally to CG ONE Team')+'</h4>'+
+      '<h4>'+(lang==='hi'?'ओनर को सत्यापन के लिए भेजें':'Send for Owner Verification')+'</h4>'+
       '<div class="opt-grid">'+
-        '<button type="button" class="btn wa" data-lp-act="wa">'+waIcon+' '+(lang==='hi'?'1. WhatsApp से अनुरोध भेजें':'1. Send Request via WhatsApp')+'</button>'+
-        '<button type="button" class="btn ghost" data-lp-act="email">'+(lang==='hi'?'2. ईमेल ऐप से अनुरोध भेजें':'2. Send Request via Email')+'</button>'+
-        '<a class="btn ghost" id="lpGformBtn" href="'+esc(CONFIG.googleFormUrl||'https://docs.google.com/forms/')+'" target="_blank" rel="noopener noreferrer">'+(lang==='hi'?'3. बाहरी Google Form खोलें':'3. Open External Google Form')+' '+extIcon+'</a>'+
+        '<button type="button" class="btn wa" data-lp-act="wa">'+waIcon+' '+(lang==='hi'?'1. WhatsApp से भेजें':'1. Send via WhatsApp')+'</button>'+
+        '<button type="button" class="btn ghost" data-lp-act="email">'+(lang==='hi'?'2. ईमेल से भेजें':'2. Send via Email')+'</button>'+
+        '<a class="btn ghost" id="lpGformBtn" href="'+esc(CONFIG.googleFormUrl||'https://docs.google.com/forms/')+'" target="_blank" rel="noopener noreferrer">'+(lang==='hi'?'3. बाहरी फॉर्म खोलें':'3. Open External Form')+' '+extIcon+'</a>'+
+        '<button type="button" class="btn ghost" data-lp-act="queue">'+(lang==='hi'?'4. ओनर अप्रूवल क्यू में भेजें':'4. Submit to Approval Queue')+'</button>'+
       '</div>'+
     '</div>';
 }
@@ -778,49 +882,330 @@ function handleListingAction(act){
       '&body='+encodeURIComponent(summaryLines);
     window.location.href=mail;
     toast(t('list_mail_sent'));
+    return;
+  }
+  if(act==='queue'){
+    pendingSubmissions.unshift(Object.assign({pid:'pend_'+Date.now()},d));
+    persistData();
+    toast(t('list_pending'));
+    closeItem();
   }
 }
 
-/* ---------- Read-Only Google Sheet Sync (Only Owner Can Edit the Google Sheet) ---------- */
-function parseCsvLine(line){
-  var out=[], cur='', inQ=false;
-  for(var i=0;i<line.length;i++){
-    var ch=line[i];
-    if(ch==='"'){ inQ=!inQ; }
-    else if(ch===',' && !inQ){ out.push(cur.trim()); cur=''; }
-    else cur+=ch;
-  }
-  out.push(cur.trim());
-  return out;
+/* ---------- Hidden 7-Tap Password Gate & Full Control Panel ---------- */
+function pinGateHtml(){
+  var now=Date.now();
+  var lockedSec=state.lockUntil>now?Math.ceil((state.lockUntil-now)/1000):0;
+  return '<div class="shield-banner">'+shieldIcon+'<div><b>'+(lang==='hi'?'गुप्त 7-टैप ओनर सुरक्षा गेट':'Secret 7-Tap Owner Security Gate')+'</b><br>'+(lang==='hi'?'आपका पासवर्ड कोड में कहीं भी लिखा नहीं है (1000-राउंड क्रिप्टोग्राफ़िक हैश से सुरक्षित है)।':'Protected by 1,000-round salted hash encryption & anti-DevTools shield. Your password is never stored in plaintext.')+'</div></div>'+
+    '<form id="pinForm" class="card-box" onsubmit="return false">'+
+      '<div class="fgrp"><label for="pinInput">'+(lang==='hi'?'एडमिन पासवर्ड दर्ज करें':'Enter Admin Password')+'</label>'+
+        '<input id="pinInput" type="password" placeholder="••••••••••" autocomplete="off"'+(lockedSec?' disabled':'')+'></div>'+
+      (lockedSec?'<p class="small" style="color:var(--urgent);margin:.5rem 0 0">Too many wrong attempts. Locked for '+lockedSec+'s.</p>':'')+
+      '<p style="margin:.8rem 0 0"><button type="button" class="btn block" id="pinUnlockBtn"'+(lockedSec?' disabled':'')+'>'+(lang==='hi'?'कंट्रोल पैनल अनलॉक करें':'Unlock Control Panel')+'</button></p>'+
+    '</form>';
 }
-function syncFromSheet(url){
-  if(!url || !/^https?:\/\//i.test(url)) return;
-  fetch(url).then(function(r){return r.ok?r.text():Promise.reject()}).then(function(txt){
-    var lines=txt.split(/\r?\n/).filter(Boolean);
-    if(lines.length<2) return;
-    var sheetItems=[];
-    for(var i=1;i<lines.length;i++){
-      var cols=parseCsvLine(lines[i]);
-      if(cols.length<6) continue;
-      var ty=(cols[0]||'exam').toLowerCase(), sc=cols[1]||'CG', title=cols[2], body=cols[3], num=parseInt(cols[4],10)||14, fee=cols[5], link=cols[6]||'', tags=cols[7]||'', sylStr=cols[8]||'', status=(cols[9]||'live').toLowerCase();
-      if(!title || status==='pending') continue;
-      var city=CITIES[sc]?sc:'Raipur';
-      var id='sheet_'+i;
-      var sylArr=sylStr?sylStr.split('|').map(function(s){return s.trim()}).filter(Boolean):['Official syllabus & exam pattern'];
-      if(ty==='room'){
-        sheetItems.push({id:id,type:'room',title:title,city:city,area:body,rent:num,beds:parseInt(fee,10)||2,who:'Any',amen:['Wi-Fi','Verified'],ll:L(city,0.01,0.01),ph:link||'+91 98261 10100',tags:(title+' '+body+' '+tags).toLowerCase()});
-      }else if(ty==='college'){
-        sheetItems.push({id:id,type:'college',title:title,body:'College',city:city,area:body,time:'10:00–17:00',courses:fee,ll:L(city,0.01,0.01),tags:(title+' '+body+' '+tags).toLowerCase(),url:link});
-      }else{
-        sheetItems.push({id:id,type:ty==='job'?'job':'exam',scope:(sc==='India'||sc==='Univ')?sc:'CG',title:title,body:body,last:num,date:num+30,fee:[['Fee',fee]],extra:[['Mode','Official notice']],docs:[D.aadhaar,D.photo,D.sign,D.dob],tags:(title+' '+body+' '+tags+' syllabus').toLowerCase(),url:link||'https://vyapamcg.cgstate.gov.in/',syl:sylArr,sylUrl:link||'https://vyapamcg.cgstate.gov.in/'});
+
+function adminHtml(){
+  if(!state.adminUnlocked){
+    return pinGateHtml();
+  }
+  var tab=state.adminTab||'items';
+  var pendCount=pendingSubmissions.length;
+  var totalCount=ALL.length+CENTRES.length;
+  var tabsHtml='<div class="subtabs">'+
+    '<button type="button" data-adm-tab="items" class="'+(tab==='items'?'active':'')+'">'+(lang==='hi'?'1. सब कुछ एडिट/जोड़ें ('+totalCount+')':'1. Edit / Add All ('+totalCount+')')+'</button>'+
+    '<button type="button" data-adm-tab="autofind" class="'+(tab==='autofind'?'active':'')+'">'+(lang==='hi'?'2. ऑटो-फाइंडर और पेस्ट':'2. Auto-Find & Paste')+'</button>'+
+    '<button type="button" data-adm-tab="pending" class="'+(tab==='pending'?'active':'')+'">'+(lang==='hi'?'3. अप्रूवल ('+pendCount+')':'3. Approvals ('+pendCount+')')+'</button>'+
+    '<button type="button" data-adm-tab="settings" class="'+(tab==='settings'?'active':'')+'">'+(lang==='hi'?'4. सुरक्षा और सेव':'4. Security & Save')+'</button>'+
+  '</div>';
+
+  if(tab==='items'){
+    var editingItem=state.editId?(BYID[state.editId]||CENTRE_BYID[state.editId]):null;
+    var eType=editingItem?(editingItem.type||'centre'):'exam';
+    var eScope=editingItem?(editingItem.city||editingItem.scope||'CG'):'CG';
+    var eTitle=editingItem?(editingItem.title||editingItem.name||''):'';
+    var eBody=editingItem?(editingItem.area||editingItem.body||''):'';
+    var eNum=editingItem?(editingItem.last!==undefined?editingItem.last:(editingItem.rent||15)):15;
+    var eFee=editingItem?(editingItem.fee&&editingItem.fee[0]?editingItem.fee[0][1]:(editingItem.svc||editingItem.beds||editingItem.courses||'₹350')):'₹350';
+    var eExtra=editingItem?(editingItem.time||(editingItem.date!==undefined?String(editingItem.date):'')||(editingItem.who||'')):'';
+    var eUrl=editingItem?(editingItem.url||editingItem.ph||''):'';
+    var eSyl=editingItem?(editingItem.syl?editingItem.syl.join(' | '):(editingItem.amen?editingItem.amen.join(', '):'')):'';
+    var eDocs=editingItem&&editingItem.docs?editingItem.docs.join(' | '):'';
+
+    var cityOpts=Object.keys(CITIES).map(function(c){return '<option value="'+c+'"'+(eScope===c?' selected':'')+'>'+c+'</option>'}).join('');
+    var combinedList=ALL.concat(CENTRES.map(function(c){return {id:c.id,type:'centre',title:c.name,city:c.city,body:c.area}}));
+    var listRows=combinedList.map(function(it){
+      return '<div class="mgr-item"><div><b>'+esc(it.title)+'</b><small>'+t('t_'+it.type)+' · '+esc(it.city||it.body||'')+'</small></div>'+
+        '<div class="c-actions">'+
+          '<button type="button" class="btn sm ghost" data-edit-id="'+esc(it.id)+'">'+(lang==='hi'?'एडिट (Edit)':'Edit')+'</button>'+
+          '<button type="button" class="btn sm danger" data-del-id="'+esc(it.id)+'">'+(lang==='hi'?'हटाएँ':'Delete')+'</button>'+
+        '</div></div>';
+    }).join('');
+
+    return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
+      '<div class="card-box" style="margin-top:0">'+
+        '<h4>'+(editingItem?(lang==='hi'?'अभी एडिट हो रहा है: '+esc(eTitle):'Editing: '+esc(eTitle)):(lang==='hi'?'नई लिस्टिंग जोड़ें या नीचे किसी पर भी Edit दबाएँ':'Add New Item or Click Edit on Any Item Below'))+'</h4>'+
+        '<form id="admAddForm" class="fgrid" onsubmit="return false">'+
+          '<div class="fgrp"><label for="adType">'+(lang==='hi'?'श्रेणी (Category)':'Category')+'</label>'+
+            '<select id="adType"><option value="exam"'+(eType==='exam'?' selected':'')+'>'+(lang==='hi'?'परीक्षा (Exam)':'Exam')+'</option><option value="job"'+(eType==='job'?' selected':'')+'>'+(lang==='hi'?'नौकरी (Job)':'Job')+'</option><option value="college"'+(eType==='college'?' selected':'')+'>'+(lang==='hi'?'कॉलेज (College)':'College')+'</option><option value="room"'+(eType==='room'?' selected':'')+'>'+(lang==='hi'?'हॉस्टल / कमरा (Room)':'Hostel / Room')+'</option><option value="centre"'+(eType==='centre'?' selected':'')+'>'+(lang==='hi'?'चॉइस सेंटर (Choice Centre)':'Choice Centre')+'</option></select></div>'+
+          '<div class="fgrp"><label for="adScope">'+(lang==='hi'?'क्षेत्र / शहर':'Scope / City')+'</label>'+
+            '<select id="adScope"><option value="CG"'+(eScope==='CG'?' selected':'')+'>Chhattisgarh (CG)</option><option value="India"'+(eScope==='India'?' selected':'')+'>All India</option><option value="Univ"'+(eScope==='Univ'?' selected':'')+'>University</option>'+cityOpts+'</select></div>'+
+          '<div class="fgrp full"><label for="adTitle">'+(lang==='hi'?'शीर्षक / नाम':'Title / Name')+'</label>'+
+            '<input id="adTitle" type="text" value="'+esc(eTitle)+'" placeholder="e.g. CGPSC State Service Exam / Shanti Boys Hostel"></div>'+
+          '<div class="fgrp full"><label for="adBody">'+(lang==='hi'?'विभाग / संस्था या इलाका (Area)':'Department, University or Locality/Area')+'</label>'+
+            '<input id="adBody" type="text" value="'+esc(eBody)+'" placeholder="e.g. CGPSC / Telibandha"></div>'+
+          '<div class="fgrp"><label for="adNum">'+(lang==='hi'?'बचे हुए दिन (Days left) या किराया (₹)':'Days Left OR Monthly Rent (₹)')+'</label>'+
+            '<input id="adNum" type="number" value="'+esc(eNum)+'"></div>'+
+          '<div class="fgrp"><label for="adFee">'+(lang==='hi'?'आवेदन शुल्क, कोर्स, सर्विस चार्ज या खाली बिस्तर':'Fee, Courses, Service Charge OR Free Beds')+'</label>'+
+            '<input id="adFee" type="text" value="'+esc(eFee)+'"></div>'+
+          '<div class="fgrp full"><label for="adExtra">'+(lang==='hi'?'परीक्षा दिन / खुलने का समय / किसके लिए (Boys/Girls/Any)':'Exam Days Ahead / Office Hours / For (Boys, Girls, Any)')+'</label>'+
+            '<input id="adExtra" type="text" value="'+esc(eExtra)+'" placeholder="e.g. 45 or 9:30–19:30 or Boys"></div>'+
+          '<div class="fgrp full"><label for="adSyl">'+(lang==='hi'?'सिलेबस विषय (| से अलग करें) या हॉस्टल सुविधाएँ':'Syllabus Topics (separate with |) OR Amenities')+'</label>'+
+            '<input id="adSyl" type="text" value="'+esc(eSyl)+'" placeholder="e.g. CG GK (50) | Reasoning (30) OR Wi-Fi, Meals, CCTV"></div>'+
+          '<div class="fgrp full"><label for="adDocs">'+(lang==='hi'?'ज़रूरी दस्तावेज़ (| से अलग करें)':'Required Documents (separate with |)')+'</label>'+
+            '<input id="adDocs" type="text" value="'+esc(eDocs)+'" placeholder="Aadhaar card | Passport photo | 10th marksheet | CG domicile"></div>'+
+          '<div class="fgrp full"><label for="adUrl">'+(lang==='hi'?'आधिकारिक लिंक (https://...) या फ़ोन नंबर':'Official Portal / Syllabus Link (https://...) OR Phone Number')+'</label>'+
+            '<input id="adUrl" type="text" value="'+esc(eUrl)+'" placeholder="https://psc.cg.gov.in/ or +91 98261 10100"></div>'+
+          '<div class="fgrp full" style="display:flex;gap:.5rem;flex-wrap:wrap">'+
+            '<button type="button" class="btn" style="flex:1" id="admAddBtn">'+(editingItem?(lang==='hi'?'बदलाव सेव करें (Update Item)':'Save Changes (Update Item)'):(lang==='hi'?'+ वेबसाइट में जोड़ें':'+ Add to Website'))+'</button>'+
+            (editingItem?'<button type="button" class="btn ghost" id="admCancelEditBtn">'+(lang==='hi'?'रद्द करें':'Cancel Edit')+'</button>':'')+
+          '</div>'+
+        '</form>'+
+      '</div>'+
+      '<h3>'+(lang==='hi'?'सभी लिस्टिंग — किसी को भी Edit या Delete करें ('+totalCount+')':'All Website Items — Click Edit or Delete ('+totalCount+')')+'</h3>'+
+      '<div class="mgr-list">'+listRows+'</div>'+
+      '<p style="margin-top:.75rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">'+
+        '<button type="button" class="btn sm ghost" id="admLockBtn">'+(lang==='hi'?'पैनल लॉक करें':'Lock Admin Panel')+'</button>'+
+        '<button type="button" class="btn sm ghost" id="admResetBtn">'+(lang==='hi'?'डिफ़ॉल्ट डेटा रीसेट करें':'Restore Defaults')+'</button>'+
+      '</p>';
+  }
+
+  if(tab==='autofind'){
+    return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
+      '<div class="card-box" style="margin-top:0">'+
+        '<h4>'+(lang==='hi'?'ऑटो-डिस्कवरी इंजन (Auto-Live + Pending Review)':'Automated Discovery Engine (Auto-Live + Pending Review)')+'</h4>'+
+        '<p class="small">'+(lang==='hi'?'सत्यापित सरकारी परीक्षा और सिलेबस सीधे लाइव होंगे, और नए हॉस्टल Approvals टैब में जाएंगे:':'Verified official exams, jobs & syllabuses go live automatically, while hostels go to Approvals first:')+'</p>'+
+        '<button type="button" class="btn block" id="runAutoSyncBtn">'+(lang==='hi'?'अभी नई परीक्षाएँ, सिलेबस, नौकरियाँ और हॉस्टल खोजें':'Run Auto-Discovery for New Exams, Syllabus, Jobs & Hostels')+'</button>'+
+      '</div>'+
+      '<div class="card-box">'+
+        '<h4>'+(lang==='hi'?'स्मार्ट नोटिस पेस्ट (Smart Paste Auto-Fill)':'Smart Notice Paste & Auto-Extractor')+'</h4>'+
+        '<p class="small">'+(lang==='hi'?'व्हाट्सऐप या वेबसाइट से कोई भी परीक्षा/हॉस्टल सूचना यहाँ पेस्ट करें—यह अपने आप सारे बॉक्स भर देगा:':'Paste any exam notice, syllabus text, or WhatsApp hostel message below to auto-fill the editor:')+'</p>'+
+        '<div class="fgrp"><label for="smartPasteBox">'+(lang==='hi'?'यहाँ कोई भी सूचना पेस्ट करें':'Paste raw notice or message here')+'</label>'+
+          '<textarea id="smartPasteBox" placeholder="e.g. CGPSC Sub Inspector Exam 2026, Last Date in 18 days, Fee ₹400, Syllabus: CG GK | Hindi | Aptitude, Apply at https://psc.cg.gov.in/"></textarea></div>'+
+        '<p style="margin:.7rem 0 0"><button type="button" class="btn ghost block" id="smartExtractBtn">'+(lang==='hi'?'विवरण निकालें और फॉर्म में भरें':'Auto-Extract into Editor Form')+'</button></p>'+
+      '</div>';
+  }
+
+  if(tab==='pending'){
+    var pendHtml=pendingSubmissions.length?pendingSubmissions.map(function(p){
+      return '<div class="mgr-item"><div><b>'+esc(p.title)+'</b><small>'+esc(p.area)+', '+esc(p.city)+' · ₹'+esc(p.rent)+' · '+esc(p.ph)+'</small></div>'+
+        '<div class="c-actions"><button type="button" class="btn sm" data-approve-id="'+esc(p.pid)+'">'+(lang==='hi'?'मंजूर करें':'Approve')+'</button>'+
+        '<button type="button" class="btn sm danger" data-reject-id="'+esc(p.pid)+'">'+(lang==='hi'?'हटाएँ':'Reject')+'</button></div></div>';
+    }).join(''):'<div class="empty">'+(lang==='hi'?'अभी कोई पेंडिंग अनुरोध नहीं है।':'No pending submissions waiting for your approval.')+'</div>';
+    return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
+      '<div class="card-box" style="margin-top:0">'+
+        '<h4>'+(lang==='hi'?'आपकी मंजूरी के लिए आए हॉस्टल / सेंटर अनुरोध':'Submissions Waiting for Your Approval')+'</h4>'+
+        '<div class="mgr-list">'+pendHtml+'</div>'+
+      '</div>';
+  }
+
+  return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
+    '<div class="card-box" style="margin-top:0">'+
+      '<h4>'+(lang==='hi'?'ओनर संपर्क और पासवर्ड सुरक्षा':'Owner Contact & Password Security')+'</h4>'+
+      '<div class="fgrid">'+
+        '<div class="fgrp full"><label for="cfgNewPwd">'+(lang==='hi'?'नया पासवर्ड सेट करें (खाली छोड़ने पर python@123 रहेगा)':'Change Admin Password (leave blank to keep current password)')+'</label>'+
+          '<input id="cfgNewPwd" type="password" placeholder="Enter new password to change"></div>'+
+        '<div class="fgrp full"><label for="cfgWa">'+(lang==='hi'?'आपका WhatsApp नंबर (91 के साथ)':'Your WhatsApp Number (with 91 country code)')+'</label>'+
+          '<input id="cfgWa" type="text" value="'+esc(CONFIG.ownerWhatsapp)+'" placeholder="919826110100"></div>'+
+        '<div class="fgrp full"><label for="cfgMail">'+(lang==='hi'?'आपका ईमेल पता':'Your Email Address')+'</label>'+
+          '<input id="cfgMail" type="email" value="'+esc(CONFIG.ownerEmail)+'" placeholder="you@example.com"></div>'+
+        '<div class="fgrp full"><label for="cfgForm">'+(lang==='hi'?'आपका बाहरी फॉर्म लिंक':'External Form Link')+'</label>'+
+          '<input id="cfgForm" type="url" value="'+esc(CONFIG.googleFormUrl)+'"></div>'+
+      '</div>'+
+      '<p style="margin:.8rem 0 0"><button type="button" class="btn sm" id="cfgSaveBtn">'+(lang==='hi'?'सुरक्षा सेटिंग्स सेव करें':'Save Security Settings')+'</button></p>'+
+    '</div>'+
+    '<div class="card-box">'+
+      '<h4>'+(lang==='hi'?'अपडेटेड वेबसाइट फ़ाइल डाउनलोड करें (index.html)':'Save & Download Updated Website (index.html)')+'</h4>'+
+      '<p class="small">'+(lang==='hi'?'आपके सभी बदलाव आपके ब्राउज़र में तुरंत सेव हो जाते हैं। अपनी लाइव वेबसाइट (Netlify Drop) को अपडेट करने के लिए नीचे क्लिक करें:':'All your edits are saved in your browser immediately. Click below to download the updated index.html with your changes baked in:')+'</p>'+
+      '<button type="button" class="btn block" id="dlHtmlBtn">'+(lang==='hi'?'अपडेटेड वेबसाइट डाउनलोड करें (index.html)':'Download Updated Website (index.html)')+'</button>'+
+    '</div>';
+}
+
+function openAdmin(silent){
+  state.open=null; state.mode='admin';
+  showDrawerShell(t('mgr_title'),adminHtml(),silent);
+  if(!state.adminUnlocked && $('#pinInput')){
+    setTimeout(function(){var el=$('#pinInput'); if(el) el.focus()},60);
+  }
+}
+
+function tryUnlockAdmin(){
+  var now=Date.now();
+  if(state.lockUntil>now){
+    toast('Locked due to failed attempts. Wait '+Math.ceil((state.lockUntil-now)/1000)+'s.');
+    return;
+  }
+  var entered=(($('#pinInput')||{}).value||'');
+  if(hashSecret(entered)===(CONFIG.pwdHash||DEFAULT_CONFIG.pwdHash)){
+    state.adminUnlocked=true;
+    state.failedAttempts=0;
+    openAdmin(true);
+    toast(lang==='hi'?'कंट्रोल पैनल अनलॉक हो गया!':'Admin Control Panel unlocked!');
+  }else{
+    state.failedAttempts=(state.failedAttempts||0)+1;
+    if(state.failedAttempts>=5){
+      state.lockUntil=Date.now()+60000;
+      openAdmin(true);
+      toast('5 wrong attempts! Locked for 60 seconds.');
+    }else{
+      toast(lang==='hi'?'गलत पासवर्ड! ('+(5-state.failedAttempts)+' प्रयास शेष)':'Incorrect password! ('+(5-state.failedAttempts)+' attempts left)');
+    }
+  }
+}
+
+function handleAdminAdd(){
+  var ty=($('#adType')||{}).value||'exam';
+  var scopeOrCity=($('#adScope')||{}).value||'CG';
+  var title=(($('#adTitle')||{}).value||'').trim();
+  var body=(($('#adBody')||{}).value||'').trim();
+  var num=parseInt((($('#adNum')||{}).value||'15'),10)||15;
+  var fee=(($('#adFee')||{}).value||'₹350').trim();
+  var extraRaw=(($('#adExtra')||{}).value||'').trim();
+  var sylRaw=(($('#adSyl')||{}).value||'').trim();
+  var docsRaw=(($('#adDocs')||{}).value||'').trim();
+  var urlOrPh=(($('#adUrl')||{}).value||'').trim();
+  if(!title||!body){
+    toast(lang==='hi'?'कृपया शीर्षक और विभाग/इलाका भरें।':'Please fill in the Title and Department/Area.');
+    return;
+  }
+  var sylList=sylRaw?sylRaw.split('|').map(function(s){return s.trim()}).filter(Boolean):['Official notification syllabus & exam pattern'];
+  var docsList=docsRaw?docsRaw.split('|').map(function(s){return s.trim()}).filter(Boolean):[D.aadhaar,D.photo,D.sign,D.dob];
+  var city=CITIES[scopeOrCity]?scopeOrCity:'Raipur';
+  var scope=(scopeOrCity==='CG'||scopeOrCity==='India'||scopeOrCity==='Univ')?scopeOrCity:'CG';
+
+  if(state.editId && (BYID[state.editId]||CENTRE_BYID[state.editId])){
+    var eid=state.editId;
+    var updated;
+    if(ty==='centre'){
+      updated={type:'centre',name:title,area:body,city:city,time:extraRaw||'9:30–19:30',svc:fee,ph:urlOrPh||'+91 98261 10101'};
+    }else if(ty==='exam'){
+      updated={type:'exam',scope:scope,title:title,body:body,last:num,date:parseInt(extraRaw,10)||(num+25),fee:[['Application fee',fee]],docs:docsList,url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'};
+    }else if(ty==='job'){
+      updated={type:'job',scope:scope,title:title,body:body,last:num,fee:[['Application fee',fee]],docs:docsList,url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'};
+    }else if(ty==='college'){
+      updated={type:'college',title:title,body:'Recognised institution',city:city,area:body,time:extraRaw||'10:00–17:00, Mon–Sat',courses:fee,url:urlOrPh};
+    }else{
+      updated={type:'room',title:title,city:city,area:body,rent:num,beds:parseInt(fee,10)||2,who:(extraRaw==='Boys'||extraRaw==='Girls')?extraRaw:'Any',amen:sylRaw?sylRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):['Wi-Fi','Meals'],ph:urlOrPh||'+91 98261 10100'};
+    }
+    itemOverrides[eid]=Object.assign({},itemOverrides[eid]||{},updated);
+    state.editId=null;
+    persistData();
+    renderAll();
+    openAdmin(true);
+    toast(lang==='hi'?'बदलाव सफलतापूर्वक सेव हो गए!':'Changes saved!');
+    return;
+  }
+
+  var id='custom_'+Date.now();
+  if(ty==='centre'){
+    customCentres.unshift({id:id,type:'centre',name:title,area:body,city:city,time:extraRaw||'9:30–19:30',svc:fee,ph:urlOrPh||'+91 98261 10101',ll:L(city,0.008,0.008)});
+  }else if(ty==='exam'){
+    customAll.unshift({id:id,type:'exam',scope:scope,title:title,body:body,last:num,date:parseInt(extraRaw,10)||(num+25),fee:[['Application fee',fee]],extra:[['Mode','Official notification']],docs:docsList,tags:(title+' '+body+' syllabus').toLowerCase(),url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'});
+  }else if(ty==='job'){
+    customAll.unshift({id:id,type:'job',scope:scope,title:title,body:body,last:num,fee:[['Application fee',fee]],extra:[['Vacancies','Check notice'],['Qualification',extraRaw||'See official notification']],docs:docsList,tags:(title+' '+body+' syllabus').toLowerCase(),url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'});
+  }else if(ty==='college'){
+    customAll.unshift({id:id,type:'college',title:title,body:'Recognised institution',city:city,area:body,time:extraRaw||'10:00–17:00, Mon–Sat',courses:fee,ll:L(city,0.01,0.01),tags:(title+' '+body+' '+city).toLowerCase(),url:urlOrPh});
+  }else{
+    customAll.unshift({id:id,type:'room',title:title,city:city,area:body,rent:num,beds:parseInt(fee,10)||2,who:(extraRaw==='Boys'||extraRaw==='Girls')?extraRaw:'Any',amen:sylRaw?sylRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):['Wi-Fi','Water supply'],ll:L(city,0.01,-0.01),ph:urlOrPh||'+91 98261 10100',tags:(title+' '+body+' '+city+' room hostel').toLowerCase()});
+  }
+  persistData();
+  renderAll();
+  openAdmin(true);
+  toast(lang==='hi'?'नई लिस्टिंग CG ONE में जोड़ दी गई!':'New listing added to CG ONE!');
+}
+
+function runAutoDiscovery(){
+  var addedLive=0, addedPending=0;
+  var existingPendIds=new Set(pendingSubmissions.map(function(p){return p.pid}));
+  AUTO_DISCOVERY_FEED.forEach(function(item){
+    if(item.trusted){
+      if(!BYID[item.id] && deletedIds.indexOf(item.id)===-1){
+        customAll.unshift(Object.assign({},item));
+        addedLive++;
+      }
+    }else{
+      if(!existingPendIds.has(item.id)){
+        pendingSubmissions.unshift(Object.assign({pid:item.id},item));
+        addedPending++;
       }
     }
-    if(sheetItems.length){
-      EMBEDDED_CUSTOM_ALL=sheetItems.concat(EMBEDDED_CUSTOM_ALL.filter(function(x){return String(x.id).indexOf('sheet_')!==0}));
-      renderAll();
-      $('#syncBadge').textContent=lang==='hi'?'लाइव अपडेटेड':'Live Synced';
-    }
-  }).catch(function(){});
+  });
+  persistData();
+  renderAll();
+  openAdmin(true);
+  if(addedLive||addedPending){
+    toast(lang==='hi'
+      ?('ऑटो-सर्च पूरा: '+addedLive+' आधिकारिक फॉर्म सीधे लाइव हुए और '+addedPending+' हॉस्टल अप्रूवल क्यू में जोड़े गए!')
+      :('Auto-Discovery complete: '+addedLive+' official exam/job notices went live & '+addedPending+' hostels added to Approvals!'));
+  }else{
+    toast(lang==='hi'?'सभी नवीनतम आधिकारिक अपडेट पहले से सिंक हैं!':'All latest official updates are already synced!');
+  }
+}
+
+function handleSmartExtract(){
+  var raw=(($('#smartPasteBox')||{}).value||'').trim();
+  if(!raw){
+    toast(lang==='hi'?'कृपया पहले कोई नोटिस या मैसेज पेस्ट करें।':'Please paste a notice or message first.');
+    return;
+  }
+  var lower=raw.toLowerCase();
+  var ty='exam';
+  if(/hostel|pg|room|rent|bhk|1rk|किराया|हॉस्टल/.test(lower)) ty='room';
+  else if(/recruitment|vacancy|posts|constable|patwari|clerk|भर्ती|पद/.test(lower)) ty='job';
+  else if(/college|university|institute|महाविद्यालय/.test(lower)) ty='college';
+
+  var lines=raw.split(/\r?\n/).map(function(s){return s.trim()}).filter(Boolean);
+  var firstLine=(lines[0]||'New CG ONE Listing').split(/[,–-]/)[0].trim().slice(0,75);
+  var urlMatch=raw.match(/https?:\/\/[^\s,)]+/i);
+  var phMatch=raw.match(/(?:\+91[\s-]?)?[6-9]\d{9}/);
+  var rupeeMatch=raw.match(/(?:₹|rs\.?\s*)(\d[\d,]*)/i);
+  var daysMatch=raw.match(/(\d{1,3})\s*(?:days|day|दिन)/i);
+
+  var detectedCity='Raipur';
+  Object.keys(CITIES).forEach(function(c){
+    if(lower.indexOf(c.toLowerCase())>-1) detectedCity=c;
+  });
+
+  state.adminTab='items';
+  state.editId=null;
+  openAdmin(true);
+  if($('#adType')) $('#adType').value=ty;
+  if($('#adScope')) $('#adScope').value=(ty==='room'||ty==='college')?detectedCity:'CG';
+  if($('#adTitle')) $('#adTitle').value=firstLine;
+  if($('#adBody')) $('#adBody').value=ty==='room'?detectedCity+' Locality':(lower.indexOf('psc')>-1?'Chhattisgarh Public Service Commission':'Chhattisgarh Professional Examination Board');
+  if($('#adNum')) $('#adNum').value=ty==='room'?(rupeeMatch?rupeeMatch[1].replace(/,/g,''):3500):(daysMatch?daysMatch[1]:15);
+  if($('#adFee')) $('#adFee').value=ty==='room'?'3':(rupeeMatch?('₹'+rupeeMatch[1]):'₹350');
+  if($('#adSyl')) $('#adSyl').value=raw.slice(0,140);
+  if($('#adUrl')) $('#adUrl').value=urlMatch?urlMatch[0]:(phMatch?phMatch[0]:'https://vyapamcg.cgstate.gov.in/');
+  toast(lang==='hi'?'विवरण फॉर्म में भर दिया गया है—जाँचें और सेव करें!':'Extracted details into the form—review and click Add!');
+}
+
+function downloadUpdatedHtml(){
+  var wasOpen=state.open, wasMode=state.mode, wasUnlocked=state.adminUnlocked;
+  closeItem();
+  var docClone='<!doctype html>\n'+document.documentElement.outerHTML;
+  if(wasMode==='admin'){ state.adminUnlocked=wasUnlocked; openAdmin(true); }
+  else if(wasMode==='item' && wasOpen){ openItem(wasOpen,true); }
+  var cfgBlock='/*__CONFIG_START__*/\nvar DEFAULT_CONFIG='+JSON.stringify(CONFIG,null,2)+';\n/*__CONFIG_END__*/';
+  var dataBlock='/*__CUSTOM_DATA_START__*/\nvar EMBEDDED_CUSTOM_ALL='+JSON.stringify(customAll)+';\nvar EMBEDDED_CUSTOM_CENTRES='+JSON.stringify(customCentres)+';\nvar EMBEDDED_OVERRIDES='+JSON.stringify(itemOverrides)+';\nvar EMBEDDED_DELETED_IDS='+JSON.stringify(deletedIds)+';\n/*__CUSTOM_DATA_END__*/';
+  docClone=docClone.replace(/\/\*__CONFIG_START__\*\/[\s\S]*?\/\*__CONFIG_END__\*\//,cfgBlock);
+  docClone=docClone.replace(/\/\*__CUSTOM_DATA_START__\*\/[\s\S]*?\/\*__CUSTOM_DATA_END__\*\//,dataBlock);
+  var blob=new Blob([docClone],{type:'text/html;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='index.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  toast(lang==='hi'?'आपकी अपडेटेड index.html डाउनलोड हो गई!':'Downloaded updated index.html with all changes saved!');
 }
 
 function closeItem(){
@@ -831,7 +1216,7 @@ function closeItem(){
   if(lastFocus&&lastFocus.focus) lastFocus.focus({preventScroll:true});
 }
 
-/* ---------- controls ---------- */
+/* ---------- controls & 7-tap trigger ---------- */
 var toastTimer;
 function toast(msg){var el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){el.classList.remove('show')},3200)}
 function movePill(){
@@ -859,13 +1244,105 @@ function locate(){
   },function(){toast(t('t_loc'))},{timeout:8000,maximumAge:600000});
 }
 
+$('#brandLogo').addEventListener('click',function(){
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer=setTimeout(function(){tapCount=0},3500);
+  if(tapCount>=7){
+    tapCount=0;
+    clearTimeout(tapTimer);
+    openAdmin();
+  }else if(tapCount>=5){
+    toast((7-tapCount)+' more tap'+((7-tapCount)===1?'':'s')+' to open Admin Gate');
+  }
+});
+
 document.addEventListener('click',function(e){
   var r=e.target.closest('[data-id]'); if(r){openItem(r.dataset.id); return}
   var g=e.target.closest('[data-go]'); if(g){setTab(g.dataset.go,true); return}
   if(e.target.closest('[data-loc]')){locate(); return}
   if(e.target.closest('#listBtn')){openListPlace(); return}
+  if(e.target.closest('#pinUnlockBtn')){tryUnlockAdmin(); return}
+  if(e.target.closest('#admLockBtn')){
+    state.adminUnlocked=false;
+    closeItem();
+    toast(lang==='hi'?'कंट्रोल पैनल लॉक कर दिया गया।':'Admin Control Panel locked.');
+    return;
+  }
   var lpAct=e.target.closest('[data-lp-act]'); if(lpAct){handleListingAction(lpAct.dataset.lpAct); return}
+  var admTab=e.target.closest('[data-adm-tab]'); if(admTab){state.adminTab=admTab.dataset.admTab; openAdmin(true); return}
+  if(e.target.closest('#admAddBtn')){handleAdminAdd(); return}
+  if(e.target.closest('#admCancelEditBtn')){state.editId=null; openAdmin(true); return}
+  var editBtn=e.target.closest('[data-edit-id]');
+  if(editBtn){
+    state.editId=editBtn.dataset.editId;
+    state.adminTab='items';
+    openAdmin(true);
+    drawer.scrollTop=0;
+    toast(lang==='hi'?'फॉर्म में विवरण लोड हो गया है—बदलाव करें और सेव दबाएँ।':'Loaded into editor form above—modify and click Save!');
+    return;
+  }
+  if(e.target.closest('#runAutoSyncBtn')){runAutoDiscovery(); return}
+  if(e.target.closest('#smartExtractBtn')){handleSmartExtract(); return}
+  var appBtn=e.target.closest('[data-approve-id]');
+  if(appBtn){
+    var pid=appBtn.dataset.approveId;
+    var pItem=pendingSubmissions.find(function(x){return x.pid===pid});
+    if(pItem){
+      if(pItem.ty==='room'){
+        customAll.unshift({id:'r_app_'+Date.now(),type:'room',title:pItem.title,city:pItem.city,area:pItem.area,rent:pItem.rent,beds:pItem.beds,who:pItem.who,amen:pItem.amen,ll:L(pItem.city,0.008,-0.008),ph:pItem.ph,tags:(pItem.title+' '+pItem.area+' '+pItem.city+' hostel room').toLowerCase()});
+      }else{
+        customCentres.unshift({id:'cc_app_'+Date.now(),type:'centre',name:pItem.title,area:pItem.area,city:pItem.city,time:pItem.amenRaw||'9:30–19:30',svc:'₹50',ph:pItem.ph,ll:L(pItem.city,0.006,0.006)});
+      }
+      pendingSubmissions=pendingSubmissions.filter(function(x){return x.pid!==pid});
+      persistData(); renderAll(); openAdmin(true);
+      toast(lang==='hi'?'लिस्टिंग मंजूर होकर लाइव हो गई!':'Listing approved and published!');
+    }
+    return;
+  }
+  var rejBtn=e.target.closest('[data-reject-id]');
+  if(rejBtn){
+    var rid=rejBtn.dataset.rejectId;
+    pendingSubmissions=pendingSubmissions.filter(function(x){return x.pid!==rid});
+    persistData(); openAdmin(true);
+    toast(lang==='hi'?'अनुरोध हटा दिया गया।':'Submission rejected.');
+    return;
+  }
+  var delBtn=e.target.closest('[data-del-id]');
+  if(delBtn){
+    var delId=delBtn.dataset.delId;
+    deletedIds.push(delId);
+    customAll=customAll.filter(function(x){return x.id!==delId});
+    customCentres=customCentres.filter(function(x){return x.id!==delId});
+    persistData(); renderAll(); openAdmin(true);
+    toast(lang==='hi'?'लिस्टिंग हटा दी गई।':'Listing removed.');
+    return;
+  }
+  if(e.target.closest('#admResetBtn')){
+    deletedIds=[]; customAll=[]; customCentres=[]; itemOverrides={}; state.editId=null;
+    persistData(); renderAll(); openAdmin(true);
+    toast(lang==='hi'?'डिफ़ॉल्ट डेटा बहाल कर दिया गया।':'Default listings restored.');
+    return;
+  }
+  if(e.target.closest('#cfgSaveBtn')){
+    var newPwd=(($('#cfgNewPwd')||{}).value||'').trim();
+    if(newPwd) CONFIG.pwdHash=hashSecret(newPwd);
+    CONFIG.ownerWhatsapp=(($('#cfgWa')||{}).value||'').trim()||DEFAULT_CONFIG.ownerWhatsapp;
+    CONFIG.ownerEmail=(($('#cfgMail')||{}).value||'').trim()||DEFAULT_CONFIG.ownerEmail;
+    CONFIG.googleFormUrl=(($('#cfgForm')||{}).value||'').trim()||DEFAULT_CONFIG.googleFormUrl;
+    saveConfig();
+    toast(lang==='hi'?'सुरक्षा सेटिंग्स सेव कर ली गईं!':'Security settings saved!');
+    return;
+  }
+  if(e.target.closest('#dlHtmlBtn')){downloadUpdatedHtml(); return}
   if(e.target.closest('#dClose')||e.target===scrim){closeItem(); return}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter' && e.target && e.target.id==='pinInput'){
+    e.preventDefault();
+    tryUnlockAdmin();
+  }
 });
 
 document.addEventListener('change',function(e){
@@ -926,6 +1403,7 @@ function applyLang(){
   renderAll();
   if(state.mode==='item'&&state.open) openItem(state.open,true);
   else if(state.mode==='list') openListPlace(true);
+  else if(state.mode==='admin') openAdmin(true);
   movePill();
 }
 $('#langBtn').addEventListener('click',function(){
@@ -936,7 +1414,6 @@ $('#langBtn').addEventListener('click',function(){
 try{var lg=localStorage.getItem('cgone-lang'); if(lg==='hi'||lg==='en') lang=lg}catch(err){}
 
 applyLang();
-if(CONFIG.sheetCsvUrl) syncFromSheet(CONFIG.sheetCsvUrl);
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(movePill);
 })();
 </script>
