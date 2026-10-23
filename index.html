@@ -3,92 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clean Stream Player - Interstellar Test</title>
+  <title>Stream Player - Site & VLC</title>
+
+  <!-- Video.js Player CSS -->
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #0b0f19;
+      background: #090d16;
       color: #f1f5f9;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding: 24px;
+      padding: 20px;
       display: flex;
       justify-content: center;
     }
-    .container { width: 100%; max-width: 900px; }
-    .player-box {
-      background: #1e293b;
-      border: 1px solid #334155;
+    .container { width: 100%; max-width: 920px; }
+    .player-card {
+      background: #151d30;
+      border: 1px solid #23314e;
       border-radius: 12px;
       overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
     }
-    .video-js { width: 100%; height: 460px; background: #000; }
-    .content { padding: 20px; }
-    h2 { font-size: 1.25rem; margin-bottom: 6px; }
-    p { color: #94a3b8; font-size: 0.875rem; margin-bottom: 16px; }
-    .input-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+    .player-screen {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #000;
+    }
+    .video-js, .embed-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .content-area { padding: 22px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    h2 { font-size: 1.3rem; font-weight: 700; color: #fff; }
+    .badge {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #38bdf8;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
     input {
       flex: 1;
-      padding: 10px 14px;
+      background: #0b1120;
+      border: 1px solid #23314e;
       border-radius: 6px;
-      border: 1px solid #334155;
-      background: #0f172a;
+      padding: 10px 14px;
       color: #fff;
+      font-size: 0.9rem;
     }
+    input:focus { outline: 2px solid #38bdf8; }
     .btn {
       padding: 10px 18px;
       border-radius: 6px;
-      border: none;
       font-weight: 600;
+      font-size: 0.85rem;
       cursor: pointer;
+      border: none;
       color: #fff;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s;
     }
-    .btn-search { background: #2563eb; }
+    .btn:hover { opacity: 0.9; }
+    .btn-primary { background: #2563eb; }
     .btn-vlc { background: #ea580c; }
-    .btn-download { background: #334155; }
-    .stream-list {
-      margin-top: 14px;
-      border-top: 1px solid #334155;
-      padding-top: 14px;
+    .btn-alt { background: #334155; }
+    .stream-box {
+      border-top: 1px solid #23314e;
+      margin-top: 16px;
+      padding-top: 16px;
     }
     .stream-item {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 6px;
-      padding: 12px;
-      margin-bottom: 8px;
+      background: #0b1120;
+      border: 1px solid #23314e;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    .stream-info { font-size: 0.85rem; max-width: 60%; }
-    .stream-info strong { color: #38bdf8; display: block; margin-bottom: 3px; word-break: break-word; }
-    .action-group { display: flex; gap: 6px; }
+    .stream-meta { max-width: 65%; }
+    .stream-meta strong { color: #38bdf8; display: block; font-size: 0.95rem; }
+    .stream-meta small { color: #94a3b8; font-size: 0.8rem; line-height: 1.4; }
+    .btn-group { display: flex; gap: 8px; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="player-box">
-      <!-- Direct HTML5 Player -->
-      <video id="site-player" class="video-js vjs-big-play-centered" controls preload="auto" playsinline></video>
+    <div class="player-card">
+      <div class="player-screen">
+        <!-- Direct Clean HTML5 Player -->
+        <video id="site-player" class="video-js vjs-big-play-centered" controls preload="auto" playsinline></video>
+        <!-- Fallback Embed Server (Hidden unless toggled) -->
+        <iframe id="embed-frame" class="embed-frame" style="display: none;" allowfullscreen></iframe>
+      </div>
 
-      <div class="content">
-        <h2 id="movie-title">Direct Stream Resolver</h2>
-        <p>Using IMDb ID to fetch stream manifests without slow embed iframes.</p>
-
-        <!-- IMDb Search Input -->
-        <div class="input-bar">
-          <input type="text" id="imdb-input" placeholder="Enter IMDb ID" value="tt0816692" />
-          <button class="btn btn-search" onclick="fetchStreams()">Load Streams</button>
+      <div class="content-area">
+        <div class="header-row">
+          <div>
+            <h2 id="movie-title">Direct Stream Player</h2>
+            <span id="player-mode" class="badge">Mode: Direct Site Player</span>
+          </div>
+          <button class="btn btn-alt" onclick="toggleEmbedMode()">⇄ Switch to Embed Server</button>
         </div>
 
-        <!-- Dynamic Streams will appear here -->
-        <div id="stream-results" class="stream-list"></div>
+        <div class="input-row">
+          <input type="text" id="imdb-input" value="tt0816692" placeholder="IMDb ID (e.g. tt0816692)" />
+          <button class="btn btn-primary" onclick="loadMovie()">Search & Resolve</button>
+        </div>
+
+        <div id="stream-list-container" class="stream-box">
+          <p style="color: #94a3b8;">Resolving streams...</p>
+        </div>
       </div>
     </div>
   </div>
@@ -96,114 +146,122 @@
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
   <script>
-    const player = videojs('site-player');
-    let activeStreamUrl = "";
+    // Configured directly with your live Cloudflare Worker
+    const WORKER_URL = "https://dark-pond-f083.nortmirro.workers.dev";
 
-    async function fetchStreams() {
-      const imdbId = document.getElementById('imdb-input').value.trim();
-      const resultsContainer = document.getElementById('stream-results');
-      resultsContainer.innerHTML = "<p>Resolving metadata and available streams...</p>";
+    const player = videojs('site-player');
+    let isEmbedMode = false;
+
+    async function loadMovie() {
+      const imdbId = document.getElementById("imdb-input").value.trim();
+      if (!imdbId) return;
+
+      const listDiv = document.getElementById("stream-list-container");
+      listDiv.innerHTML = "<p style='color: #94a3b8;'>Resolving stream links from Stremio engine...</p>";
+
+      // Update background fallback embed player
+      document.getElementById("embed-frame").src = `https://vidsrc.to/embed/movie/${imdbId}`;
 
       try {
-        // 1. Fetch metadata from public Cinemeta
-        const metaRes = await fetch(`https://v3-cinemeta.strem.io/meta/movie/${imdbId}.json`);
-        const metaData = await metaRes.json();
-        const title = metaData?.meta?.name || "Interstellar";
-        document.getElementById('movie-title').innerText = `${title} (${metaData?.meta?.year || '2014'})`;
+        const res = await fetch(`${WORKER_URL}?id=${imdbId}`);
+        const data = await res.json();
 
-        // 2. Sample streams (Compatible Web MP4 + High-Bandwidth Stream)
-        const streams = [
-          {
-            name: "High-Bitrate 1080p Stream (HLS)",
-            details: "Multi-Audio & Multi-Subtitle Stream",
-            url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          },
-          {
-            name: "Direct MP4 Web Stream (720p)",
-            details: "Fast load • Browser native decoding",
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
-          }
-        ];
+        document.getElementById("movie-title").innerText = data.title || imdbId;
 
-        renderStreamList(title, streams);
+        if (!data.streams || data.streams.length === 0) {
+          listDiv.innerHTML = "<p style='color: #f59e0b;'>No direct streams found. Falling back to the embed player above.</p>";
+          showEmbed();
+          return;
+        }
 
+        renderStreams(data.streams);
       } catch (err) {
-        resultsContainer.innerHTML = `<p style="color: #ef4444;">Failed to resolve streams: ${err.message}</p>`;
+        listDiv.innerHTML = `<p style='color: #ef4444;'>Failed to resolve streams: ${err.message}. Switch to Embed Mode above.</p>`;
       }
     }
 
-    function renderStreamList(title, streams) {
-      const resultsContainer = document.getElementById('stream-results');
-      resultsContainer.innerHTML = `<h3 style="margin-bottom: 10px; font-size: 1rem;">Available Streams for: ${title}</h3>`;
+    function renderStreams(streams) {
+      const listDiv = document.getElementById("stream-list-container");
+      listDiv.innerHTML = "<h3 style='font-size: 0.95rem; margin-bottom: 12px; color: #cbd5e1;'>Available Streams (Choose Player):</h3>";
 
-      streams.forEach((item) => {
-        const div = document.createElement('div');
-        div.className = 'stream-item';
-        div.innerHTML = `
-          <div class="stream-info">
-            <strong>${item.name}</strong>
-            <span style="color:#94a3b8;">${item.details}</span>
+      streams.forEach((s) => {
+        const item = document.createElement("div");
+        item.className = "stream-item";
+        item.innerHTML = `
+          <div class="stream-meta">
+            <strong>${s.name}</strong>
+            <small>${s.details}</small>
           </div>
-          <div class="action-group">
-            <button class="btn btn-search" style="padding: 6px 12px; font-size: 0.8rem;" onclick="playInBrowser('${item.url}')">▶ Play</button>
-            <button class="btn btn-vlc" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openInVLC('${item.url}')">VLC</button>
-            <button class="btn btn-download" style="padding: 6px 12px; font-size: 0.8rem;" onclick="downloadPlaylist('${item.url}')">⬇ .M3U</button>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="playOnline('${encodeURIComponent(s.url)}')">▶ Play on Site</button>
+            <button class="btn btn-vlc" onclick="openVLC('${encodeURIComponent(s.url)}')">Open in VLC</button>
           </div>
         `;
-        resultsContainer.appendChild(div);
+        listDiv.appendChild(item);
       });
 
-      // Play the first stream by default
-      if (streams.length > 0) {
-        playInBrowser(streams[0].url);
+      // Auto-load first stream in site player if not in embed mode
+      if (streams.length > 0 && !isEmbedMode) {
+        playOnline(encodeURIComponent(streams[0].url));
       }
     }
 
-    function playInBrowser(url) {
-      activeStreamUrl = url;
-      const isHls = url.includes('.m3u8');
+    // 1. Play directly inside the browser using your Worker CORS proxy
+    function playOnline(encodedUrl) {
+      showWebPlayer();
+      const rawUrl = decodeURIComponent(encodedUrl);
+      const proxiedUrl = `${WORKER_URL}?proxy=${encodeURIComponent(rawUrl)}`;
+
+      const isHls = rawUrl.includes(".m3u8");
       player.src({
-        src: url,
-        type: isHls ? 'application/x-mpegURL' : 'video/mp4'
+        src: proxiedUrl,
+        type: isHls ? "application/x-mpegURL" : "video/mp4"
       });
-      player.play();
+      player.play().catch(() => {});
     }
 
-    function openInVLC(url) {
-      const targetUrl = url || activeStreamUrl;
-      if (!targetUrl) return alert("Select a stream first!");
-
+    // 2. Open directly in VLC on Android, iOS, or PC
+    function openVLC(encodedUrl) {
+      const targetUrl = decodeURIComponent(encodedUrl);
       const ua = navigator.userAgent || "";
+
       if (/android/i.test(ua)) {
-        const cleanUrl = targetUrl.replace(/^https?:\/\//, '');
-        const scheme = targetUrl.startsWith('https') ? 'https' : 'http';
+        const cleanUrl = targetUrl.replace(/^https?:\/\//, "");
+        const scheme = targetUrl.startsWith("https") ? "https" : "http";
         window.location.href = `intent://${cleanUrl}#Intent;scheme=${scheme};package=org.videolan.vlc;type=video/*;end`;
       } else if (/iPad|iPhone|iPod/.test(ua)) {
-        window.location.href = 'vlc-x-callback://x-callback-url/stream?url=' + encodeURIComponent(targetUrl);
+        window.location.href = "vlc-x-callback://x-callback-url/stream?url=" + encodeURIComponent(targetUrl);
       } else {
-        window.location.href = 'vlc://' + targetUrl;
+        window.location.href = "vlc://" + targetUrl;
       }
     }
 
-    function downloadPlaylist(url) {
-      const targetUrl = url || activeStreamUrl;
-      if (!targetUrl) return alert("No active stream!");
-
-      const m3uContent = `#EXTM3U\n#EXTINF:-1,Interstellar (Test Stream)\n${targetUrl}\n`;
-      const encodedData = 'data:audio/x-mpegurl;charset=utf-8,' + encodeURIComponent(m3uContent);
-
-      const downloadLink = document.createElement('a');
-      downloadLink.setAttribute('href', encodedData);
-      downloadLink.setAttribute('download', 'Interstellar.m3u');
-      downloadLink.style.display = 'none';
-
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
+    // Toggle between custom web player and fallback embed
+    function toggleEmbedMode() {
+      if (isEmbedMode) {
+        showWebPlayer();
+      } else {
+        showEmbed();
+      }
     }
 
-    // Auto-fetch Interstellar on load
-    fetchStreams();
+    function showEmbed() {
+      isEmbedMode = true;
+      player.pause();
+      document.getElementById("site-player").style.display = "none";
+      document.getElementById("embed-frame").style.display = "block";
+      document.getElementById("player-mode").innerText = "Mode: Embed Server";
+    }
+
+    function showWebPlayer() {
+      isEmbedMode = false;
+      document.getElementById("embed-frame").style.display = "none";
+      document.getElementById("site-player").style.display = "block";
+      document.getElementById("player-mode").innerText = "Mode: Direct Site Player";
+    }
+
+    // Automatically load on page open
+    loadMovie();
   </script>
 </body>
 </html>
