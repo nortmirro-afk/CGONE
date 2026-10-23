@@ -104,6 +104,13 @@
     .btn-download:hover {
       background: #475569;
     }
+    .btn-copy {
+      background: #059669;
+      color: #fff;
+    }
+    .btn-copy:hover {
+      background: #047857;
+    }
     .external-actions {
       display: flex;
       flex-wrap: wrap;
@@ -146,11 +153,14 @@
 
         <!-- External VLC / MPV Actions -->
         <div class="external-actions">
-          <a id="vlc-protocol-btn" href="#" class="btn btn-vlc">
-            ▶ Open in VLC Player
-          </a>
+          <button class="btn btn-vlc" onclick="openVLC()">
+            ▶ Open in VLC
+          </button>
           <button class="btn btn-download" onclick="downloadPlaylistFile()">
-            ⬇ Download .M3U (for MPV / VLC)
+            ⬇ Download .M3U Playlist
+          </button>
+          <button class="btn btn-copy" id="copy-btn" onclick="copyStreamUrl()">
+            📋 Copy Stream Link
           </button>
         </div>
       </div>
@@ -161,47 +171,76 @@
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
   <script>
-    // Initialize VideoJS Player
     const player = videojs('custom-player');
-
-    function updateExternalLinks(url) {
-      // 1. Setup VLC Mobile & Desktop deep-link protocol
-      const vlcBtn = document.getElementById('vlc-protocol-btn');
-      vlcBtn.href = 'vlc://' + url;
-    }
 
     function loadNewStream() {
       const url = document.getElementById('stream-url-input').value.trim();
       if (!url) return;
 
-      // Determine type
       const isHls = url.includes('.m3u8');
       player.src({
         src: url,
         type: isHls ? 'application/x-mpegURL' : 'video/mp4'
       });
       player.play();
-
-      updateExternalLinks(url);
     }
 
-    // Creates an instant playlist file so users can open it directly in MPV or VLC desktop
+    // Opens VLC across Android, iOS, and PC
+    function openVLC() {
+      const url = document.getElementById('stream-url-input').value.trim();
+      if (!url) return;
+
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        // Android Intent: Automatically targets VLC app
+        const cleanUrl = url.replace(/^https?:\/\//, '');
+        const isHttps = url.startsWith('https');
+        window.location.href = `intent://${cleanUrl}#Intent;scheme=${isHttps ? 'https' : 'http'};package=org.videolan.vlc;type=video/*;end`;
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        // iOS VLC scheme
+        window.location.href = 'vlc-x-callback://x-callback-url/stream?url=' + encodeURIComponent(url);
+      } else {
+        // Desktop VLC URL protocol
+        window.location.href = 'vlc://' + url;
+      }
+    }
+
+    // Robust file download that works across desktop and mobile browsers
     function downloadPlaylistFile() {
       const url = document.getElementById('stream-url-input').value.trim();
       if (!url) return;
 
-      const m3uContent = `#EXTM3U\n#EXTINF:-1,Custom Stream\n${url}`;
-      const blob = new Blob([m3uContent], { type: 'application/x-mpegurl' });
-      const downloadLink = document.createElement('a');
+      const m3uContent = `#EXTM3U\n#EXTINF:-1,Custom Stream\n${url}\n`;
+      const encodedData = 'data:audio/x-mpegurl;charset=utf-8,' + encodeURIComponent(m3uContent);
 
-      downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = 'stream.m3u8';
+      const downloadLink = document.createElement('a');
+      downloadLink.setAttribute('href', encodedData);
+      downloadLink.setAttribute('download', 'playlist.m3u');
+      downloadLink.style.display = 'none';
+
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
     }
 
-    // Load initial default stream on page load
+    // Clipboard copy fallback
+    function copyStreamUrl() {
+      const url = document.getElementById('stream-url-input').value.trim();
+      if (!url) return;
+
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.innerText = '✓ Copied!';
+        setTimeout(() => {
+          btn.innerText = '📋 Copy Stream Link';
+        }, 2000);
+      }).catch(() => {
+        alert('Stream URL: ' + url);
+      });
+    }
+
+    // Load initial default stream on start
     loadNewStream();
   </script>
 </body>
