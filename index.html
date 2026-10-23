@@ -1,1422 +1,208 @@
-```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CG ONE – Chhattisgarh exams, jobs, syllabus, colleges and hostels</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#EDF2EA; --surface:#FFFFFF; --ink:#10261E; --muted:#4F6358; --line:#CFDACD;
-  --brand:#0E5C47; --on-brand:#FFFFFF; --accent:#F0A500; --urgent:#B3402A; --soft:#DFEADF;
-  --wa:#157A46; --on-wa:#FFFFFF;
-  --shadow:0 18px 50px -22px rgba(16,38,30,.4);
-  --c-exam:#0E5C47; --c-job:#B07800; --c-college:#3949AB; --c-room:#9C3F74;
-  color-scheme:light;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0B1612; --surface:#13231D; --ink:#E6EFE9; --muted:#9BB1A6; --line:#25392F;
-    --brand:#4CC7A0; --on-brand:#06211A; --accent:#F5B82E; --urgent:#F28B70; --soft:#183027;
-    --wa:#35B874; --on-wa:#052113;
-    --shadow:0 18px 50px -22px rgba(0,0,0,.8);
-    --c-exam:#4CC7A0; --c-job:#F5B82E; --c-college:#9AA8FF; --c-room:#E59BC6;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0B1612; --surface:#13231D; --ink:#E6EFE9; --muted:#9BB1A6; --line:#25392F;
-  --brand:#4CC7A0; --on-brand:#06211A; --accent:#F5B82E; --urgent:#F28B70; --soft:#183027;
-  --wa:#35B874; --on-wa:#052113;
-  --shadow:0 18px 50px -22px rgba(0,0,0,.8);
-  --c-exam:#4CC7A0; --c-job:#F5B82E; --c-college:#9AA8FF; --c-room:#E59BC6;
-  color-scheme:dark;
-}
-html{scroll-padding-top:calc(76px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 'Hind',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
-body.lock{overflow:hidden}
-h1,h2,h3,h4{font-family:'Bricolage Grotesque','Hind',system-ui,sans-serif;margin:0;letter-spacing:-.015em}
-button,select,input,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
-.wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
-.small{font-size:.9rem;color:var(--muted)}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clean Stream Player & External Launcher</title>
+  
+  <!-- Video.js Default Style -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 
-/* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:.75rem}
-.logo{display:inline-flex;align-items:center;gap:.6rem;font:700 1.22rem 'Bricolage Grotesque','Hind',sans-serif;letter-spacing:-.01em;white-space:nowrap;background:none;border:0;padding:.35rem .5rem;margin-left:-.5rem;border-radius:10px;cursor:pointer;-webkit-user-select:none;user-select:none}
-.logo svg{color:var(--brand);flex:none}
-.nav{display:flex;gap:.2rem}
-.nav button{background:none;border:0;color:var(--muted);font:500 .98rem 'Hind',sans-serif;padding:.5rem .75rem;cursor:pointer;border-radius:8px;transition:color .15s,background .15s}
-.nav button:hover{color:var(--ink);background:var(--soft)}
-.tools{display:flex;gap:.45rem;align-items:center}
-.ib{min-width:40px;height:40px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font:600 .9rem 'Hind',sans-serif;padding:0 .65rem;transition:transform .15s,border-color .15s,background .15s}
-.ib:hover{border-color:var(--brand);background:var(--soft)}
-.ib:active{transform:scale(.95)}
-@media (max-width:720px){.nav{display:none}}
-
-/* hero */
-.hero{position:relative;isolation:isolate;padding:clamp(2.4rem,7vw,4.8rem) 0 2.2rem;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--brand);opacity:.09;
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M24 2L46 24 24 46 2 24z M24 14L34 24 24 34 14 24z' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") 0 0/48px 48px;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M24 2L46 24 24 46 2 24z M24 14L34 24 24 34 14 24z' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") 0 0/48px 48px}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 70% 90% at 92% 0%,transparent 0 22%,var(--bg) 75%)}
-.h1{font-size:clamp(2.1rem,6.4vw,4rem);line-height:1.06;font-weight:700;max-width:18ch}
-.h1 .l{display:block;overflow:hidden;padding-bottom:.1em}
-.h1 .l>span{display:block;transform:translateY(112%);animation:rise .95s cubic-bezier(.2,.8,.2,1) calc(var(--d)*140ms + 80ms) forwards}
-@keyframes rise{to{transform:none}}
-.reveal{opacity:0;animation:fade .8s ease .45s forwards}
-@keyframes fade{to{opacity:1}}
-.sub{max-width:56ch;color:var(--muted);font-size:1.12rem;margin:1.1rem 0 1.8rem}
-.search{display:flex;align-items:center;gap:.7rem;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:.3rem .8rem .3rem 1rem;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s;max-width:760px}
-.search:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px color-mix(in srgb,var(--brand) 18%,transparent),var(--shadow)}
-.search svg{flex:none;color:var(--muted)}
-.search input{flex:1;min-width:0;height:54px;border:0;background:transparent;font-size:1.12rem;outline:none}
-.search input::placeholder{color:var(--muted)}
-.search kbd{font:500 .8rem 'Hind',sans-serif;border:1px solid var(--line);border-radius:6px;padding:.1rem .45rem;color:var(--muted)}
-@media (hover:none){.search kbd{display:none}}
-.tabs{position:relative;display:inline-flex;margin-top:1rem;background:var(--soft);border-radius:12px;padding:4px;max-width:100%;overflow-x:auto;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tabs button{position:relative;z-index:1;flex:none;background:none;border:0;padding:.5rem 1rem;border-radius:9px;font:500 .96rem 'Hind',sans-serif;color:var(--muted);cursor:pointer;transition:color .2s;white-space:nowrap}
-.tabs button[aria-selected="true"]{color:var(--ink);font-weight:600}
-.pill{position:absolute;top:4px;bottom:4px;left:0;width:0;background:var(--surface);border-radius:9px;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:transform .38s cubic-bezier(.3,.9,.3,1),width .38s cubic-bezier(.3,.9,.3,1)}
-.filters{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1.1rem;margin-top:1rem}
-.filters label,.filters .lab{font-size:.92rem;color:var(--muted)}
-select{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:.45rem .7rem;cursor:pointer}
-select:hover{border-color:var(--brand)}
-.rent{display:none;align-items:center;gap:.6rem}
-.rent.on{display:flex;animation:fade .3s both}
-.rent input{accent-color:var(--brand);width:150px}
-.rent output{font-weight:600;min-width:5.6rem}
-
-/* results */
-.panel{margin-top:1.4rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;max-width:900px}
-.phead{padding:.8rem 1.1rem;color:var(--muted);font-size:.92rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
-.panel ul{list-style:none;margin:0;padding:0}
-.panel li{animation:in .38s both;animation-delay:calc(var(--i)*38ms)}
-@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.row{display:flex;align-items:center;gap:1rem;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:.9rem 1.1rem;cursor:pointer;transition:background .15s}
-.row:hover{background:var(--soft)}
-.chip{flex:none;min-width:5.4rem;text-align:center;font:600 .8rem 'Hind',sans-serif;padding:.25rem .6rem;border-radius:999px;background:color-mix(in srgb,var(--c) 15%,transparent);display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
-.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
-.c-exam{--c:var(--c-exam)}.c-job{--c:var(--c-job)}.c-college{--c:var(--c-college)}.c-room{--c:var(--c-room)}
-.main{flex:1;min-width:0}
-.main b{display:block;font-weight:600}
-.main small{display:block;color:var(--muted);font-size:.9rem}
-.end{flex:none;text-align:right}
-.end small{display:block;color:var(--muted);font-size:.85rem;margin-top:.15rem}
-.badge{display:inline-block;font-weight:600;font-size:.9rem;padding:.12rem .6rem;border-radius:8px;background:var(--soft)}
-.badge.urgent{background:color-mix(in srgb,var(--urgent) 16%,transparent);color:var(--urgent)}
-.empty{padding:1.6rem 1.1rem 1.8rem;border-top:1px solid var(--line);color:var(--muted)}
-@media (max-width:560px){
-  .row{display:grid;grid-template-columns:1fr auto;gap:.5rem .8rem}
-  .chip{grid-column:1/-1;justify-self:start;min-width:0}
-}
-
-/* sections */
-section.block{padding:2.4rem 0 .4rem}
-section.block h2{font-size:clamp(1.5rem,3.6vw,2rem);line-height:1.15}
-section.block>.wrap>p{margin:.4rem 0 1.2rem;color:var(--muted)}
-.soon{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;background:var(--surface);border:1px solid var(--line);border-radius:18px;scrollbar-width:thin}
-.si{flex:0 0 min(270px,78%);scroll-snap-align:start;text-align:left;background:none;border:0;border-left:1px solid var(--line);padding:1.15rem 1.1rem 1.1rem;cursor:pointer;position:relative;transition:background .15s}
-.si:first-child{border-left:0}
-.si::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--k,var(--brand))}
-.si:hover{background:var(--soft)}
-.si.hot{--k:var(--urgent)}
-.si .d{font:700 1.7rem/1 'Bricolage Grotesque','Hind',sans-serif}
-.si .dl{font-size:.9rem;color:var(--muted);margin-left:.3rem}
-.si b{display:block;margin-top:.7rem;font-weight:600}
-.si small{display:block;color:var(--muted)}
-.cats{border-top:1px solid var(--line)}
-.cat{display:grid;grid-template-columns:1fr auto;align-items:center;gap:1rem;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:1.2rem .2rem;cursor:pointer;transition:padding .25s cubic-bezier(.3,.9,.3,1),background .2s}
-.cat:hover{padding-left:1rem;background:var(--soft)}
-.cat h3{font-size:clamp(1.25rem,3vw,1.6rem)}
-.cat span.ds{display:block;color:var(--muted)}
-.cat .n{font:600 1.1rem 'Hind',sans-serif;color:var(--brand)}
-.band{margin:2.6rem 0 1rem;background:var(--brand);color:var(--on-brand);border-radius:20px;padding:1.7rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem 2rem}
-.band h2{font-size:1.45rem;max-width:26ch}
-.band p{margin:.3rem 0 0;opacity:.9;max-width:44ch}
-.band .band-actions{display:flex;flex-wrap:wrap;gap:.65rem}
-.band .btn{background:var(--on-brand);color:var(--brand)}
-.band .btn:focus-visible{outline-color:var(--accent)}
-footer{padding:1.6rem 0 2.4rem;color:var(--muted);font-size:.92rem}
-.foot-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem}
-
-/* buttons & links */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--brand);color:var(--on-brand);border:0;border-radius:12px;padding:.75rem 1.2rem;font:600 1rem 'Hind',sans-serif;cursor:pointer;text-decoration:none;transition:transform .15s,filter .15s,background .15s}
-.btn:hover{filter:brightness(1.08)}
-.btn:active{transform:scale(.97)}
-.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
-.btn.wa{background:var(--wa);color:var(--on-wa)}
-.btn.danger{background:color-mix(in srgb,var(--urgent) 15%,transparent);color:var(--urgent);border:1px solid color-mix(in srgb,var(--urgent) 40%,transparent)}
-.btn.sm{padding:.42rem .8rem;font-size:.88rem;border-radius:10px}
-.btn.block{width:100%}
-
-/* drawer */
-.scrim{position:fixed;inset:0;background:rgba(5,15,11,.55);opacity:0;pointer-events:none;transition:opacity .35s;z-index:40}
-.scrim.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);z-index:50;transform:translateX(102%);transition:transform .45s cubic-bezier(.2,.85,.25,1);overflow-y:auto;overscroll-behavior:contain;padding-bottom:env(safe-area-inset-bottom,0px);border-left:1px solid var(--line);box-shadow:var(--shadow)}
-.drawer.open{transform:none}
-.dhead{position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:calc(1rem + env(safe-area-inset-top,0px)) 1.3rem 1rem;background:var(--bg);border-bottom:1px solid var(--line)}
-.dhead h2{font-size:1.3rem;line-height:1.2}
-.dbody{padding:1.2rem 1.3rem 2.4rem}
-.dbody h3{font-size:1.05rem;margin:1.6rem 0 .6rem}
-.dbody .sub2{color:var(--muted);margin:.2rem 0 0}
-.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
-.tag{font-size:.82rem;font-weight:600;padding:.15rem .6rem;border-radius:999px;background:var(--soft)}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1rem}
-.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.65rem .85rem}
-.fact span{display:block;font-size:.82rem;color:var(--muted)}
-.fact b{display:block;font-weight:600}
-.fact.wide{grid-column:1/-1}
-.fees{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:12px}
-.fees li{display:flex;justify-content:space-between;gap:1rem;padding:.6rem .9rem;border-top:1px solid var(--line)}
-.fees li:first-child{border-top:0}
-.fees b{font-weight:600}
-.syl-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.85rem 1rem;font-size:.93rem}
-.syl-box ul{margin:.35rem 0 0;padding-left:1.15rem}
-.syl-box li{margin-bottom:.28rem}
-.bar{height:6px;background:var(--soft);border-radius:9px;overflow:hidden;margin:.2rem 0 .4rem}
-.bar i{display:block;height:100%;width:0;background:var(--brand);border-radius:9px;transition:width .4s cubic-bezier(.3,.9,.3,1)}
-.chk{display:flex;gap:.7rem;align-items:flex-start;padding:.5rem 0;cursor:pointer}
-.chk input{accent-color:var(--brand);width:20px;height:20px;margin:.15rem 0 0;flex:none}
-.chk input:checked+span{color:var(--muted);text-decoration:line-through}
-.chead{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:.7rem}
-.centre{display:flex;justify-content:space-between;align-items:center;gap:.8rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.75rem .9rem;margin-top:.6rem;animation:in .35s both;flex-wrap:wrap}
-.centre small{display:block;color:var(--muted);font-size:.88rem}
-.centre b{font-weight:600}
-.c-actions{display:flex;gap:.45rem;flex-wrap:wrap}
-.portal-note{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.55rem;padding:.5rem .75rem;background:var(--soft);border-radius:10px;font-size:.84rem;color:var(--muted)}
-.portal-note code{font-weight:600;color:var(--ink)}
-
-/* forms & secret 7-tap control panel */
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.8rem}
-.fgrid .full{grid-column:1/-1}
-.fgrp label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:.25rem}
-.fgrp input,.fgrp select,.fgrp textarea{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:.55rem .75rem;font-size:.95rem;outline:none;transition:border-color .15s}
-.fgrp input:focus,.fgrp select:focus,.fgrp textarea:focus{border-color:var(--brand)}
-.fgrp textarea{min-height:76px;resize:vertical}
-.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
-@media (max-width:480px){.fgrid,.opt-grid{grid-template-columns:1fr}}
-.card-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem;margin-top:.9rem}
-.card-box h4{font-size:1rem;margin-bottom:.35rem}
-.subtabs{display:flex;gap:.35rem;background:var(--soft);padding:4px;border-radius:11px;margin-bottom:1rem;overflow-x:auto}
-.subtabs button{flex:1;background:none;border:0;padding:.45rem .6rem;border-radius:8px;font:600 .84rem 'Hind',sans-serif;color:var(--muted);cursor:pointer;white-space:nowrap}
-.subtabs button.active{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.mgr-list{max-height:310px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:.7rem}
-.mgr-item{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.6rem .85rem;border-top:1px solid var(--line);font-size:.9rem}
-.mgr-item:first-child{border-top:0}
-.mgr-item b{display:block;font-size:.93rem}
-.mgr-item small{color:var(--muted)}
-.shield-banner{display:flex;align-items:flex-start;gap:.65rem;padding:.75rem .9rem;border-radius:12px;background:color-mix(in srgb,var(--brand) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--brand) 35%,var(--line));font-size:.88rem;margin-top:.85rem}
-.shield-banner svg{flex:none;color:var(--brand);margin-top:.1rem}
-
-.toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;background:var(--ink);color:var(--bg);padding:.7rem 1.1rem;border-radius:12px;z-index:60;max-width:min(92%,460px);text-align:center;transition:opacity .3s,transform .3s;pointer-events:none}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
-}
-</style>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+    .wrapper {
+      width: 100%;
+      max-width: 900px;
+    }
+    .player-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .video-container {
+      width: 100%;
+      background: #000;
+    }
+    .video-js {
+      width: 100%;
+      height: 480px;
+    }
+    .controls-panel {
+      padding: 20px;
+    }
+    .controls-panel h2 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+    .controls-panel p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-bottom: 16px;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    input[type="text"] {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    input[type="text"]:focus {
+      outline: 2px solid #38bdf8;
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+    .btn-vlc {
+      background: #ea580c;
+      color: #fff;
+    }
+    .btn-vlc:hover {
+      background: #c2410c;
+    }
+    .btn-download {
+      background: #334155;
+      color: #f8fafc;
+    }
+    .btn-download:hover {
+      background: #475569;
+    }
+    .external-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-top: 1px solid #334155;
+      padding-top: 16px;
+    }
+  </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <button type="button" class="logo" id="brandLogo" aria-label="CG ONE">
-      <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" aria-hidden="true"><path d="M24 3L45 24 24 45 3 24z"/><path d="M24 15L33 24 24 33 15 24z" fill="currentColor"/></svg>
-      <span>CG ONE</span>
-    </button>
-    <nav class="nav" aria-label="Main">
-      <button type="button" data-go="exam" data-i18n="nav_exam">Exams</button>
-      <button type="button" data-go="job" data-i18n="nav_job">Jobs</button>
-      <button type="button" data-go="college" data-i18n="nav_college">Colleges</button>
-      <button type="button" data-go="room" data-i18n="nav_room">Rooms</button>
-    </nav>
-    <div class="tools">
-      <button class="ib" id="langBtn" type="button" data-i18n-label="lang_label" aria-label="Change language">हिं</button>
-      <button class="ib" id="themeBtn" type="button" data-i18n-label="theme_label" aria-label="Switch light or dark theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
+  <div class="wrapper">
+    <div class="player-card">
+      <!-- Direct HTML5 Player Area -->
+      <div class="video-container">
+        <video
+          id="custom-player"
+          class="video-js vjs-big-play-centered"
+          controls
+          preload="auto"
+          playsinline>
+        </video>
+      </div>
 
-<main>
-  <section class="hero" id="top">
-    <div class="wrap">
-      <h1 class="h1">
-        <span class="l"><span style="--d:0" data-i18n="h1a">Every exam date, syllabus and centre</span></span>
-        <span class="l"><span style="--d:1" data-i18n="h1b">in Chhattisgarh, on CG ONE</span></span>
-      </h1>
-      <div class="reveal">
-        <p class="sub" data-i18n="sub">Official dates, syllabus topics, fees, required documents and nearest choice centres—together on one page.</p>
+      <!-- Controls & External Launch -->
+      <div class="controls-panel">
+        <h2 id="stream-name">Custom Stream</h2>
+        <p>No ad-bloated embed servers. Play directly inside the browser or stream to VLC.</p>
 
-        <div class="search">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <input id="q" type="search" autocomplete="off" enterkeyhint="search" data-i18n-ph="ph" data-i18n-label="ph" placeholder="Search an exam, syllabus, job, college or hostel" aria-label="Search an exam, syllabus, job, college or hostel">
-          <kbd>/</kbd>
+        <!-- Change stream dynamically -->
+        <div class="input-row">
+          <input
+            type="text"
+            id="stream-url-input"
+            placeholder="Paste direct .m3u8 or .mp4 link here..."
+            value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+          />
+          <button class="btn btn-primary" onclick="loadNewStream()">Load Player</button>
         </div>
 
-        <div class="tabs" role="tablist" id="tabs">
-          <span class="pill" id="pill" aria-hidden="true"></span>
-          <button type="button" role="tab" data-tab="all" aria-selected="true" data-i18n="tab_all">All</button>
-          <button type="button" role="tab" data-tab="exam" aria-selected="false" data-i18n="tab_exam">Exams</button>
-          <button type="button" role="tab" data-tab="job" aria-selected="false" data-i18n="tab_job">Jobs</button>
-          <button type="button" role="tab" data-tab="college" aria-selected="false" data-i18n="tab_college">Colleges</button>
-          <button type="button" role="tab" data-tab="room" aria-selected="false" data-i18n="tab_room">Hostels &amp; rooms</button>
-        </div>
-
-        <div class="filters">
-          <span class="lab" data-i18n="city">Your city</span>
-          <span id="cityWrap"></span>
-          <button class="btn sm ghost" type="button" data-loc>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
-            <span data-i18n="loc">Use my location</span>
+        <!-- External VLC / MPV Actions -->
+        <div class="external-actions">
+          <a id="vlc-protocol-btn" href="#" class="btn btn-vlc">
+            ▶ Open in VLC Player
+          </a>
+          <button class="btn btn-download" onclick="downloadPlaylistFile()">
+            ⬇ Download .M3U (for MPV / VLC)
           </button>
-          <div class="rent" id="rent">
-            <label for="rentRange" data-i18n="budget">Rent up to</label>
-            <input id="rentRange" type="range" min="2000" max="8000" step="500" value="8000">
-            <output id="rentOut" for="rentRange"></output>
-          </div>
-        </div>
-
-        <div class="panel" aria-live="polite">
-          <div class="phead">
-            <span id="resHead"></span>
-            <span class="small" id="syncBadge"></span>
-          </div>
-          <div id="results"></div>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <h2 data-i18n="soon_h">Closing soon</h2>
-      <p data-i18n="soon_s">Forms with the nearest last date</p>
-      <div class="soon" id="soon"></div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <h2 data-i18n="browse_h">Browse by category</h2>
-      <div class="cats" id="cats" style="margin-top:1.2rem"></div>
-
-      <div class="band">
-        <div>
-          <h2 data-i18n="band_h">Run a hostel, rent rooms or a choice centre?</h2>
-          <p data-i18n="band_s">Send your listing details for owner verification so students nearby can find and call you.</p>
-        </div>
-        <div class="band-actions">
-          <button class="btn" type="button" id="listBtn" data-i18n="band_b">Request listing</button>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap foot-row">
-    <span data-i18n="foot">CG ONE – Verified official portal &amp; syllabus links included. Check final dates and fees on the official website before applying.</span>
   </div>
-</footer>
 
-<div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" inert>
-  <div class="dhead">
-    <h2 id="dTitle"></h2>
-    <button class="ib" id="dClose" type="button" data-i18n-label="close" aria-label="Close">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
-    </button>
-  </div>
-  <div class="dbody" id="dBody"></div>
-</aside>
-<div class="toast" id="toast" role="status"></div>
+  <!-- Video.js Script -->
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
-<script id="appScript">
-(function(){
-'use strict';
-var $=function(s,r){return (r||document).querySelector(s)};
-var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-var DAY=864e5, today=new Date(); today.setHours(0,0,0,0);
-var addDays=function(n){return new Date(today.getTime()+n*DAY)};
-var esc=function(s){return String(s===undefined||s===null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+  <script>
+    // Initialize VideoJS Player
+    const player = videojs('custom-player');
 
-/* ---------- 1000-Round Salted Cryptographic Password Hash (Zero Plaintext in Code) ---------- */
-function hashSecret(pwd){
-  var salt='CGONE_SEC_v9#2026', rev='6202#9v_CES_ENOGC';
-  var s=salt+'::'+String(pwd||'')+'::'+rev;
-  var h1=0x811c9dc5>>>0, h2=0x01000193>>>0, h3=0xdeadbeef>>>0, h4=0x9e3779b9>>>0;
-  for(var i=0;i<s.length;i++){
-    var c=s.charCodeAt(i);
-    h1=Math.imul((h1^c)>>>0, 0x01000193)>>>0;
-    h2=(((h2+((c<<(i%17))>>>0))>>>0)^(h1>>>3))>>>0;
-    h3=Math.imul((h3^Math.imul(c,131))>>>0, 0x85ebca6b)>>>0;
-    h4=(((h4+h1)>>>0)^((h3<<(i%13))>>>0))>>>0;
-  }
-  for(var r=0;r<1000;r++){
-    h1=Math.imul((h1^(h4>>>7))>>>0, 0x01000193)>>>0;
-    h2=Math.imul((h2+h1)>>>0, 0x85ebca6b)>>>0;
-    h3=Math.imul((h3^h2)>>>0, 0xc2b2ae35)>>>0;
-    h4=(((h4+h3)>>>0)^(h1>>>11))>>>0;
-  }
-  var hex=function(n){return ('00000000'+(n>>>0).toString(16)).slice(-8)};
-  return hex(h1)+hex(h2)+hex(h3)+hex(h4);
-}
-
-/* ---------- owner config (password stored ONLY as cryptographic hash) ---------- */
-/*__CONFIG_START__*/
-var DEFAULT_CONFIG={
-  ownerWhatsapp:'919826110100',
-  ownerEmail:'contact@cgone.in',
-  googleFormUrl:'https://docs.google.com/forms/',
-  pwdHash:'1cd36f5be066764085579782a3e032a3',
-  devToolsShield:true
-};
-/*__CONFIG_END__*/
-
-var CONFIG=Object.assign({},DEFAULT_CONFIG);
-try{
-  var savedCfg=localStorage.getItem('cgone-sec-cfg');
-  if(savedCfg) Object.assign(CONFIG,JSON.parse(savedCfg));
-}catch(err){}
-function saveConfig(){
-  try{localStorage.setItem('cgone-sec-cfg',JSON.stringify(CONFIG))}catch(err){}
-}
-
-/* ---------- DevTools & Source Inspection Shield ---------- */
-document.addEventListener('contextmenu',function(e){
-  if(CONFIG.devToolsShield && !e.target.closest('input,textarea')){
-    e.preventDefault();
-  }
-});
-document.addEventListener('keydown',function(e){
-  if(!CONFIG.devToolsShield) return;
-  var k=(e.key||'').toUpperCase();
-  if(e.key==='F12' || (e.ctrlKey&&e.shiftKey&&(k==='I'||k==='J'||k==='C')) || (e.metaKey&&e.altKey&&(k==='I'||k==='J'||k==='C')) || (e.ctrlKey&&k==='U')){
-    e.preventDefault();
-    e.stopPropagation();
-  }
-});
-
-/* ---------- language ---------- */
-var I18N={
-en:{nav_exam:'Exams',nav_job:'Jobs',nav_college:'Colleges',nav_room:'Rooms',
- h1a:'Every exam date, syllabus and centre',h1b:'in Chhattisgarh, on CG ONE',
- sub:'Official dates, syllabus topics, fees, required documents and nearest choice centres—together on one page.',
- ph:'Search an exam, syllabus, job, college or hostel',
- tab_all:'All',tab_exam:'Exams',tab_job:'Jobs',tab_college:'Colleges',tab_room:'Hostels & rooms',
- city:'Your city',loc:'Use my location',myLoc:'My location',budget:'Rent up to',
- soon_h:'Closing soon',soon_s:'Forms with the nearest last date',browse_h:'Browse by category',
- cat_exam:'Exams & Syllabus',cat_job:'Jobs & Recruitment',cat_college:'Colleges & Universities',cat_room:'Hostels & Rooms',
- cat_exam_d:'CG and all-India exam dates, syllabus PDFs, forms and fees',cat_job_d:'Government and private jobs with syllabus & requirements',
- cat_college_d:'Locations, courses and office hours',cat_room_d:'Verified hostels and rented rooms with price and phone number',
- band_h:'Run a hostel, rent rooms or a choice centre?',band_s:'Send your listing details for owner verification so students nearby can find and call you.',band_b:'Request listing',
- foot:'CG ONE – Verified official portal & syllabus links included. Check final dates and fees on the official website before applying.',
- d_last:'Last date',d_exam:'Exam date',d_fees:'Fees',d_syl:'Official Syllabus & Topics',d_syl_btn:'Download / View Official Syllabus',
- d_docs:'Documents needed',d_centres:'Nearest choice centres',
- d_apply:'Apply on official site',d_portal:'Official portal',d_website:'Official website',
- d_call:'Call',d_wa:'WhatsApp',d_maps:'Open in Maps',d_courses:'Courses',d_hours:'Office hours',
- d_rent:'Rent per month',d_beds:'Free beds',d_for:'For',d_amen:'Includes',d_area:'Area',svc:'Service charge',
- close:'Close',lang_label:'Change language',theme_label:'Switch light or dark theme',
- t_exam:'Exam',t_job:'Job',t_college:'College',t_room:'Room',t_centre:'Choice Centre',
- sc_CG:'Chhattisgarh',sc_India:'All India',sc_Univ:'University',
- f_Mode:'Mode',f_Vacancies:'Vacancies',f_Qualification:'Qualification',f_Age:'Age limit',
- w_Boys:'Boys',w_Girls:'Girls',w_Any:'Anyone',
- sugg:'Closing soon and near you',
- t_loc:'Location is blocked. Choose your city instead.',
- list_title:'Request a listing on CG ONE',
- list_sub:'Send your hostel, room or choice centre details for owner verification.',
- list_pending:'Sent to Owner Approval Queue! It will go live after owner verification.',
- list_wa_sent:'Opening WhatsApp to send your request to CG ONE...',
- list_mail_sent:'Opening your email app to send your request to CG ONE...',
- mgr_title:'CG ONE – Hidden Admin Control Panel',
- mgr_sub:'Edit any exam, job, syllabus, college, hostel or choice centre, run Auto-Finder, and save your updated website.'},
-hi:{nav_exam:'परीक्षा',nav_job:'नौकरी',nav_college:'कॉलेज',nav_room:'कमरे',
- h1a:'छत्तीसगढ़ की हर परीक्षा तिथि, सिलेबस',h1b:'और केंद्र, अब CG ONE पर',
- sub:'आधिकारिक तारीख़ें, सिलेबस, शुल्क, ज़रूरी दस्तावेज़ और नज़दीकी चॉइस सेंटर—सब एक ही पेज पर।',
- ph:'परीक्षा, सिलेबस, नौकरी, कॉलेज या हॉस्टल खोजें',
- tab_all:'सभी',tab_exam:'परीक्षाएँ',tab_job:'नौकरियाँ',tab_college:'कॉलेज',tab_room:'हॉस्टल और कमरे',
- city:'आपका शहर',loc:'मेरी लोकेशन उपयोग करें',myLoc:'मेरी लोकेशन',budget:'अधिकतम किराया',
- soon_h:'जल्द बंद होने वाले फॉर्म',soon_s:'सबसे नज़दीकी अंतिम तिथि वाले फॉर्म',browse_h:'श्रेणी के अनुसार देखें',
- cat_exam:'परीक्षाएँ और सिलेबस',cat_job:'नौकरियाँ और भर्ती',cat_college:'कॉलेज और विश्वविद्यालय',cat_room:'हॉस्टल और कमरे',
- cat_exam_d:'छत्तीसगढ़ और अखिल भारतीय परीक्षाओं की तिथि, सिलेबस, फॉर्म और शुल्क',cat_job_d:'सरकारी और निजी नौकरियाँ, सिलेबस और योग्यता सहित',
- cat_college_d:'कॉलेज की लोकेशन, कोर्स और कार्यालय समय',cat_room_d:'सत्यापित हॉस्टल और किराए के कमरे, कीमत और फ़ोन नंबर सहित',
- band_h:'हॉस्टल, किराए के कमरे या चॉइस सेंटर चलाते हैं?',band_s:'सत्यापन के लिए अपना विवरण भेजें ताकि आस-पास के छात्र आपको ढूँढकर कॉल कर सकें।',band_b:'लिस्टिंग अनुरोध भेजें',
- foot:'CG ONE – सत्यापित आधिकारिक पोर्टल और सिलेबस लिंक शामिल हैं। आवेदन से पहले आधिकारिक वेबसाइट पर जाँच लें।',
- d_last:'अंतिम तिथि',d_exam:'परीक्षा तिथि',d_fees:'शुल्क',d_syl:'आधिकारिक सिलेबस और विषय',d_syl_btn:'आधिकारिक सिलेबस देखें / डाउनलोड करें',
- d_docs:'ज़रूरी दस्तावेज़',d_centres:'नज़दीकी चॉइस सेंटर',
- d_apply:'आधिकारिक साइट पर आवेदन करें',d_portal:'आधिकारिक पोर्टल',d_website:'आधिकारिक वेबसाइट',
- d_call:'कॉल करें',d_wa:'व्हाट्सऐप',d_maps:'मैप में खोलें',d_courses:'कोर्स',d_hours:'कार्यालय समय',
- d_rent:'मासिक किराया',d_beds:'खाली बिस्तर',d_for:'किसके लिए',d_amen:'सुविधाएँ',d_area:'क्षेत्र',svc:'सर्विस चार्ज',
- close:'बंद करें',lang_label:'भाषा बदलें',theme_label:'लाइट या डार्क थीम बदलें',
- t_exam:'परीक्षा',t_job:'नौकरी',t_college:'कॉलेज',t_room:'कमरा',t_centre:'चॉइस सेंटर',
- sc_CG:'छत्तीसगढ़',sc_India:'अखिल भारत',sc_Univ:'विश्वविद्यालय',
- f_Mode:'माध्यम',f_Vacancies:'पद',f_Qualification:'योग्यता',f_Age:'आयु सीमा',
- w_Boys:'लड़के',w_Girls:'लड़कियाँ',w_Any:'कोई भी',
- sugg:'जल्द बंद और आपके पास',
- t_loc:'लोकेशन बंद है। कृपया अपना शहर चुनें।',
- list_title:'CG ONE पर लिस्टिंग के लिए अनुरोध भेजें',
- list_sub:'अपना हॉस्टल, कमरा या चॉइस सेंटर सत्यापन के लिए भेजें।',
- list_pending:'ओनर अप्रूवल क्यू में भेज दिया गया! आपकी अनुमति के बाद ही यह साइट पर दिखेगा।',
- list_wa_sent:'CG ONE टीम को व्हाट्सऐप पर अनुरोध भेजा जा रहा है...',
- list_mail_sent:'CG ONE टीम को ईमेल ऐप से अनुरोध भेजा जा रहा है...',
- mgr_title:'CG ONE – गुप्त एडमिन कंट्रोल पैनल',
- mgr_sub:'किसी भी परीक्षा, नौकरी, सिलेबस, कॉलेज, हॉस्टल या चॉइस सेंटर को जोड़ें या बदलें (Edit करें)।'}
-};
-var lang='en';
-var t=function(k){return (I18N[lang]&&I18N[lang][k])||I18N.en[k]||k};
-var fmt=function(d){return d.toLocaleDateString(lang==='hi'?'hi-IN':'en-IN',{day:'numeric',month:'short'})};
-var daysLeft=function(n){
-  if(lang==='hi') return n===0?'आज अंतिम दिन':n+' दिन बाकी';
-  return n===0?'Last day today':(n===1?'1 day left':n+' days left');
-};
-var readyTxt=function(a,b){return lang==='hi'?(b+' में से '+a+' दस्तावेज़ तैयार'):(a+' of '+b+' documents ready')};
-var bedsTxt=function(n){return lang==='hi'?(n+' बिस्तर खाली'):(n+(n===1?' bed free':' beds free'))};
-var countTxt=function(n){return lang==='hi'?(n+' परिणाम'):(n+(n===1?' result':' results'))};
-var nearTxt=function(c){return lang==='hi'?(c+' के पास'):('Near '+c)};
-
-/* ---------- cities & verified data ---------- */
-var CITIES={Raipur:[21.2514,81.6296],Bilaspur:[22.0797,82.1391],Durg:[21.1904,81.2849],Bhilai:[21.2090,81.3510],Korba:[22.3595,82.7501],Raigarh:[21.8974,83.3950],Rajnandgaon:[21.0974,81.0337],Jagdalpur:[19.0748,82.0080],Ambikapur:[23.1189,83.1957]};
-var L=function(c,dx,dy){var base=CITIES[c]||CITIES.Raipur; return [base[0]+dx,base[1]+dy]};
-var D={aadhaar:'Aadhaar card',photo:'Recent passport-size photograph',sign:'Scanned signature',dob:'10th marksheet (date of birth proof)',m12:'12th marksheet',grad:'Graduation marksheet and degree',dom:'CG domicile (Mool Niwas) certificate',caste:'Caste certificate (if applying under a reserved category)',bank:'Bank account or UPI for fee payment',phone:'Active mobile number and email ID',idc:'College ID card',prev:'Previous semester marksheet',enrol:'University enrolment number'};
-
-var BASE_ALL=[], BASE_CENTRES=[];
-function exam(id,scope,title,body,last,date,fee,mode,docs,tags,url,syl,sylUrl){BASE_ALL.push({id:id,type:'exam',scope:scope,title:title,body:body,last:last,date:date,fee:fee,extra:[['Mode',mode]],docs:docs,tags:tags,url:url,syl:syl||[],sylUrl:sylUrl||url})}
-function job(id,scope,title,body,last,fee,extra,docs,tags,url,syl,sylUrl){BASE_ALL.push({id:id,type:'job',scope:scope,title:title,body:body,last:last,fee:fee,extra:extra,docs:docs,tags:tags,url:url,syl:syl||[],sylUrl:sylUrl||url})}
-function college(id,title,kind,city,area,time,courses,dx,dy,tags,url){BASE_ALL.push({id:id,type:'college',title:title,body:kind,city:city,area:area,time:time,courses:courses,ll:L(city,dx,dy),tags:tags,url:url||''})}
-function room(id,title,city,area,rent,beds,who,amen,dx,dy,ph,tags){BASE_ALL.push({id:id,type:'room',title:title,city:city,area:area,rent:rent,beds:beds,who:who,amen:amen,ll:L(city,dx,dy),ph:ph,tags:tags})}
-
-exam('e1','CG','CG Vyapam Pre B.Ed. Entrance','Chhattisgarh Professional Examination Board',9,42,[['General','₹350'],['SC / ST','₹250']],'OMR, 2 hours',[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste,D.bank],'bed teacher education vyapam syllabus','https://vyapamcg.cgstate.gov.in/',['General Mental Ability & Reasoning (30 Marks)','General Awareness & Chhattisgarh GK (20 Marks)','Educational Interest / Teaching Aptitude (30 Marks)','General Hindi & General English (20 Marks)'],'https://prepp.in/cg-vyapam-recruitment-exam/syllabus');
-exam('e2','CG','CG PSC State Service Examination','Chhattisgarh Public Service Commission',16,70,[['General','₹400'],['SC / ST / OBC (CG)','₹300']],'Written, 2 stages',[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste,D.bank,D.phone],'cgpsc psc civil services officer syllabus','https://psc.cg.gov.in/',['Prelims Paper 1: General Studies (India + Chhattisgarh History, Geography, Polity, Economy, Science & Current Affairs)','Prelims Paper 2: CSAT (Aptitude, Reasoning, Data Interpretation, Hindi & Chhattisgarhi Language)','Mains: 7 Descriptive Papers + Interview'],'https://geoias.com/cgpsc-syllabus-2025/');
-exam('e3','CG','CG TET (Teacher Eligibility Test)','Chhattisgarh Professional Examination Board',21,55,[['Paper 1 or 2','₹500'],['Both papers','₹800']],'OMR, 2.5 hours',[D.aadhaar,D.photo,D.sign,D.dob,D.m12,'Diploma or degree in teaching (D.El.Ed / B.Ed)',D.dom,D.bank],'tet teacher teaching vyapam syllabus','https://vyapamcg.cgstate.gov.in/',['Child Development & Pedagogy (30 Marks)','Language I: Hindi & Language II: English (60 Marks)','Mathematics & Environmental Studies / Social Science (60 Marks)'],'https://prepp.in/cg-vyapam-recruitment-exam/syllabus');
-exam('e4','Univ','CSVTU Semester Exam Form (B.Tech)','Chhattisgarh Swami Vivekanand Technical University',4,30,[['Per paper','₹150'],['Late fee','₹500']],'Written, offline',[D.idc,D.prev,D.enrol,D.photo,D.bank],'csvtu btech engineering semester exam form syllabus','https://csvtu.ac.in/',['B.Tech 1st–8th Semester Branch-wise Scheme & Syllabus (CSE, AI/ML, Civil, Mechanical, Electrical, ET&T)','Credit-based AICTE scheme & laboratory practicals'],'https://csvtu.ac.in/ew/syllabus/');
-exam('e5','Univ','Pt. Ravishankar Shukla University UG Exam Form','Pt. Ravishankar Shukla University, Raipur',12,35,[['BA / BSc / BCom','₹900'],['Late fee','₹300']],'Written, offline',[D.idc,D.prev,D.enrol,D.photo,D.bank],'prsu ravishankar shukla ug degree ba bsc bcom semester syllabus','https://www.prsu.ac.in/',['NEP-based Undergraduate Semester Syllabus for BA, BSc, BCom & BCA','Foundation Course (Hindi, English, Environmental Studies) + Core Major/Minor Subjects'],'https://www.prsu.ac.in/examination/exam/time-table/semester-exam');
-exam('e6','India','SSC CGL','Staff Selection Commission',25,95,[['General','₹100'],['Women / SC / ST','No fee']],'Computer based, 2 tiers',[D.aadhaar,D.photo,D.sign,D.grad,D.dob,D.caste,D.bank,D.phone],'ssc cgl graduate central government syllabus','https://ssc.gov.in/',['Tier-I: General Intelligence & Reasoning, General Awareness, Quantitative Aptitude, English Comprehension','Tier-II: Mathematical Abilities, Reasoning, English, General Awareness & Computer Knowledge'],'https://ssc.gov.in/');
-exam('e7','India','NEET UG','National Testing Agency',30,120,[['General','₹1,700'],['OBC / EWS','₹1,600'],['SC / ST','₹1,000']],'Pen and paper, 3 hours 20 min',[D.aadhaar,D.photo,D.sign,'Thumb impression',D.m12,D.caste,D.bank],'neet medical mbbs doctor nta syllabus','https://neet.nta.nic.in/',['Physics (Class 11 & 12 NCERT Core Units)','Chemistry (Physical, Organic & Inorganic Chemistry)','Biology (Botany & Zoology - 90 Questions)'],'https://neet.nta.nic.in/');
-exam('e8','India','UPSC Civil Services Prelims','Union Public Service Commission',38,110,[['General','₹100'],['Women / SC / ST','No fee']],'Objective, 2 papers',[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.caste,'Photo ID for the exam day'],'upsc ias ips civil services syllabus','https://upsconline.nic.in/',['GS Paper I: Indian Polity, History, Geography, Economy, Environment & Current Events (200 Marks)','CSAT Paper II: Comprehension, Logical Reasoning & Numeracy (Qualifying 33%)'],'https://www.upsc.gov.in/apply-online');
-
-job('j1','CG','Patwari Recruitment','Chhattisgarh Professional Examination Board',7,[['General','₹350'],['SC / ST','₹250']],[['Vacancies','1,000+'],['Qualification','Graduate'],['Age','18–35 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste,D.bank],'patwari revenue vyapam government syllabus','https://vyapamcg.cgstate.gov.in/',['Computer Knowledge (20 Marks)','Hindi & English Grammar (20 Marks)','Mathematics & General Mental Ability (65 Marks)','Chhattisgarh GK, Indian GK & Current Affairs (45 Marks)'],'https://prepp.in/cg-vyapam-recruitment-exam/syllabus');
-job('j2','CG','Police Constable (General Duty)','Chhattisgarh Police Recruitment Board',18,[['General','₹300'],['SC / ST','₹200']],[['Vacancies','2,000+'],['Qualification','12th pass'],['Age','18–28 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.m12,D.dom,D.caste,'Physical standard documents'],'police constable cg police syllabus','https://citizen.cgpolice.gov.in/citizen/login.htm',['Written Exam (100 Marks): Chhattisgarh General Knowledge, Indian GS, Reasoning & Numerical Ability','Physical Efficiency Test (PET): Long Jump, High Jump, Shot Put, 100m & 800m Run'],'https://citizen.cgpolice.gov.in/citizen/login.htm');
-job('j3','CG','Anganwadi Worker (District level)','Women and Child Development Department',14,[['Application','No fee']],[['Vacancies','Varies by district'],['Qualification','12th pass'],['Age','18–35 years']],[D.aadhaar,D.photo,D.dob,D.m12,D.dom,'Residence proof of the local area'],'anganwadi worker women child development','https://bastar.gov.in/notice_category/%E0%A4%AD%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A5%80/',['Merit-based selection on 12th/10th board marks, local residency weightage & experience points'],'https://bastar.gov.in/notice_category/%E0%A4%AD%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A5%80/');
-job('j4','India','IBPS Clerk','Institute of Banking Personnel Selection',22,[['General','₹850'],['SC / ST','₹175']],[['Vacancies','6,000+'],['Qualification','Graduate'],['Age','20–28 years']],[D.aadhaar,D.photo,D.sign,'Thumb impression',D.grad,D.dob,D.caste,D.phone],'ibps bank clerk banking syllabus','https://www.ibps.in/',['Prelims: English Language (30), Numerical Ability (35), Reasoning Ability (35)','Mains: General/Financial Awareness, General English, Reasoning & Computer Aptitude, Quantitative Aptitude'],'https://www.ibps.in/');
-job('j5','India','Railway Group D (RRB)','Railway Recruitment Boards',30,[['General','₹500'],['SC / ST / Women','₹250']],[['Vacancies','30,000+'],['Qualification','10th pass + ITI or equivalent'],['Age','18–33 years']],[D.aadhaar,D.photo,D.sign,D.dob,D.caste,D.bank,D.phone],'railway rrb group d iti syllabus','https://www.rrbapply.gov.in/',['General Science (25 Marks), Mathematics (25 Marks), General Intelligence & Reasoning (30 Marks), General Awareness & Current Affairs (20 Marks)'],'https://www.rrbapply.gov.in/');
-
-college('c1','National Institute of Technology Raipur','Institute of national importance','Raipur','G.E. Road','10:00–17:00, Mon–Fri','B.Tech, M.Tech, MCA, PhD',.012,.01,'nit engineering btech','');
-college('c2','Pt. Ravishankar Shukla University','State university','Raipur','Amanaka','10:30–17:30, Mon–Sat','UG, PG and research programmes',.025,-.03,'prsu ravishankar shukla university','https://www.prsu.ac.in/');
-college('c3','Pt. J.N.M. Medical College','Government medical college','Raipur','Pandri','9:00–17:00, Mon–Sat','MBBS, MD, MS, nursing',-.012,.02,'medical mbbs doctor jnm','');
-college('c4','Government Engineering College Bilaspur','Government engineering college','Bilaspur','Seipat','10:30–17:00, Mon–Sat','B.Tech, M.Tech',-.05,-.02,'gec engineering btech','https://csvtu.ac.in/');
-college('c5','Govt. E. Raghavendra Rao PG Science College','Government PG college','Bilaspur','Civil Lines','10:30–17:00, Mon–Sat','BSc, MSc, BCA',.01,.012,'science bsc msc pg','');
-college('c6','Bhilai Institute of Technology','Private engineering college','Durg','Kolihapuri','9:30–17:00, Mon–Sat','B.Tech, M.Tech, MBA',.015,-.02,'bit engineering btech durg bhilai','https://csvtu.ac.in/');
-college('c7','Govt. Digvijay Autonomous PG College','Government autonomous college','Rajnandgaon','Station Road','10:30–17:00, Mon–Sat','BA, BSc, BCom, PG',.005,.008,'digvijay college ba bsc bcom','');
-college('c8','Bastar University','State university','Jagdalpur','Dharampura','10:30–17:30, Mon–Sat','UG, PG and diploma programmes',.03,.02,'bastar university','');
-college('c9','Sarguja University','State university','Ambikapur','Darima','10:30–17:30, Mon–Sat','UG, PG and research programmes',.04,-.03,'sarguja university','');
-
-room('r1','Shanti Boys Hostel','Raipur','Telibandha',3500,4,'Boys',['Wi-Fi','Meals','Laundry'],.01,-.015,'+91 98261 11166','hostel boys pg');
-room('r2','Saraswati Girls PG','Raipur','Shankar Nagar',4800,2,'Girls',['Wi-Fi','Meals','CCTV'],.02,.005,'+91 98261 11600','pg girls hostel');
-room('r3','Campus Side Rooms','Raipur','Pandri',2600,5,'Any',['Attached bath','Water supply'],-.015,.01,'+91 98261 10866','rooms rent student');
-room('r4','Scholars PG','Raipur','Kota',5500,3,'Any',['Wi-Fi','AC room','Meals'],-.02,-.03,'+91 98261 11833','pg rooms ac');
-room('r5','1RK near Sarkanda','Bilaspur','Sarkanda',3000,1,'Any',['Attached bath','Kitchen'],-.02,-.01,'+91 98261 11000','rooms rent 1rk');
-room('r6','Green Valley Girls Hostel','Bilaspur','Link Road',4200,3,'Girls',['Wi-Fi','Meals','CCTV'],.015,.02,'+91 98261 11400','hostel girls');
-room('r7','Student Nest Hostel','Bhilai','Nehru Nagar',3800,6,'Boys',['Wi-Fi','Meals','Study room'],.01,.01,'+91 98261 11266','hostel boys');
-room('r8','Rooms for students','Korba','Transport Nagar',2800,2,'Any',['Water supply','Parking'],.01,-.01,'+91 98261 10933','rooms rent student');
-
-BASE_CENTRES=[
- {id:'cc1',type:'centre',name:'Jan Seva Choice Centre',area:'Telibandha',city:'Raipur',time:'9:00–19:00',svc:'₹60',ph:'+91 98261 10101',ll:L('Raipur',.011,-.012)},
- {id:'cc2',type:'centre',name:'Digital Seva Kendra',area:'Pandri',city:'Raipur',time:'9:30–19:30',svc:'₹50',ph:'+91 98261 10102',ll:L('Raipur',-.014,.011)},
- {id:'cc3',type:'centre',name:'Sarkanda Choice Centre',area:'Sarkanda',city:'Bilaspur',time:'9:00–20:00',svc:'₹60',ph:'+91 98261 10103',ll:L('Bilaspur',-.02,-.012)},
- {id:'cc4',type:'centre',name:'Link Road CSC',area:'Link Road',city:'Bilaspur',time:'10:00–19:00',svc:'₹50',ph:'+91 98261 10104',ll:L('Bilaspur',.012,.018)},
- {id:'cc5',type:'centre',name:'Station Road Choice Centre',area:'Station Road',city:'Durg',time:'9:30–19:00',svc:'₹50',ph:'+91 98261 10105',ll:L('Durg',.004,.006)},
- {id:'cc6',type:'centre',name:'Supela CSC',area:'Supela',city:'Bhilai',time:'9:00–19:00',svc:'₹60',ph:'+91 98261 10106',ll:L('Bhilai',.008,.004)},
- {id:'cc7',type:'centre',name:'Transport Nagar Choice Centre',area:'Transport Nagar',city:'Korba',time:'10:00–18:30',svc:'₹50',ph:'+91 98261 10107',ll:L('Korba',.01,-.01)},
- {id:'cc8',type:'centre',name:'Kotra Road CSC',area:'Kotra Road',city:'Raigarh',time:'9:30–19:00',svc:'₹50',ph:'+91 98261 10108',ll:L('Raigarh',.006,.01)},
- {id:'cc9',type:'centre',name:'Gol Bazar Choice Centre',area:'Gol Bazar',city:'Rajnandgaon',time:'9:30–19:00',svc:'₹40',ph:'+91 98261 10109',ll:L('Rajnandgaon',.004,.003)},
- {id:'cc10',type:'centre',name:'Dharampura CSC',area:'Dharampura',city:'Jagdalpur',time:'10:00–18:30',svc:'₹50',ph:'+91 98261 10110',ll:L('Jagdalpur',.012,.008)},
- {id:'cc11',type:'centre',name:'Main Road Choice Centre',area:'Main Road',city:'Ambikapur',time:'9:30–19:00',svc:'₹40',ph:'+91 98261 10111',ll:L('Ambikapur',.007,-.008)}
-];
-
-var AUTO_DISCOVERY_FEED=[
-  {id:'auto_e1',trusted:true,type:'exam',scope:'CG',title:'CG Vyapam Lecturer Recruitment Exam 2026 (854 Posts)',body:'Chhattisgarh Karmachari Chayan Mandal (CGSSB / Vyapam)',last:12,date:52,fee:[['CG Domicile','No fee / Portal charge']],extra:[['Mode','OMR Objective'],['Vacancies','854 Posts']],docs:[D.aadhaar,D.photo,D.sign,D.grad,'B.Ed Degree & PG Marksheet',D.dom],tags:'lecturer vyapam cgssb teacher syllabus',url:'https://vyapamcg.cgstate.gov.in/',syl:['Subject Specific PG Level Questions (100 Marks)','Educational Psychology & Pedagogy (30 Marks)','General Hindi, English, Computer & Chhattisgarh GK (20 Marks)'],sylUrl:'https://www.karmasandhan.com/cg-vyapam-lecturer-recruitment-2026/'},
-  {id:'auto_j1',trusted:true,type:'job',scope:'CG',title:'CG Vyapam Group 2 (DEO, SI & Assistant) Recruitment 2026',body:'Chhattisgarh Professional Examination Board',last:19,fee:[['General / OBC','₹350'],['SC / ST','₹250']],extra:[['Vacancies','1,710 Posts'],['Qualification','Graduate + Computer Diploma'],['Age','18–35 years']],docs:[D.aadhaar,D.photo,D.sign,D.dob,D.grad,D.dom,D.caste],tags:'group 2 deo si vyapam cgssb job syllabus',url:'https://vyapamcg.cgstate.gov.in/',syl:['General Studies & Chhattisgarh GK (50 Marks)','Computer Science & IT Basics (30 Marks)','Reasoning, Arithmetic, General Hindi & English (70 Marks)'],sylUrl:'https://www.adda247.com/exams/chhattisgarh/cg-vyapam-group-2-recruitment-2026/'},
-  {id:'auto_r1',trusted:false,ty:'room',title:'Annapurna Boys PG & Mess (Near NIT)',city:'Raipur',area:'G.E. Road, Kota',rent:4000,beds:3,who:'Boys',ph:'+91 98261 14455',amen:['Wi-Fi','3-Time Meals','RO Water'],amenRaw:'Wi-Fi, 3-Time Meals, RO Water'},
-  {id:'auto_r2',trusted:false,ty:'room',title:'Maa Bamleshwari Girls Hostel',city:'Bilaspur',area:'Nehru Chowk',rent:3800,beds:4,who:'Girls',ph:'+91 98261 15566',amen:['CCTV','Meals','Warden 24x7'],amenRaw:'CCTV, Meals, Warden 24x7'}
-];
-
-/*__CUSTOM_DATA_START__*/
-var EMBEDDED_CUSTOM_ALL=[];
-var EMBEDDED_CUSTOM_CENTRES=[];
-var EMBEDDED_OVERRIDES={};
-var EMBEDDED_DELETED_IDS=[];
-/*__CUSTOM_DATA_END__*/
-
-var customAll=EMBEDDED_CUSTOM_ALL.slice();
-var customCentres=EMBEDDED_CUSTOM_CENTRES.slice();
-var itemOverrides=Object.assign({},EMBEDDED_OVERRIDES);
-var deletedIds=EMBEDDED_DELETED_IDS.slice();
-var pendingSubmissions=[];
-
-try{
-  var ca=localStorage.getItem('cgone-custom-all'); if(ca) customAll=JSON.parse(ca);
-  var cc=localStorage.getItem('cgone-custom-centres'); if(cc) customCentres=JSON.parse(cc);
-  var ov=localStorage.getItem('cgone-overrides'); if(ov) itemOverrides=JSON.parse(ov);
-  var dl=localStorage.getItem('cgone-deleted-ids'); if(dl) deletedIds=JSON.parse(dl);
-  var ps=localStorage.getItem('cgone-pending'); if(ps) pendingSubmissions=JSON.parse(ps);
-}catch(err){}
-
-function persistData(){
-  try{
-    localStorage.setItem('cgone-custom-all',JSON.stringify(customAll));
-    localStorage.setItem('cgone-custom-centres',JSON.stringify(customCentres));
-    localStorage.setItem('cgone-overrides',JSON.stringify(itemOverrides));
-    localStorage.setItem('cgone-deleted-ids',JSON.stringify(deletedIds));
-    localStorage.setItem('cgone-pending',JSON.stringify(pendingSubmissions));
-  }catch(err){}
-}
-
-var ALL=[], CENTRES=[], BYID={}, CENTRE_BYID={};
-function rebuildIndex(){
-  var delSet=new Set(deletedIds);
-  var merged=BASE_ALL.map(function(it){
-    return itemOverrides[it.id]?Object.assign({},it,itemOverrides[it.id]):it;
-  }).concat(customAll.map(function(it){
-    return itemOverrides[it.id]?Object.assign({},it,itemOverrides[it.id]):it;
-  }));
-  ALL=merged.filter(function(it){return !delSet.has(it.id)});
-  var mergedCentres=BASE_CENTRES.map(function(c){
-    return itemOverrides[c.id]?Object.assign({},c,itemOverrides[c.id]):c;
-  }).concat(customCentres.map(function(c){
-    return itemOverrides[c.id]?Object.assign({},c,itemOverrides[c.id]):c;
-  }));
-  CENTRES=mergedCentres.filter(function(c){return !delSet.has(c.id)});
-  BYID={}; CENTRE_BYID={};
-  ALL.forEach(function(it){
-    if(!it.ll && it.city) it.ll=L(it.city,0.01,0.01);
-    BYID[it.id]=it;
-    it.hay=[it.title,it.body||'',it.city||'',it.area||'',it.tags||'',it.scope||'',(it.syl||[]).join(' ')].join(' ').toLowerCase();
-  });
-  CENTRES.forEach(function(c){
-    if(!c.ll && c.city) c.ll=L(c.city,0.008,0.008);
-    CENTRE_BYID[c.id]=c;
-  });
-}
-rebuildIndex();
-
-/* ---------- private state & 7-tap security ---------- */
-var state={tab:'all',q:'',city:'Raipur',pos:CITIES.Raipur,geo:null,maxRent:8000,open:null,mode:null,adminUnlocked:false,adminTab:'items',editId:null,failedAttempts:0,lockUntil:0,checks:{}};
-var tapCount=0, tapTimer=null;
-
-try{
-  var savedChecks=localStorage.getItem('cgone-checks');
-  if(savedChecks){
-    var parsed=JSON.parse(savedChecks);
-    Object.keys(parsed).forEach(function(k){state.checks[k]=new Set(parsed[k])});
-  }
-}catch(err){}
-function saveChecks(){
-  try{
-    var out={};
-    Object.keys(state.checks).forEach(function(k){out[k]=Array.from(state.checks[k])});
-    localStorage.setItem('cgone-checks',JSON.stringify(out));
-  }catch(err){}
-}
-
-var rad=function(x){return x*Math.PI/180};
-function km(a,b){if(!a||!b) return 2; var R=6371,dl=rad(b[0]-a[0]),dg=rad(b[1]-a[1]);var h=Math.pow(Math.sin(dl/2),2)+Math.cos(rad(a[0]))*Math.cos(rad(b[0]))*Math.pow(Math.sin(dg/2),2);return 2*R*Math.asin(Math.sqrt(h))}
-var dist=function(it){return km(state.pos,it.ll)};
-var key=function(it){return it.last!==undefined?it.last:100+dist(it)};
-
-/* ---------- phone & whatsapp helpers ---------- */
-function cleanDigits(ph){
-  var d=String(ph||'').replace(/\D+/g,'');
-  if(d.length===10) return '91'+d;
-  if(d.length>10) return d;
-  return '919826110100';
-}
-function telHref(ph){
-  return 'tel:+'+cleanDigits(ph);
-}
-function waHref(ph,title,city){
-  var num=cleanDigits(ph);
-  var msg=lang==='hi'
-    ?('नमस्ते, मैंने CG ONE पर "'+title+'" ('+(city||'छत्तीसगढ़')+') देखा। कृपया इसके बारे में जानकारी दें।')
-    :('Hello, I saw "'+title+'" ('+(city||'Chhattisgarh')+') on CG ONE and would like more details.');
-  return 'https://wa.me/'+num+'?text='+encodeURIComponent(msg);
-}
-function hostDomain(url){
-  try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}
-}
-
-/* ---------- results ---------- */
-function compute(){
-  var tokens=state.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  var pool=ALL.filter(function(it){return state.tab==='all'||it.type===state.tab});
-  if(state.tab==='room') pool=pool.filter(function(it){return it.rent<=state.maxRent});
-  if(tokens.length){
-    return pool.map(function(it){
-      if(!tokens.every(function(k){return it.hay.indexOf(k)>-1})) return null;
-      var tl=it.title.toLowerCase();
-      return {it:it,s:tokens.reduce(function(a,k){return a+(tl.indexOf(k)>-1?2:1)},0)};
-    }).filter(Boolean).sort(function(a,b){return b.s-a.s||key(a.it)-key(b.it)}).map(function(x){return x.it}).slice(0,12);
-  }
-  var sorted=pool.slice().sort(function(a,b){return key(a)-key(b)});
-  if(state.tab!=='all') return sorted.slice(0,12);
-  var by=function(ty,n){return sorted.filter(function(i){return i.type===ty}).slice(0,n)};
-  var fm=sorted.filter(function(i){return i.type==='exam'||i.type==='job'}).slice(0,4);
-  return fm.concat(by('college',2),by('room',2));
-}
-function endHtml(it){
-  if(it.type==='exam'||it.type==='job')
-    return '<span class="badge'+(it.last<=7?' urgent':'')+'">'+daysLeft(it.last)+'</span><small>'+t('d_last')+' '+fmt(addDays(it.last))+'</small>';
-  if(it.type==='college') return '<span class="badge">~'+Math.round(dist(it))+' km</span><small>'+esc(it.time)+'</small>';
-  return '<span class="badge">₹'+Number(it.rent||0).toLocaleString('en-IN')+'/'+(lang==='hi'?'माह':'mo')+'</span><small>'+bedsTxt(it.beds)+'</small>';
-}
-function metaOf(it){
-  if(it.type==='exam'||it.type==='job') return it.body+' · '+t('sc_'+it.scope)+(it.syl&&it.syl.length?' · Syllabus ✓':'');
-  if(it.type==='college') return it.area+', '+it.city+' · '+it.body;
-  return it.area+', '+it.city+' · '+t('w_'+it.who);
-}
-function renderResults(){
-  var list=compute(), q=state.q.trim();
-  $('#resHead').textContent=(!q&&state.tab==='all')?t('sugg'):countTxt(list.length);
-  if(!list.length){
-    $('#results').innerHTML='<div class="empty">'+(lang==='hi'
-      ?'“'+esc(q)+'” के लिए कुछ नहीं मिला। “police”, “syllabus”, “B.Ed” या “Raipur” जैसा शब्द आज़माएँ।'
-      :'No match for “'+esc(q)+'”. Try a shorter word such as “police”, “syllabus”, “B.Ed” or “Raipur”.')+'</div>';
-    return;
-  }
-  $('#results').innerHTML='<ul>'+list.map(function(it,i){
-    return '<li style="--i:'+i+'"><button class="row" type="button" data-id="'+esc(it.id)+'"><span class="chip c-'+esc(it.type)+'">'+t('t_'+it.type)+'</span><span class="main"><b>'+esc(it.title)+'</b><small>'+esc(metaOf(it))+'</small></span><span class="end">'+endHtml(it)+'</span></button></li>';
-  }).join('')+'</ul>';
-}
-function renderSoon(){
-  var items=ALL.filter(function(i){return i.last!==undefined}).sort(function(a,b){return a.last-b.last}).slice(0,6);
-  $('#soon').innerHTML=items.map(function(it){
-    return '<button class="si'+(it.last<=7?' hot':'')+'" type="button" data-id="'+esc(it.id)+'"><span class="d">'+it.last+'</span><span class="dl">'+(lang==='hi'?'दिन बाकी':(it.last===1?'day left':'days left'))+'</span><b>'+esc(it.title)+'</b><small>'+t('d_last')+' '+fmt(addDays(it.last))+'</small></button>';
-  }).join('');
-}
-function renderCats(){
-  var types=['exam','job','college','room'];
-  $('#cats').innerHTML=types.map(function(ty){
-    var n=ALL.filter(function(i){return i.type===ty}).length;
-    return '<button class="cat" type="button" data-go="'+ty+'"><span><h3>'+t('cat_'+ty)+'</h3><span class="ds">'+t('cat_'+ty+'_d')+'</span></span><span class="n">'+n+'</span></button>';
-  }).join('');
-}
-function citySelect(){
-  var opts=(state.geo?'<option value="geo"'+(state.city==='geo'?' selected':'')+'>'+t('myLoc')+'</option>':'')+
-    Object.keys(CITIES).map(function(c){return '<option value="'+c+'"'+(state.city===c?' selected':'')+'>'+c+'</option>'}).join('');
-  return '<select data-city-select aria-label="'+esc(t('city'))+'">'+opts+'</select>';
-}
-function renderSelect(){$('#cityWrap').innerHTML=citySelect()}
-function renderAll(){
-  rebuildIndex();
-  renderSelect();
-  renderResults();
-  renderSoon();
-  renderCats();
-}
-
-/* ---------- drawer & item detail ---------- */
-var drawer=$('#drawer'), scrim=$('#scrim'), lastFocus=null;
-var phoneIcon='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>';
-var waIcon='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>';
-var extIcon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-var shieldIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
-
-function mapsUrl(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
-
-function centresHtml(){
-  var list=CENTRES.slice().sort(function(a,b){return km(state.pos,a.ll)-km(state.pos,b.ll)}).slice(0,3);
-  return list.map(function(c,i){
-    return '<div class="centre" style="animation-delay:'+(i*60)+'ms"><div><b>'+esc(c.name)+'</b><small>'+esc(c.area)+', '+esc(c.city)+' · '+esc(c.time)+'</small><small>'+t('svc')+' '+esc(c.svc)+' · ~'+Math.round(km(state.pos,c.ll))+' km · '+esc(c.ph)+'</small></div><div class="c-actions"><a class="btn sm ghost" href="'+telHref(c.ph)+'">'+phoneIcon+' '+t('d_call')+'</a><a class="btn sm wa" href="'+waHref(c.ph,c.name,c.city)+'" target="_blank" rel="noopener noreferrer">'+waIcon+' '+t('d_wa')+'</a></div></div>';
-  }).join('');
-}
-function updateCentres(){var el=$('#dCentres'); if(el) el.innerHTML=centresHtml()}
-function docsHtml(it){
-  var set=state.checks[it.id]||(state.checks[it.id]=new Set());
-  var docs=it.docs&&it.docs.length?it.docs:[D.aadhaar,D.photo];
-  return '<div class="bar"><i id="bar" style="width:'+(set.size/docs.length*100)+'%"></i></div><p class="small" id="barTxt" style="margin:0 0 .3rem">'+readyTxt(set.size,docs.length)+'</p>'+
-    docs.map(function(d,i){return '<label class="chk"><input type="checkbox" data-doc="'+i+'"'+(set.has(i)?' checked':'')+'><span>'+esc(d)+'</span></label>'}).join('');
-}
-function fact(l,v,wide){return '<div class="fact'+(wide?' wide':'')+'"><span>'+l+'</span><b>'+v+'</b></div>'}
-
-function bodyHtml(it){
-  var h='<span class="chip c-'+esc(it.type)+'">'+t('t_'+it.type)+'</span>';
-  if(it.type==='exam'||it.type==='job'){
-    var f=fact(t('d_last'),fmt(addDays(it.last))+' · '+daysLeft(it.last));
-    if(it.type==='exam') f+=fact(t('d_exam'),fmt(addDays(it.date||30)));
-    (it.extra||[]).forEach(function(e){f+=fact(t('f_'+e[0]),esc(e[1]),it.type==='job'&&e[0]==='Qualification')});
-    var applyUrl=it.url||'https://vyapamcg.cgstate.gov.in/';
-    var sylUrl=it.sylUrl||applyUrl;
-    var sylTopics=(it.syl&&it.syl.length)?it.syl:['Official notification syllabus & exam pattern'];
-    var sylHtml='<h3>'+t('d_syl')+'</h3><div class="syl-box"><ul>'+sylTopics.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ul>'+
-      '<p style="margin:.65rem 0 0"><a class="btn sm ghost" href="'+esc(sylUrl)+'" target="_blank" rel="noopener noreferrer">'+t('d_syl_btn')+' '+extIcon+'</a></p></div>';
-    return h+'<p class="sub2">'+esc(it.body)+'</p><div class="tags"><span class="tag">'+t('sc_'+it.scope)+'</span></div>'+
-      '<div class="facts">'+f+'</div>'+
-      '<h3>'+t('d_fees')+'</h3><ul class="fees">'+(it.fee||[['General','₹0']]).map(function(x){return '<li><span>'+esc(x[0])+'</span><b>'+esc(x[1])+'</b></li>'}).join('')+'</ul>'+
-      sylHtml+
-      '<h3>'+t('d_docs')+'</h3>'+docsHtml(it)+
-      '<h3>'+t('d_centres')+'</h3><div class="chead"><span class="small">'+nearTxt('')+'</span>'+citySelect()+
-      '<button class="btn sm ghost" type="button" data-loc>'+t('loc')+'</button></div><div id="dCentres">'+centresHtml()+'</div>'+
-      '<p style="margin-top:1.6rem;margin-bottom:0"><a class="btn block" href="'+esc(applyUrl)+'" target="_blank" rel="noopener noreferrer">'+t('d_apply')+' '+extIcon+'</a></p>'+
-      '<div class="portal-note"><span>'+t('d_portal')+'</span><code>'+esc(hostDomain(applyUrl))+'</code></div>';
-  }
-  if(it.type==='college'){
-    var webBtn=it.url?'<a class="btn" href="'+esc(it.url)+'" target="_blank" rel="noopener noreferrer">'+t('d_website')+' '+extIcon+'</a>':'';
-    return h+'<p class="sub2">'+esc(it.body)+'</p><div class="facts">'+
-      fact(t('d_area'),esc(it.area)+', '+esc(it.city),true)+fact(t('d_hours'),esc(it.time),true)+fact(t('d_courses'),esc(it.courses),true)+'</div>'+
-      '<p style="margin-top:1.4rem;display:flex;gap:.6rem;flex-wrap:wrap">'+webBtn+'<a class="btn ghost" href="'+mapsUrl(it.title+' '+it.city)+'" target="_blank" rel="noopener noreferrer">'+t('d_maps')+'</a></p>';
-  }
-  return h+'<p class="sub2">'+esc(it.area)+', '+esc(it.city)+'</p><div class="facts">'+
-    fact(t('d_rent'),'₹'+Number(it.rent||0).toLocaleString('en-IN'))+fact(t('d_beds'),esc(it.beds))+fact(t('d_for'),t('w_'+it.who),true)+'</div>'+
-    '<h3>'+t('d_amen')+'</h3><div class="tags">'+(it.amen||[]).map(function(a){return '<span class="tag">'+esc(a)+'</span>'}).join('')+'</div>'+
-    '<p style="margin-top:1.4rem;display:flex;gap:.6rem;flex-wrap:wrap">'+
-    '<a class="btn" href="'+telHref(it.ph)+'">'+phoneIcon+' '+t('d_call')+' '+esc(it.ph)+'</a>'+
-    '<a class="btn wa" href="'+waHref(it.ph,it.title,it.city)+'" target="_blank" rel="noopener noreferrer">'+waIcon+' '+t('d_wa')+'</a>'+
-    '<a class="btn ghost" href="'+mapsUrl(it.area+' '+it.city)+'" target="_blank" rel="noopener noreferrer">'+t('d_maps')+'</a></p>';
-}
-
-function showDrawerShell(titleHtml,innerHtml,silent){
-  $('#dTitle').textContent=titleHtml;
-  $('#dBody').innerHTML=innerHtml;
-  drawer.inert=false; drawer.classList.add('open'); scrim.classList.add('open'); document.body.classList.add('lock');
-  if(!silent){ lastFocus=document.activeElement; $('#dClose').focus({preventScroll:true}); drawer.scrollTop=0; }
-}
-
-function openItem(id,silent){
-  var it=BYID[id]; if(!it) return;
-  state.open=id; state.mode='item';
-  showDrawerShell(it.title,bodyHtml(it),silent);
-}
-
-/* ---------- "Request Listing" Drawer ---------- */
-function listPlaceHtml(){
-  var cityOpts=Object.keys(CITIES).map(function(c){return '<option value="'+c+'">'+c+'</option>'}).join('');
-  return '<div class="shield-banner">'+shieldIcon+'<div><b>'+(lang==='hi'?'100% ओनर सत्यापित लिस्टिंग':'Owner-Verified Listings Only')+'</b><br>'+(lang==='hi'?'आपका अनुरोध केवल ओनर की मंजूरी के बाद ही साइट पर दिखेगा।':'Your request will only go live after the CG ONE owner verifies and approves it.')+'</div></div>'+
-    '<form id="listForm" class="fgrid" onsubmit="return false">'+
-      '<div class="fgrp full"><label for="lpType">'+(lang==='hi'?'लिस्टिंग का प्रकार':'Listing category')+'</label>'+
-        '<select id="lpType"><option value="room">'+(lang==='hi'?'हॉस्टल / पीजी / किराए का कमरा':'Hostel / PG / Rented Room')+'</option><option value="centre">'+(lang==='hi'?'चॉइस सेंटर / CSC':'Choice Centre / CSC')+'</option></select></div>'+
-      '<div class="fgrp full"><label for="lpTitle">'+(lang==='hi'?'नाम (हॉस्टल या चॉइस सेंटर का नाम)':'Name of hostel, PG or choice centre')+'</label>'+
-        '<input id="lpTitle" type="text" required placeholder="'+(lang==='hi'?'उदा. श्री राम बॉयज़ हॉस्टल':'e.g. Shri Ram Boys Hostel')+'"></div>'+
-      '<div class="fgrp"><label for="lpCity">'+(lang==='hi'?'शहर':'City')+'</label><select id="lpCity">'+cityOpts+'</select></div>'+
-      '<div class="fgrp"><label for="lpArea">'+(lang==='hi'?'इलाका / मोहल्ला':'Area / Locality')+'</label>'+
-        '<input id="lpArea" type="text" required placeholder="'+(lang==='hi'?'उदा. तेलीबांधा':'e.g. Telibandha')+'"></div>'+
-      '<div class="fgrp" id="lpRentWrap"><label for="lpRent">'+(lang==='hi'?'मासिक किराया (₹)':'Monthly rent (₹)')+'</label>'+
-        '<input id="lpRent" type="number" min="500" max="25000" step="100" value="3500"></div>'+
-      '<div class="fgrp" id="lpBedsWrap"><label for="lpBeds">'+(lang==='hi'?'खाली बिस्तर / कमरे':'Available beds / rooms')+'</label>'+
-        '<input id="lpBeds" type="number" min="1" max="100" value="3"></div>'+
-      '<div class="fgrp" id="lpWhoWrap"><label for="lpWho">'+(lang==='hi'?'किसके लिए':'For whom')+'</label>'+
-        '<select id="lpWho"><option value="Any">'+(lang==='hi'?'कोई भी (लड़के/लड़कियाँ)':'Anyone')+'</option><option value="Boys">'+(lang==='hi'?'लड़के (Boys)':'Boys')+'</option><option value="Girls">'+(lang==='hi'?'लड़कियाँ (Girls)':'Girls')+'</option></select></div>'+
-      '<div class="fgrp"><label for="lpPhone">'+(lang==='hi'?'मोबाइल / व्हाट्सऐप नंबर':'Phone / WhatsApp number')+'</label>'+
-        '<input id="lpPhone" type="tel" required placeholder="+91 98261 XXXXX" value="+91 "></div>'+
-      '<div class="fgrp full" id="lpAmenWrap"><label for="lpAmen">'+(lang==='hi'?'सुविधाएँ (कॉमा से अलग करें)':'Amenities or timing (comma-separated)')+'</label>'+
-        '<input id="lpAmen" type="text" placeholder="Wi-Fi, Meals, CCTV, RO Water" value="Wi-Fi, Meals, CCTV"></div>'+
-    '</form>'+
-    '<div class="card-box">'+
-      '<h4>'+(lang==='hi'?'ओनर को सत्यापन के लिए भेजें':'Send for Owner Verification')+'</h4>'+
-      '<div class="opt-grid">'+
-        '<button type="button" class="btn wa" data-lp-act="wa">'+waIcon+' '+(lang==='hi'?'1. WhatsApp से भेजें':'1. Send via WhatsApp')+'</button>'+
-        '<button type="button" class="btn ghost" data-lp-act="email">'+(lang==='hi'?'2. ईमेल से भेजें':'2. Send via Email')+'</button>'+
-        '<a class="btn ghost" id="lpGformBtn" href="'+esc(CONFIG.googleFormUrl||'https://docs.google.com/forms/')+'" target="_blank" rel="noopener noreferrer">'+(lang==='hi'?'3. बाहरी फॉर्म खोलें':'3. Open External Form')+' '+extIcon+'</a>'+
-        '<button type="button" class="btn ghost" data-lp-act="queue">'+(lang==='hi'?'4. ओनर अप्रूवल क्यू में भेजें':'4. Submit to Approval Queue')+'</button>'+
-      '</div>'+
-    '</div>';
-}
-
-function openListPlace(silent){
-  state.open=null; state.mode='list';
-  showDrawerShell(t('list_title'),listPlaceHtml(),silent);
-}
-
-function readListingForm(){
-  var ty=($('#lpType')||{}).value||'room';
-  var title=(($('#lpTitle')||{}).value||'').trim();
-  var city=($('#lpCity')||{}).value||'Raipur';
-  var area=(($('#lpArea')||{}).value||'').trim();
-  var rent=parseInt((($('#lpRent')||{}).value||'3500'),10)||3500;
-  var beds=parseInt((($('#lpBeds')||{}).value||'2'),10)||2;
-  var who=($('#lpWho')||{}).value||'Any';
-  var ph=(($('#lpPhone')||{}).value||'').trim()||'+91 98261 10100';
-  var amenRaw=(($('#lpAmen')||{}).value||'Wi-Fi, Meals').trim();
-  var amen=amenRaw.split(',').map(function(s){return s.trim()}).filter(Boolean);
-  if(!title||!area){
-    toast(lang==='hi'?'कृपया नाम और इलाका (Area) भरें।':'Please enter the place name and area.');
-    if(!title && $('#lpTitle')) $('#lpTitle').focus();
-    else if(!area && $('#lpArea')) $('#lpArea').focus();
-    return null;
-  }
-  return {ty:ty,title:title,city:city,area:area,rent:rent,beds:beds,who:who,ph:ph,amen:amen,amenRaw:amenRaw};
-}
-
-function handleListingAction(act){
-  var d=readListingForm(); if(!d) return;
-  var summaryLines=[
-    'CG ONE Listing Verification Request',
-    'Category: '+(d.ty==='room'?'Hostel / Room':'Choice Centre'),
-    'Name: '+d.title,
-    'Location: '+d.area+', '+d.city,
-    d.ty==='room'?('Rent: ₹'+d.rent+'/month | Free Beds: '+d.beds+' | For: '+d.who):('Service Charge: ₹'+d.rent+' | Details: '+d.amenRaw),
-    'Phone / WhatsApp: '+d.ph,
-    'Amenities / Info: '+d.amen.join(', ')
-  ].join('\n');
-
-  if(act==='wa'){
-    var url='https://wa.me/'+cleanDigits(CONFIG.ownerWhatsapp)+'?text='+encodeURIComponent(summaryLines);
-    window.open(url,'_blank','noopener,noreferrer');
-    toast(t('list_wa_sent'));
-    return;
-  }
-  if(act==='email'){
-    var mail='mailto:'+encodeURIComponent(CONFIG.ownerEmail||'contact@cgone.in')+
-      '?subject='+encodeURIComponent('CG ONE Listing Request: '+d.title+' ('+d.city+')')+
-      '&body='+encodeURIComponent(summaryLines);
-    window.location.href=mail;
-    toast(t('list_mail_sent'));
-    return;
-  }
-  if(act==='queue'){
-    pendingSubmissions.unshift(Object.assign({pid:'pend_'+Date.now()},d));
-    persistData();
-    toast(t('list_pending'));
-    closeItem();
-  }
-}
-
-/* ---------- Hidden 7-Tap Password Gate & Full Control Panel ---------- */
-function pinGateHtml(){
-  var now=Date.now();
-  var lockedSec=state.lockUntil>now?Math.ceil((state.lockUntil-now)/1000):0;
-  return '<div class="shield-banner">'+shieldIcon+'<div><b>'+(lang==='hi'?'गुप्त 7-टैप ओनर सुरक्षा गेट':'Secret 7-Tap Owner Security Gate')+'</b><br>'+(lang==='hi'?'आपका पासवर्ड कोड में कहीं भी लिखा नहीं है (1000-राउंड क्रिप्टोग्राफ़िक हैश से सुरक्षित है)।':'Protected by 1,000-round salted hash encryption & anti-DevTools shield. Your password is never stored in plaintext.')+'</div></div>'+
-    '<form id="pinForm" class="card-box" onsubmit="return false">'+
-      '<div class="fgrp"><label for="pinInput">'+(lang==='hi'?'एडमिन पासवर्ड दर्ज करें':'Enter Admin Password')+'</label>'+
-        '<input id="pinInput" type="password" placeholder="••••••••••" autocomplete="off"'+(lockedSec?' disabled':'')+'></div>'+
-      (lockedSec?'<p class="small" style="color:var(--urgent);margin:.5rem 0 0">Too many wrong attempts. Locked for '+lockedSec+'s.</p>':'')+
-      '<p style="margin:.8rem 0 0"><button type="button" class="btn block" id="pinUnlockBtn"'+(lockedSec?' disabled':'')+'>'+(lang==='hi'?'कंट्रोल पैनल अनलॉक करें':'Unlock Control Panel')+'</button></p>'+
-    '</form>';
-}
-
-function adminHtml(){
-  if(!state.adminUnlocked){
-    return pinGateHtml();
-  }
-  var tab=state.adminTab||'items';
-  var pendCount=pendingSubmissions.length;
-  var totalCount=ALL.length+CENTRES.length;
-  var tabsHtml='<div class="subtabs">'+
-    '<button type="button" data-adm-tab="items" class="'+(tab==='items'?'active':'')+'">'+(lang==='hi'?'1. सब कुछ एडिट/जोड़ें ('+totalCount+')':'1. Edit / Add All ('+totalCount+')')+'</button>'+
-    '<button type="button" data-adm-tab="autofind" class="'+(tab==='autofind'?'active':'')+'">'+(lang==='hi'?'2. ऑटो-फाइंडर और पेस्ट':'2. Auto-Find & Paste')+'</button>'+
-    '<button type="button" data-adm-tab="pending" class="'+(tab==='pending'?'active':'')+'">'+(lang==='hi'?'3. अप्रूवल ('+pendCount+')':'3. Approvals ('+pendCount+')')+'</button>'+
-    '<button type="button" data-adm-tab="settings" class="'+(tab==='settings'?'active':'')+'">'+(lang==='hi'?'4. सुरक्षा और सेव':'4. Security & Save')+'</button>'+
-  '</div>';
-
-  if(tab==='items'){
-    var editingItem=state.editId?(BYID[state.editId]||CENTRE_BYID[state.editId]):null;
-    var eType=editingItem?(editingItem.type||'centre'):'exam';
-    var eScope=editingItem?(editingItem.city||editingItem.scope||'CG'):'CG';
-    var eTitle=editingItem?(editingItem.title||editingItem.name||''):'';
-    var eBody=editingItem?(editingItem.area||editingItem.body||''):'';
-    var eNum=editingItem?(editingItem.last!==undefined?editingItem.last:(editingItem.rent||15)):15;
-    var eFee=editingItem?(editingItem.fee&&editingItem.fee[0]?editingItem.fee[0][1]:(editingItem.svc||editingItem.beds||editingItem.courses||'₹350')):'₹350';
-    var eExtra=editingItem?(editingItem.time||(editingItem.date!==undefined?String(editingItem.date):'')||(editingItem.who||'')):'';
-    var eUrl=editingItem?(editingItem.url||editingItem.ph||''):'';
-    var eSyl=editingItem?(editingItem.syl?editingItem.syl.join(' | '):(editingItem.amen?editingItem.amen.join(', '):'')):'';
-    var eDocs=editingItem&&editingItem.docs?editingItem.docs.join(' | '):'';
-
-    var cityOpts=Object.keys(CITIES).map(function(c){return '<option value="'+c+'"'+(eScope===c?' selected':'')+'>'+c+'</option>'}).join('');
-    var combinedList=ALL.concat(CENTRES.map(function(c){return {id:c.id,type:'centre',title:c.name,city:c.city,body:c.area}}));
-    var listRows=combinedList.map(function(it){
-      return '<div class="mgr-item"><div><b>'+esc(it.title)+'</b><small>'+t('t_'+it.type)+' · '+esc(it.city||it.body||'')+'</small></div>'+
-        '<div class="c-actions">'+
-          '<button type="button" class="btn sm ghost" data-edit-id="'+esc(it.id)+'">'+(lang==='hi'?'एडिट (Edit)':'Edit')+'</button>'+
-          '<button type="button" class="btn sm danger" data-del-id="'+esc(it.id)+'">'+(lang==='hi'?'हटाएँ':'Delete')+'</button>'+
-        '</div></div>';
-    }).join('');
-
-    return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
-      '<div class="card-box" style="margin-top:0">'+
-        '<h4>'+(editingItem?(lang==='hi'?'अभी एडिट हो रहा है: '+esc(eTitle):'Editing: '+esc(eTitle)):(lang==='hi'?'नई लिस्टिंग जोड़ें या नीचे किसी पर भी Edit दबाएँ':'Add New Item or Click Edit on Any Item Below'))+'</h4>'+
-        '<form id="admAddForm" class="fgrid" onsubmit="return false">'+
-          '<div class="fgrp"><label for="adType">'+(lang==='hi'?'श्रेणी (Category)':'Category')+'</label>'+
-            '<select id="adType"><option value="exam"'+(eType==='exam'?' selected':'')+'>'+(lang==='hi'?'परीक्षा (Exam)':'Exam')+'</option><option value="job"'+(eType==='job'?' selected':'')+'>'+(lang==='hi'?'नौकरी (Job)':'Job')+'</option><option value="college"'+(eType==='college'?' selected':'')+'>'+(lang==='hi'?'कॉलेज (College)':'College')+'</option><option value="room"'+(eType==='room'?' selected':'')+'>'+(lang==='hi'?'हॉस्टल / कमरा (Room)':'Hostel / Room')+'</option><option value="centre"'+(eType==='centre'?' selected':'')+'>'+(lang==='hi'?'चॉइस सेंटर (Choice Centre)':'Choice Centre')+'</option></select></div>'+
-          '<div class="fgrp"><label for="adScope">'+(lang==='hi'?'क्षेत्र / शहर':'Scope / City')+'</label>'+
-            '<select id="adScope"><option value="CG"'+(eScope==='CG'?' selected':'')+'>Chhattisgarh (CG)</option><option value="India"'+(eScope==='India'?' selected':'')+'>All India</option><option value="Univ"'+(eScope==='Univ'?' selected':'')+'>University</option>'+cityOpts+'</select></div>'+
-          '<div class="fgrp full"><label for="adTitle">'+(lang==='hi'?'शीर्षक / नाम':'Title / Name')+'</label>'+
-            '<input id="adTitle" type="text" value="'+esc(eTitle)+'" placeholder="e.g. CGPSC State Service Exam / Shanti Boys Hostel"></div>'+
-          '<div class="fgrp full"><label for="adBody">'+(lang==='hi'?'विभाग / संस्था या इलाका (Area)':'Department, University or Locality/Area')+'</label>'+
-            '<input id="adBody" type="text" value="'+esc(eBody)+'" placeholder="e.g. CGPSC / Telibandha"></div>'+
-          '<div class="fgrp"><label for="adNum">'+(lang==='hi'?'बचे हुए दिन (Days left) या किराया (₹)':'Days Left OR Monthly Rent (₹)')+'</label>'+
-            '<input id="adNum" type="number" value="'+esc(eNum)+'"></div>'+
-          '<div class="fgrp"><label for="adFee">'+(lang==='hi'?'आवेदन शुल्क, कोर्स, सर्विस चार्ज या खाली बिस्तर':'Fee, Courses, Service Charge OR Free Beds')+'</label>'+
-            '<input id="adFee" type="text" value="'+esc(eFee)+'"></div>'+
-          '<div class="fgrp full"><label for="adExtra">'+(lang==='hi'?'परीक्षा दिन / खुलने का समय / किसके लिए (Boys/Girls/Any)':'Exam Days Ahead / Office Hours / For (Boys, Girls, Any)')+'</label>'+
-            '<input id="adExtra" type="text" value="'+esc(eExtra)+'" placeholder="e.g. 45 or 9:30–19:30 or Boys"></div>'+
-          '<div class="fgrp full"><label for="adSyl">'+(lang==='hi'?'सिलेबस विषय (| से अलग करें) या हॉस्टल सुविधाएँ':'Syllabus Topics (separate with |) OR Amenities')+'</label>'+
-            '<input id="adSyl" type="text" value="'+esc(eSyl)+'" placeholder="e.g. CG GK (50) | Reasoning (30) OR Wi-Fi, Meals, CCTV"></div>'+
-          '<div class="fgrp full"><label for="adDocs">'+(lang==='hi'?'ज़रूरी दस्तावेज़ (| से अलग करें)':'Required Documents (separate with |)')+'</label>'+
-            '<input id="adDocs" type="text" value="'+esc(eDocs)+'" placeholder="Aadhaar card | Passport photo | 10th marksheet | CG domicile"></div>'+
-          '<div class="fgrp full"><label for="adUrl">'+(lang==='hi'?'आधिकारिक लिंक (https://...) या फ़ोन नंबर':'Official Portal / Syllabus Link (https://...) OR Phone Number')+'</label>'+
-            '<input id="adUrl" type="text" value="'+esc(eUrl)+'" placeholder="https://psc.cg.gov.in/ or +91 98261 10100"></div>'+
-          '<div class="fgrp full" style="display:flex;gap:.5rem;flex-wrap:wrap">'+
-            '<button type="button" class="btn" style="flex:1" id="admAddBtn">'+(editingItem?(lang==='hi'?'बदलाव सेव करें (Update Item)':'Save Changes (Update Item)'):(lang==='hi'?'+ वेबसाइट में जोड़ें':'+ Add to Website'))+'</button>'+
-            (editingItem?'<button type="button" class="btn ghost" id="admCancelEditBtn">'+(lang==='hi'?'रद्द करें':'Cancel Edit')+'</button>':'')+
-          '</div>'+
-        '</form>'+
-      '</div>'+
-      '<h3>'+(lang==='hi'?'सभी लिस्टिंग — किसी को भी Edit या Delete करें ('+totalCount+')':'All Website Items — Click Edit or Delete ('+totalCount+')')+'</h3>'+
-      '<div class="mgr-list">'+listRows+'</div>'+
-      '<p style="margin-top:.75rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">'+
-        '<button type="button" class="btn sm ghost" id="admLockBtn">'+(lang==='hi'?'पैनल लॉक करें':'Lock Admin Panel')+'</button>'+
-        '<button type="button" class="btn sm ghost" id="admResetBtn">'+(lang==='hi'?'डिफ़ॉल्ट डेटा रीसेट करें':'Restore Defaults')+'</button>'+
-      '</p>';
-  }
-
-  if(tab==='autofind'){
-    return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
-      '<div class="card-box" style="margin-top:0">'+
-        '<h4>'+(lang==='hi'?'ऑटो-डिस्कवरी इंजन (Auto-Live + Pending Review)':'Automated Discovery Engine (Auto-Live + Pending Review)')+'</h4>'+
-        '<p class="small">'+(lang==='hi'?'सत्यापित सरकारी परीक्षा और सिलेबस सीधे लाइव होंगे, और नए हॉस्टल Approvals टैब में जाएंगे:':'Verified official exams, jobs & syllabuses go live automatically, while hostels go to Approvals first:')+'</p>'+
-        '<button type="button" class="btn block" id="runAutoSyncBtn">'+(lang==='hi'?'अभी नई परीक्षाएँ, सिलेबस, नौकरियाँ और हॉस्टल खोजें':'Run Auto-Discovery for New Exams, Syllabus, Jobs & Hostels')+'</button>'+
-      '</div>'+
-      '<div class="card-box">'+
-        '<h4>'+(lang==='hi'?'स्मार्ट नोटिस पेस्ट (Smart Paste Auto-Fill)':'Smart Notice Paste & Auto-Extractor')+'</h4>'+
-        '<p class="small">'+(lang==='hi'?'व्हाट्सऐप या वेबसाइट से कोई भी परीक्षा/हॉस्टल सूचना यहाँ पेस्ट करें—यह अपने आप सारे बॉक्स भर देगा:':'Paste any exam notice, syllabus text, or WhatsApp hostel message below to auto-fill the editor:')+'</p>'+
-        '<div class="fgrp"><label for="smartPasteBox">'+(lang==='hi'?'यहाँ कोई भी सूचना पेस्ट करें':'Paste raw notice or message here')+'</label>'+
-          '<textarea id="smartPasteBox" placeholder="e.g. CGPSC Sub Inspector Exam 2026, Last Date in 18 days, Fee ₹400, Syllabus: CG GK | Hindi | Aptitude, Apply at https://psc.cg.gov.in/"></textarea></div>'+
-        '<p style="margin:.7rem 0 0"><button type="button" class="btn ghost block" id="smartExtractBtn">'+(lang==='hi'?'विवरण निकालें और फॉर्म में भरें':'Auto-Extract into Editor Form')+'</button></p>'+
-      '</div>';
-  }
-
-  if(tab==='pending'){
-    var pendHtml=pendingSubmissions.length?pendingSubmissions.map(function(p){
-      return '<div class="mgr-item"><div><b>'+esc(p.title)+'</b><small>'+esc(p.area)+', '+esc(p.city)+' · ₹'+esc(p.rent)+' · '+esc(p.ph)+'</small></div>'+
-        '<div class="c-actions"><button type="button" class="btn sm" data-approve-id="'+esc(p.pid)+'">'+(lang==='hi'?'मंजूर करें':'Approve')+'</button>'+
-        '<button type="button" class="btn sm danger" data-reject-id="'+esc(p.pid)+'">'+(lang==='hi'?'हटाएँ':'Reject')+'</button></div></div>';
-    }).join(''):'<div class="empty">'+(lang==='hi'?'अभी कोई पेंडिंग अनुरोध नहीं है।':'No pending submissions waiting for your approval.')+'</div>';
-    return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
-      '<div class="card-box" style="margin-top:0">'+
-        '<h4>'+(lang==='hi'?'आपकी मंजूरी के लिए आए हॉस्टल / सेंटर अनुरोध':'Submissions Waiting for Your Approval')+'</h4>'+
-        '<div class="mgr-list">'+pendHtml+'</div>'+
-      '</div>';
-  }
-
-  return '<p class="sub2">'+esc(t('mgr_sub'))+'</p>'+tabsHtml+
-    '<div class="card-box" style="margin-top:0">'+
-      '<h4>'+(lang==='hi'?'ओनर संपर्क और पासवर्ड सुरक्षा':'Owner Contact & Password Security')+'</h4>'+
-      '<div class="fgrid">'+
-        '<div class="fgrp full"><label for="cfgNewPwd">'+(lang==='hi'?'नया पासवर्ड सेट करें (खाली छोड़ने पर python@123 रहेगा)':'Change Admin Password (leave blank to keep current password)')+'</label>'+
-          '<input id="cfgNewPwd" type="password" placeholder="Enter new password to change"></div>'+
-        '<div class="fgrp full"><label for="cfgWa">'+(lang==='hi'?'आपका WhatsApp नंबर (91 के साथ)':'Your WhatsApp Number (with 91 country code)')+'</label>'+
-          '<input id="cfgWa" type="text" value="'+esc(CONFIG.ownerWhatsapp)+'" placeholder="919826110100"></div>'+
-        '<div class="fgrp full"><label for="cfgMail">'+(lang==='hi'?'आपका ईमेल पता':'Your Email Address')+'</label>'+
-          '<input id="cfgMail" type="email" value="'+esc(CONFIG.ownerEmail)+'" placeholder="you@example.com"></div>'+
-        '<div class="fgrp full"><label for="cfgForm">'+(lang==='hi'?'आपका बाहरी फॉर्म लिंक':'External Form Link')+'</label>'+
-          '<input id="cfgForm" type="url" value="'+esc(CONFIG.googleFormUrl)+'"></div>'+
-      '</div>'+
-      '<p style="margin:.8rem 0 0"><button type="button" class="btn sm" id="cfgSaveBtn">'+(lang==='hi'?'सुरक्षा सेटिंग्स सेव करें':'Save Security Settings')+'</button></p>'+
-    '</div>'+
-    '<div class="card-box">'+
-      '<h4>'+(lang==='hi'?'अपडेटेड वेबसाइट फ़ाइल डाउनलोड करें (index.html)':'Save & Download Updated Website (index.html)')+'</h4>'+
-      '<p class="small">'+(lang==='hi'?'आपके सभी बदलाव आपके ब्राउज़र में तुरंत सेव हो जाते हैं। अपनी लाइव वेबसाइट (Netlify Drop) को अपडेट करने के लिए नीचे क्लिक करें:':'All your edits are saved in your browser immediately. Click below to download the updated index.html with your changes baked in:')+'</p>'+
-      '<button type="button" class="btn block" id="dlHtmlBtn">'+(lang==='hi'?'अपडेटेड वेबसाइट डाउनलोड करें (index.html)':'Download Updated Website (index.html)')+'</button>'+
-    '</div>';
-}
-
-function openAdmin(silent){
-  state.open=null; state.mode='admin';
-  showDrawerShell(t('mgr_title'),adminHtml(),silent);
-  if(!state.adminUnlocked && $('#pinInput')){
-    setTimeout(function(){var el=$('#pinInput'); if(el) el.focus()},60);
-  }
-}
-
-function tryUnlockAdmin(){
-  var now=Date.now();
-  if(state.lockUntil>now){
-    toast('Locked due to failed attempts. Wait '+Math.ceil((state.lockUntil-now)/1000)+'s.');
-    return;
-  }
-  var entered=(($('#pinInput')||{}).value||'');
-  if(hashSecret(entered)===(CONFIG.pwdHash||DEFAULT_CONFIG.pwdHash)){
-    state.adminUnlocked=true;
-    state.failedAttempts=0;
-    openAdmin(true);
-    toast(lang==='hi'?'कंट्रोल पैनल अनलॉक हो गया!':'Admin Control Panel unlocked!');
-  }else{
-    state.failedAttempts=(state.failedAttempts||0)+1;
-    if(state.failedAttempts>=5){
-      state.lockUntil=Date.now()+60000;
-      openAdmin(true);
-      toast('5 wrong attempts! Locked for 60 seconds.');
-    }else{
-      toast(lang==='hi'?'गलत पासवर्ड! ('+(5-state.failedAttempts)+' प्रयास शेष)':'Incorrect password! ('+(5-state.failedAttempts)+' attempts left)');
+    function updateExternalLinks(url) {
+      // 1. Setup VLC Mobile & Desktop deep-link protocol
+      const vlcBtn = document.getElementById('vlc-protocol-btn');
+      vlcBtn.href = 'vlc://' + url;
     }
-  }
-}
 
-function handleAdminAdd(){
-  var ty=($('#adType')||{}).value||'exam';
-  var scopeOrCity=($('#adScope')||{}).value||'CG';
-  var title=(($('#adTitle')||{}).value||'').trim();
-  var body=(($('#adBody')||{}).value||'').trim();
-  var num=parseInt((($('#adNum')||{}).value||'15'),10)||15;
-  var fee=(($('#adFee')||{}).value||'₹350').trim();
-  var extraRaw=(($('#adExtra')||{}).value||'').trim();
-  var sylRaw=(($('#adSyl')||{}).value||'').trim();
-  var docsRaw=(($('#adDocs')||{}).value||'').trim();
-  var urlOrPh=(($('#adUrl')||{}).value||'').trim();
-  if(!title||!body){
-    toast(lang==='hi'?'कृपया शीर्षक और विभाग/इलाका भरें।':'Please fill in the Title and Department/Area.');
-    return;
-  }
-  var sylList=sylRaw?sylRaw.split('|').map(function(s){return s.trim()}).filter(Boolean):['Official notification syllabus & exam pattern'];
-  var docsList=docsRaw?docsRaw.split('|').map(function(s){return s.trim()}).filter(Boolean):[D.aadhaar,D.photo,D.sign,D.dob];
-  var city=CITIES[scopeOrCity]?scopeOrCity:'Raipur';
-  var scope=(scopeOrCity==='CG'||scopeOrCity==='India'||scopeOrCity==='Univ')?scopeOrCity:'CG';
+    function loadNewStream() {
+      const url = document.getElementById('stream-url-input').value.trim();
+      if (!url) return;
 
-  if(state.editId && (BYID[state.editId]||CENTRE_BYID[state.editId])){
-    var eid=state.editId;
-    var updated;
-    if(ty==='centre'){
-      updated={type:'centre',name:title,area:body,city:city,time:extraRaw||'9:30–19:30',svc:fee,ph:urlOrPh||'+91 98261 10101'};
-    }else if(ty==='exam'){
-      updated={type:'exam',scope:scope,title:title,body:body,last:num,date:parseInt(extraRaw,10)||(num+25),fee:[['Application fee',fee]],docs:docsList,url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'};
-    }else if(ty==='job'){
-      updated={type:'job',scope:scope,title:title,body:body,last:num,fee:[['Application fee',fee]],docs:docsList,url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'};
-    }else if(ty==='college'){
-      updated={type:'college',title:title,body:'Recognised institution',city:city,area:body,time:extraRaw||'10:00–17:00, Mon–Sat',courses:fee,url:urlOrPh};
-    }else{
-      updated={type:'room',title:title,city:city,area:body,rent:num,beds:parseInt(fee,10)||2,who:(extraRaw==='Boys'||extraRaw==='Girls')?extraRaw:'Any',amen:sylRaw?sylRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):['Wi-Fi','Meals'],ph:urlOrPh||'+91 98261 10100'};
+      // Determine type
+      const isHls = url.includes('.m3u8');
+      player.src({
+        src: url,
+        type: isHls ? 'application/x-mpegURL' : 'video/mp4'
+      });
+      player.play();
+
+      updateExternalLinks(url);
     }
-    itemOverrides[eid]=Object.assign({},itemOverrides[eid]||{},updated);
-    state.editId=null;
-    persistData();
-    renderAll();
-    openAdmin(true);
-    toast(lang==='hi'?'बदलाव सफलतापूर्वक सेव हो गए!':'Changes saved!');
-    return;
-  }
 
-  var id='custom_'+Date.now();
-  if(ty==='centre'){
-    customCentres.unshift({id:id,type:'centre',name:title,area:body,city:city,time:extraRaw||'9:30–19:30',svc:fee,ph:urlOrPh||'+91 98261 10101',ll:L(city,0.008,0.008)});
-  }else if(ty==='exam'){
-    customAll.unshift({id:id,type:'exam',scope:scope,title:title,body:body,last:num,date:parseInt(extraRaw,10)||(num+25),fee:[['Application fee',fee]],extra:[['Mode','Official notification']],docs:docsList,tags:(title+' '+body+' syllabus').toLowerCase(),url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'});
-  }else if(ty==='job'){
-    customAll.unshift({id:id,type:'job',scope:scope,title:title,body:body,last:num,fee:[['Application fee',fee]],extra:[['Vacancies','Check notice'],['Qualification',extraRaw||'See official notification']],docs:docsList,tags:(title+' '+body+' syllabus').toLowerCase(),url:urlOrPh||'https://vyapamcg.cgstate.gov.in/',syl:sylList,sylUrl:urlOrPh||'https://vyapamcg.cgstate.gov.in/'});
-  }else if(ty==='college'){
-    customAll.unshift({id:id,type:'college',title:title,body:'Recognised institution',city:city,area:body,time:extraRaw||'10:00–17:00, Mon–Sat',courses:fee,ll:L(city,0.01,0.01),tags:(title+' '+body+' '+city).toLowerCase(),url:urlOrPh});
-  }else{
-    customAll.unshift({id:id,type:'room',title:title,city:city,area:body,rent:num,beds:parseInt(fee,10)||2,who:(extraRaw==='Boys'||extraRaw==='Girls')?extraRaw:'Any',amen:sylRaw?sylRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):['Wi-Fi','Water supply'],ll:L(city,0.01,-0.01),ph:urlOrPh||'+91 98261 10100',tags:(title+' '+body+' '+city+' room hostel').toLowerCase()});
-  }
-  persistData();
-  renderAll();
-  openAdmin(true);
-  toast(lang==='hi'?'नई लिस्टिंग CG ONE में जोड़ दी गई!':'New listing added to CG ONE!');
-}
+    // Creates an instant playlist file so users can open it directly in MPV or VLC desktop
+    function downloadPlaylistFile() {
+      const url = document.getElementById('stream-url-input').value.trim();
+      if (!url) return;
 
-function runAutoDiscovery(){
-  var addedLive=0, addedPending=0;
-  var existingPendIds=new Set(pendingSubmissions.map(function(p){return p.pid}));
-  AUTO_DISCOVERY_FEED.forEach(function(item){
-    if(item.trusted){
-      if(!BYID[item.id] && deletedIds.indexOf(item.id)===-1){
-        customAll.unshift(Object.assign({},item));
-        addedLive++;
-      }
-    }else{
-      if(!existingPendIds.has(item.id)){
-        pendingSubmissions.unshift(Object.assign({pid:item.id},item));
-        addedPending++;
-      }
+      const m3uContent = `#EXTM3U\n#EXTINF:-1,Custom Stream\n${url}`;
+      const blob = new Blob([m3uContent], { type: 'application/x-mpegurl' });
+      const downloadLink = document.createElement('a');
+
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = 'stream.m3u8';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
     }
-  });
-  persistData();
-  renderAll();
-  openAdmin(true);
-  if(addedLive||addedPending){
-    toast(lang==='hi'
-      ?('ऑटो-सर्च पूरा: '+addedLive+' आधिकारिक फॉर्म सीधे लाइव हुए और '+addedPending+' हॉस्टल अप्रूवल क्यू में जोड़े गए!')
-      :('Auto-Discovery complete: '+addedLive+' official exam/job notices went live & '+addedPending+' hostels added to Approvals!'));
-  }else{
-    toast(lang==='hi'?'सभी नवीनतम आधिकारिक अपडेट पहले से सिंक हैं!':'All latest official updates are already synced!');
-  }
-}
 
-function handleSmartExtract(){
-  var raw=(($('#smartPasteBox')||{}).value||'').trim();
-  if(!raw){
-    toast(lang==='hi'?'कृपया पहले कोई नोटिस या मैसेज पेस्ट करें।':'Please paste a notice or message first.');
-    return;
-  }
-  var lower=raw.toLowerCase();
-  var ty='exam';
-  if(/hostel|pg|room|rent|bhk|1rk|किराया|हॉस्टल/.test(lower)) ty='room';
-  else if(/recruitment|vacancy|posts|constable|patwari|clerk|भर्ती|पद/.test(lower)) ty='job';
-  else if(/college|university|institute|महाविद्यालय/.test(lower)) ty='college';
-
-  var lines=raw.split(/\r?\n/).map(function(s){return s.trim()}).filter(Boolean);
-  var firstLine=(lines[0]||'New CG ONE Listing').split(/[,–-]/)[0].trim().slice(0,75);
-  var urlMatch=raw.match(/https?:\/\/[^\s,)]+/i);
-  var phMatch=raw.match(/(?:\+91[\s-]?)?[6-9]\d{9}/);
-  var rupeeMatch=raw.match(/(?:₹|rs\.?\s*)(\d[\d,]*)/i);
-  var daysMatch=raw.match(/(\d{1,3})\s*(?:days|day|दिन)/i);
-
-  var detectedCity='Raipur';
-  Object.keys(CITIES).forEach(function(c){
-    if(lower.indexOf(c.toLowerCase())>-1) detectedCity=c;
-  });
-
-  state.adminTab='items';
-  state.editId=null;
-  openAdmin(true);
-  if($('#adType')) $('#adType').value=ty;
-  if($('#adScope')) $('#adScope').value=(ty==='room'||ty==='college')?detectedCity:'CG';
-  if($('#adTitle')) $('#adTitle').value=firstLine;
-  if($('#adBody')) $('#adBody').value=ty==='room'?detectedCity+' Locality':(lower.indexOf('psc')>-1?'Chhattisgarh Public Service Commission':'Chhattisgarh Professional Examination Board');
-  if($('#adNum')) $('#adNum').value=ty==='room'?(rupeeMatch?rupeeMatch[1].replace(/,/g,''):3500):(daysMatch?daysMatch[1]:15);
-  if($('#adFee')) $('#adFee').value=ty==='room'?'3':(rupeeMatch?('₹'+rupeeMatch[1]):'₹350');
-  if($('#adSyl')) $('#adSyl').value=raw.slice(0,140);
-  if($('#adUrl')) $('#adUrl').value=urlMatch?urlMatch[0]:(phMatch?phMatch[0]:'https://vyapamcg.cgstate.gov.in/');
-  toast(lang==='hi'?'विवरण फॉर्म में भर दिया गया है—जाँचें और सेव करें!':'Extracted details into the form—review and click Add!');
-}
-
-function downloadUpdatedHtml(){
-  var wasOpen=state.open, wasMode=state.mode, wasUnlocked=state.adminUnlocked;
-  closeItem();
-  var docClone='<!doctype html>\n'+document.documentElement.outerHTML;
-  if(wasMode==='admin'){ state.adminUnlocked=wasUnlocked; openAdmin(true); }
-  else if(wasMode==='item' && wasOpen){ openItem(wasOpen,true); }
-  var cfgBlock='/*__CONFIG_START__*/\nvar DEFAULT_CONFIG='+JSON.stringify(CONFIG,null,2)+';\n/*__CONFIG_END__*/';
-  var dataBlock='/*__CUSTOM_DATA_START__*/\nvar EMBEDDED_CUSTOM_ALL='+JSON.stringify(customAll)+';\nvar EMBEDDED_CUSTOM_CENTRES='+JSON.stringify(customCentres)+';\nvar EMBEDDED_OVERRIDES='+JSON.stringify(itemOverrides)+';\nvar EMBEDDED_DELETED_IDS='+JSON.stringify(deletedIds)+';\n/*__CUSTOM_DATA_END__*/';
-  docClone=docClone.replace(/\/\*__CONFIG_START__\*\/[\s\S]*?\/\*__CONFIG_END__\*\//,cfgBlock);
-  docClone=docClone.replace(/\/\*__CUSTOM_DATA_START__\*\/[\s\S]*?\/\*__CUSTOM_DATA_END__\*\//,dataBlock);
-  var blob=new Blob([docClone],{type:'text/html;charset=utf-8'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='index.html';
-  document.body.appendChild(a); a.click(); a.remove();
-  toast(lang==='hi'?'आपकी अपडेटेड index.html डाउनलोड हो गई!':'Downloaded updated index.html with all changes saved!');
-}
-
-function closeItem(){
-  if(!state.open && !state.mode) return;
-  state.open=null; state.mode=null;
-  drawer.classList.remove('open'); scrim.classList.remove('open'); document.body.classList.remove('lock');
-  drawer.inert=true;
-  if(lastFocus&&lastFocus.focus) lastFocus.focus({preventScroll:true});
-}
-
-/* ---------- controls & 7-tap trigger ---------- */
-var toastTimer;
-function toast(msg){var el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){el.classList.remove('show')},3200)}
-function movePill(){
-  var a=$('#tabs [aria-selected="true"]'), p=$('#pill'); if(!a) return;
-  p.style.width=a.offsetWidth+'px'; p.style.transform='translateX('+a.offsetLeft+'px)';
-}
-function setTab(tab,focus){
-  state.tab=tab;
-  $$('#tabs [role=tab]').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===tab?'true':'false')});
-  $('#rent').classList.toggle('on',tab==='room');
-  movePill(); renderResults();
-  if(focus){ document.getElementById('top').scrollIntoView(); $('#q').focus({preventScroll:true}); }
-}
-function setCity(v){
-  state.city=v; state.pos=(v==='geo'&&state.geo)?state.geo:CITIES[v]||CITIES.Raipur;
-  $$('[data-city-select]').forEach(function(s){s.value=v});
-  renderResults(); updateCentres();
-}
-function locate(){
-  if(!navigator.geolocation){toast(t('t_loc')); return}
-  navigator.geolocation.getCurrentPosition(function(p){
-    state.geo=[p.coords.latitude,p.coords.longitude]; state.city='geo'; state.pos=state.geo;
-    renderSelect(); renderResults();
-    if($('#dCentres')){ var s=$('#drawer [data-city-select]'); if(s) s.outerHTML=citySelect(); updateCentres(); }
-  },function(){toast(t('t_loc'))},{timeout:8000,maximumAge:600000});
-}
-
-$('#brandLogo').addEventListener('click',function(){
-  tapCount++;
-  clearTimeout(tapTimer);
-  tapTimer=setTimeout(function(){tapCount=0},3500);
-  if(tapCount>=7){
-    tapCount=0;
-    clearTimeout(tapTimer);
-    openAdmin();
-  }else if(tapCount>=5){
-    toast((7-tapCount)+' more tap'+((7-tapCount)===1?'':'s')+' to open Admin Gate');
-  }
-});
-
-document.addEventListener('click',function(e){
-  var r=e.target.closest('[data-id]'); if(r){openItem(r.dataset.id); return}
-  var g=e.target.closest('[data-go]'); if(g){setTab(g.dataset.go,true); return}
-  if(e.target.closest('[data-loc]')){locate(); return}
-  if(e.target.closest('#listBtn')){openListPlace(); return}
-  if(e.target.closest('#pinUnlockBtn')){tryUnlockAdmin(); return}
-  if(e.target.closest('#admLockBtn')){
-    state.adminUnlocked=false;
-    closeItem();
-    toast(lang==='hi'?'कंट्रोल पैनल लॉक कर दिया गया।':'Admin Control Panel locked.');
-    return;
-  }
-  var lpAct=e.target.closest('[data-lp-act]'); if(lpAct){handleListingAction(lpAct.dataset.lpAct); return}
-  var admTab=e.target.closest('[data-adm-tab]'); if(admTab){state.adminTab=admTab.dataset.admTab; openAdmin(true); return}
-  if(e.target.closest('#admAddBtn')){handleAdminAdd(); return}
-  if(e.target.closest('#admCancelEditBtn')){state.editId=null; openAdmin(true); return}
-  var editBtn=e.target.closest('[data-edit-id]');
-  if(editBtn){
-    state.editId=editBtn.dataset.editId;
-    state.adminTab='items';
-    openAdmin(true);
-    drawer.scrollTop=0;
-    toast(lang==='hi'?'फॉर्म में विवरण लोड हो गया है—बदलाव करें और सेव दबाएँ।':'Loaded into editor form above—modify and click Save!');
-    return;
-  }
-  if(e.target.closest('#runAutoSyncBtn')){runAutoDiscovery(); return}
-  if(e.target.closest('#smartExtractBtn')){handleSmartExtract(); return}
-  var appBtn=e.target.closest('[data-approve-id]');
-  if(appBtn){
-    var pid=appBtn.dataset.approveId;
-    var pItem=pendingSubmissions.find(function(x){return x.pid===pid});
-    if(pItem){
-      if(pItem.ty==='room'){
-        customAll.unshift({id:'r_app_'+Date.now(),type:'room',title:pItem.title,city:pItem.city,area:pItem.area,rent:pItem.rent,beds:pItem.beds,who:pItem.who,amen:pItem.amen,ll:L(pItem.city,0.008,-0.008),ph:pItem.ph,tags:(pItem.title+' '+pItem.area+' '+pItem.city+' hostel room').toLowerCase()});
-      }else{
-        customCentres.unshift({id:'cc_app_'+Date.now(),type:'centre',name:pItem.title,area:pItem.area,city:pItem.city,time:pItem.amenRaw||'9:30–19:30',svc:'₹50',ph:pItem.ph,ll:L(pItem.city,0.006,0.006)});
-      }
-      pendingSubmissions=pendingSubmissions.filter(function(x){return x.pid!==pid});
-      persistData(); renderAll(); openAdmin(true);
-      toast(lang==='hi'?'लिस्टिंग मंजूर होकर लाइव हो गई!':'Listing approved and published!');
-    }
-    return;
-  }
-  var rejBtn=e.target.closest('[data-reject-id]');
-  if(rejBtn){
-    var rid=rejBtn.dataset.rejectId;
-    pendingSubmissions=pendingSubmissions.filter(function(x){return x.pid!==rid});
-    persistData(); openAdmin(true);
-    toast(lang==='hi'?'अनुरोध हटा दिया गया।':'Submission rejected.');
-    return;
-  }
-  var delBtn=e.target.closest('[data-del-id]');
-  if(delBtn){
-    var delId=delBtn.dataset.delId;
-    deletedIds.push(delId);
-    customAll=customAll.filter(function(x){return x.id!==delId});
-    customCentres=customCentres.filter(function(x){return x.id!==delId});
-    persistData(); renderAll(); openAdmin(true);
-    toast(lang==='hi'?'लिस्टिंग हटा दी गई।':'Listing removed.');
-    return;
-  }
-  if(e.target.closest('#admResetBtn')){
-    deletedIds=[]; customAll=[]; customCentres=[]; itemOverrides={}; state.editId=null;
-    persistData(); renderAll(); openAdmin(true);
-    toast(lang==='hi'?'डिफ़ॉल्ट डेटा बहाल कर दिया गया।':'Default listings restored.');
-    return;
-  }
-  if(e.target.closest('#cfgSaveBtn')){
-    var newPwd=(($('#cfgNewPwd')||{}).value||'').trim();
-    if(newPwd) CONFIG.pwdHash=hashSecret(newPwd);
-    CONFIG.ownerWhatsapp=(($('#cfgWa')||{}).value||'').trim()||DEFAULT_CONFIG.ownerWhatsapp;
-    CONFIG.ownerEmail=(($('#cfgMail')||{}).value||'').trim()||DEFAULT_CONFIG.ownerEmail;
-    CONFIG.googleFormUrl=(($('#cfgForm')||{}).value||'').trim()||DEFAULT_CONFIG.googleFormUrl;
-    saveConfig();
-    toast(lang==='hi'?'सुरक्षा सेटिंग्स सेव कर ली गईं!':'Security settings saved!');
-    return;
-  }
-  if(e.target.closest('#dlHtmlBtn')){downloadUpdatedHtml(); return}
-  if(e.target.closest('#dClose')||e.target===scrim){closeItem(); return}
-});
-
-document.addEventListener('keydown',function(e){
-  if(e.key==='Enter' && e.target && e.target.id==='pinInput'){
-    e.preventDefault();
-    tryUnlockAdmin();
-  }
-});
-
-document.addEventListener('change',function(e){
-  var c=e.target.closest('[data-doc]');
-  if(c&&state.open){
-    var it=BYID[state.open], s=state.checks[it.id]||(state.checks[it.id]=new Set()), i=+c.dataset.doc;
-    if(c.checked) s.add(i); else s.delete(i);
-    saveChecks();
-    var docs=it.docs&&it.docs.length?it.docs:[D.aadhaar,D.photo];
-    $('#bar').style.width=(s.size/docs.length*100)+'%';
-    $('#barTxt').textContent=readyTxt(s.size,docs.length);
-    return;
-  }
-  var sel=e.target.closest('[data-city-select]'); if(sel){setCity(sel.value); return}
-  if(e.target.id==='lpType'){
-    var isRoom=e.target.value==='room';
-    var rw=$('#lpRentWrap label'), bw=$('#lpBedsWrap'), ww=$('#lpWhoWrap'), aw=$('#lpAmenWrap label');
-    if(rw) rw.textContent=isRoom?(lang==='hi'?'मासिक किराया (₹)':'Monthly rent (₹)'):(lang==='hi'?'सर्विस चार्ज (₹)':'Service charge (₹)');
-    if(bw) bw.style.display=isRoom?'':'none';
-    if(ww) ww.style.display=isRoom?'':'none';
-    if(aw) aw.textContent=isRoom?(lang==='hi'?'सुविधाएँ (कॉमा से अलग करें)':'Amenities (comma-separated)'):(lang==='hi'?'खुलने का समय (उदा. 9:30–19:30)':'Opening hours (e.g. 9:30–19:30)');
-  }
-});
-
-$('#q').addEventListener('input',function(e){state.q=e.target.value; renderResults()});
-$('#tabs').addEventListener('click',function(e){var b=e.target.closest('[role=tab]'); if(b) setTab(b.dataset.tab)});
-$('#tabs').addEventListener('keydown',function(e){
-  if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
-  var tabs=$$('#tabs [role=tab]'), i=tabs.findIndex(function(b){return b.getAttribute('aria-selected')==='true'});
-  i=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length; tabs[i].focus(); setTab(tabs[i].dataset.tab);
-});
-$('#rentRange').addEventListener('input',function(e){
-  state.maxRent=+e.target.value; $('#rentOut').textContent='₹'+state.maxRent.toLocaleString('en-IN'); renderResults();
-});
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape') closeItem();
-  if(e.key==='/'&&!/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName)){e.preventDefault(); $('#q').focus()}
-});
-window.addEventListener('resize',movePill);
-
-/* theme */
-function effectiveDark(){var a=document.documentElement.getAttribute('data-theme'); return a?a==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches}
-$('#themeBtn').addEventListener('click',function(){
-  var next=effectiveDark()?'light':'dark';
-  document.documentElement.setAttribute('data-theme',next);
-  try{localStorage.setItem('cgone-theme',next)}catch(err){}
-});
-try{var th=localStorage.getItem('cgone-theme'); if(th) document.documentElement.setAttribute('data-theme',th)}catch(err){}
-
-/* language */
-function applyLang(){
-  document.documentElement.lang=lang;
-  $$('[data-i18n]').forEach(function(el){el.textContent=t(el.dataset.i18n)});
-  $$('[data-i18n-ph]').forEach(function(el){el.placeholder=t(el.dataset.i18nPh)});
-  $$('[data-i18n-label]').forEach(function(el){el.setAttribute('aria-label',t(el.dataset.i18nLabel))});
-  $('#langBtn').textContent=lang==='en'?'हिं':'EN';
-  $('#rentOut').textContent='₹'+state.maxRent.toLocaleString('en-IN');
-  renderAll();
-  if(state.mode==='item'&&state.open) openItem(state.open,true);
-  else if(state.mode==='list') openListPlace(true);
-  else if(state.mode==='admin') openAdmin(true);
-  movePill();
-}
-$('#langBtn').addEventListener('click',function(){
-  lang=lang==='en'?'hi':'en';
-  try{localStorage.setItem('cgone-lang',lang)}catch(err){}
-  applyLang();
-});
-try{var lg=localStorage.getItem('cgone-lang'); if(lg==='hi'||lg==='en') lang=lg}catch(err){}
-
-applyLang();
-if(document.fonts&&document.fonts.ready) document.fonts.ready.then(movePill);
-})();
-</script>
+    // Load initial default stream on page load
+    loadNewStream();
+  </script>
 </body>
 </html>
-```
