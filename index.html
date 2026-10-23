@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clean Player (No Embeds)</title>
+  <title>Clean Stream Player - Interstellar Test</title>
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 
   <style>
@@ -49,6 +49,7 @@
     }
     .btn-search { background: #2563eb; }
     .btn-vlc { background: #ea580c; }
+    .btn-download { background: #334155; }
     .stream-list {
       margin-top: 14px;
       border-top: 1px solid #334155;
@@ -64,8 +65,8 @@
       justify-content: space-between;
       align-items: center;
     }
-    .stream-info { font-size: 0.85rem; }
-    .stream-info strong { color: #38bdf8; display: block; margin-bottom: 3px; }
+    .stream-info { font-size: 0.85rem; max-width: 60%; }
+    .stream-info strong { color: #38bdf8; display: block; margin-bottom: 3px; word-break: break-word; }
     .action-group { display: flex; gap: 6px; }
   </style>
 </head>
@@ -77,13 +78,13 @@
       <video id="site-player" class="video-js vjs-big-play-centered" controls preload="auto" playsinline></video>
 
       <div class="content">
-        <h2>Ad-Free Direct Stream Player</h2>
-        <p>Enter an IMDb ID to fetch direct streams with multi-quality and multi-audio support.</p>
+        <h2 id="movie-title">Direct Stream Resolver</h2>
+        <p>Using IMDb ID to fetch stream manifests without slow embed iframes.</p>
 
         <!-- IMDb Search Input -->
         <div class="input-bar">
-          <input type="text" id="imdb-input" placeholder="Enter IMDb ID (e.g., tt0133093)" value="tt0133093" />
-          <button class="btn btn-search" onclick="fetchStremioStreams()">Find Streams</button>
+          <input type="text" id="imdb-input" placeholder="Enter IMDb ID" value="tt0816692" />
+          <button class="btn btn-search" onclick="fetchStreams()">Load Streams</button>
         </div>
 
         <!-- Dynamic Streams will appear here -->
@@ -98,36 +99,36 @@
     const player = videojs('site-player');
     let activeStreamUrl = "";
 
-    // Public HTTPS Stremio Addon endpoint
-    async function fetchStremioStreams() {
+    async function fetchStreams() {
       const imdbId = document.getElementById('imdb-input').value.trim();
       const resultsContainer = document.getElementById('stream-results');
-      resultsContainer.innerHTML = "<p>Fetching streams...</p>";
+      resultsContainer.innerHTML = "<p>Resolving metadata and available streams...</p>";
 
       try {
-        // Example public stream resolver endpoint
-        const res = await fetch(`https://v3-cinemeta.strem.io/meta/movie/${imdbId}.json`);
-        const meta = await res.json();
-        const title = meta?.meta?.name || imdbId;
+        // 1. Fetch metadata from public Cinemeta
+        const metaRes = await fetch(`https://v3-cinemeta.strem.io/meta/movie/${imdbId}.json`);
+        const metaData = await metaRes.json();
+        const title = metaData?.meta?.name || "Interstellar";
+        document.getElementById('movie-title').innerText = `${title} (${metaData?.meta?.year || '2014'})`;
 
-        // Sample direct streams returned by a Stremio addon
-        const mockStreams = [
+        // 2. Sample streams (Compatible Web MP4 + High-Bandwidth Stream)
+        const streams = [
           {
-            quality: "1080p Full HD",
-            audio: "Multi-Audio (Hindi + English)",
+            name: "High-Bitrate 1080p Stream (HLS)",
+            details: "Multi-Audio & Multi-Subtitle Stream",
             url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
           },
           {
-            quality: "720p HD",
-            audio: "Original Audio (English)",
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            name: "Direct MP4 Web Stream (720p)",
+            details: "Fast load • Browser native decoding",
+            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
           }
         ];
 
-        renderStreamList(title, mockStreams);
+        renderStreamList(title, streams);
 
       } catch (err) {
-        resultsContainer.innerHTML = `<p style="color: #ef4444;">Failed to load streams: ${err.message}</p>`;
+        resultsContainer.innerHTML = `<p style="color: #ef4444;">Failed to resolve streams: ${err.message}</p>`;
       }
     }
 
@@ -135,23 +136,24 @@
       const resultsContainer = document.getElementById('stream-results');
       resultsContainer.innerHTML = `<h3 style="margin-bottom: 10px; font-size: 1rem;">Available Streams for: ${title}</h3>`;
 
-      streams.forEach((item, index) => {
+      streams.forEach((item) => {
         const div = document.createElement('div');
         div.className = 'stream-item';
         div.innerHTML = `
           <div class="stream-info">
-            <strong>${item.quality}</strong>
-            <span>${item.audio}</span>
+            <strong>${item.name}</strong>
+            <span style="color:#94a3b8;">${item.details}</span>
           </div>
           <div class="action-group">
-            <button class="btn btn-search" style="padding: 6px 12px; font-size: 0.8rem;" onclick="playInBrowser('${item.url}')">▶ Play Here</button>
-            <button class="btn btn-vlc" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openInVLC('${item.url}')">Open in VLC</button>
+            <button class="btn btn-search" style="padding: 6px 12px; font-size: 0.8rem;" onclick="playInBrowser('${item.url}')">▶ Play</button>
+            <button class="btn btn-vlc" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openInVLC('${item.url}')">VLC</button>
+            <button class="btn btn-download" style="padding: 6px 12px; font-size: 0.8rem;" onclick="downloadPlaylist('${item.url}')">⬇ .M3U</button>
           </div>
         `;
         resultsContainer.appendChild(div);
       });
 
-      // Auto-load first stream
+      // Play the first stream by default
       if (streams.length > 0) {
         playInBrowser(streams[0].url);
       }
@@ -183,8 +185,25 @@
       }
     }
 
-    // Load initial
-    fetchStremioStreams();
+    function downloadPlaylist(url) {
+      const targetUrl = url || activeStreamUrl;
+      if (!targetUrl) return alert("No active stream!");
+
+      const m3uContent = `#EXTM3U\n#EXTINF:-1,Interstellar (Test Stream)\n${targetUrl}\n`;
+      const encodedData = 'data:audio/x-mpegurl;charset=utf-8,' + encodeURIComponent(m3uContent);
+
+      const downloadLink = document.createElement('a');
+      downloadLink.setAttribute('href', encodedData);
+      downloadLink.setAttribute('download', 'Interstellar.m3u');
+      downloadLink.style.display = 'none';
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+
+    // Auto-fetch Interstellar on load
+    fetchStreams();
   </script>
 </body>
 </html>
