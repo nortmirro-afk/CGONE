@@ -1,231 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SynapseMax // TUI Streamer</title>
-  <!-- HLS.js for playing scraped .m3u8 streams -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Streamer & VLC Launcher</title>
+
+  <!-- Video.js Player CSS -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+
   <style>
-    :root {
-      --bg: #0a0a0c;
-      --panel: #111216;
-      --accent: #00ff9d;
-      --text: #e0e0e0;
-      --muted: #6c7086;
-      --border: #232530;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      background: #090d16;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       padding: 20px;
-      height: 100vh;
       display: flex;
-      flex-direction: column;
-      gap: 15px;
+      justify-content: center;
     }
-
-    /* TUI Top Bar */
-    .tui-header {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 10px 15px;
+    .container { width: 100%; max-width: 920px; }
+    .player-card {
+      background: #151d30;
+      border: 1px solid #23314e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    .player-screen {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #000;
+    }
+    .video-js, .embed-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .content-area { padding: 22px; }
+    .header-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .tui-title { color: var(--accent); font-weight: bold; }
-
-    .search-box {
-      display: flex;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
       gap: 10px;
-      width: 50%;
     }
-
-    input, select, button {
-      background: #000;
-      border: 1px solid var(--border);
-      color: var(--accent);
-      font-family: inherit;
-      padding: 6px 12px;
-      outline: none;
-    }
-
-    input:focus, select:focus { border-color: var(--accent); }
-    button { cursor: pointer; font-weight: bold; }
-    button:hover { background: var(--accent); color: #000; }
-
-    /* Main Workspace */
-    .tui-main {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 15px;
-      flex: 1;
-      min-height: 0;
-    }
-
-    /* Left Panel: Scraper Logs & Sources */
-    .tui-sidebar {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      display: flex;
-      flex-direction: column;
-      padding: 12px;
-      overflow-y: auto;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 5px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .log-output {
-      font-size: 0.8rem;
-      line-height: 1.5;
-      color: #a6adc8;
-      flex: 1;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-
-    .log-success { color: var(--accent); }
-    .log-warn { color: #f9e2af; }
-    .log-err { color: #f38ba8; }
-
-    /* Right Panel: Native Video Player */
-    .tui-player-container {
-      border: 1px solid var(--border);
-      background: #000;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    video {
-      width: 100%;
-      height: 100%;
-      max-height: calc(100vh - 120px);
-      outline: none;
-    }
-
-    .player-status {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--border);
+    h2 { font-size: 1.3rem; font-weight: 700; color: #fff; }
+    .badge {
+      background: #1e293b;
+      border: 1px solid #334155;
       padding: 4px 10px;
+      border-radius: 6px;
       font-size: 0.75rem;
-      color: var(--accent);
-      pointer-events: none;
+      color: #38bdf8;
     }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    input {
+      flex: 1;
+      background: #0b1120;
+      border: 1px solid #23314e;
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    input:focus { outline: 2px solid #38bdf8; }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: none;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-primary { background: #2563eb; }
+    .btn-vlc { background: #ea580c; }
+    .btn-alt { background: #334155; }
+    .stream-box {
+      border-top: 1px solid #23314e;
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+    .stream-item {
+      background: #0b1120;
+      border: 1px solid #23314e;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .stream-meta { max-width: 65%; }
+    .stream-meta strong { color: #38bdf8; display: block; font-size: 0.95rem; }
+    .stream-meta small { color: #94a3b8; font-size: 0.8rem; line-height: 1.4; }
+    .btn-group { display: flex; gap: 8px; }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="tui-header">
-    <div class="tui-title">[ SYNAPSE_MAX // TUI_STREAM_v2.0 ]</div>
-    <div class="search-box">
-      <input type="text" id="tmdbId" placeholder="Enter TMDB ID (e.g. 550)" value="550" />
-      <select id="providerSelect">
-        <option value="moviebox">Provider: MovieBox Scraper</option>
-        <option value="vidsrc">Provider: VidSrc Extractor</option>
-        <option value="flixhq">Provider: FlixHQ Direct</option>
-      </select>
-      <button onclick="runScraper()">[ SCRAPE & PLAY ]</button>
+  <div class="container">
+    <div class="player-card">
+      <div class="player-screen">
+        <!-- Direct Clean HTML5 Player -->
+        <video id="site-player" class="video-js vjs-big-play-centered" controls preload="auto" playsinline></video>
+        <!-- Fallback Embed Server -->
+        <iframe id="embed-frame" class="embed-frame" style="display: none;" allowfullscreen></iframe>
+      </div>
+
+      <div class="content-area">
+        <div class="header-row">
+          <div>
+            <h2 id="movie-title">Direct Stream Player</h2>
+            <span id="player-mode" class="badge">Mode: Direct Site Player</span>
+          </div>
+          <button class="btn btn-alt" onclick="toggleEmbedMode()">⇄ Switch to Embed Server</button>
+        </div>
+
+        <div class="input-row">
+          <input type="text" id="imdb-input" value="tt0816692" placeholder="IMDb ID (e.g. tt0816692)" />
+          <button class="btn btn-primary" onclick="loadMovie()">Search & Resolve</button>
+        </div>
+
+        <div id="stream-list-container" class="stream-box">
+          <p style="color: #94a3b8;">Resolving streams...</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Main TUI Layout -->
-  <div class="tui-main">
-    <!-- Scraper Terminal Logs -->
-    <div class="tui-sidebar">
-      <div class="section-label">// EXTRACTOR_LOGS</div>
-      <div id="logBox" class="log-output">> System ready.
-> Awaiting TMDB ID input...</div>
-    </div>
-
-    <!-- Ad-Free Native HLS Player -->
-    <div class="tui-player-container">
-      <div class="player-status" id="streamBadge">STATUS: IDLE</div>
-      <video id="tuiVideo" controls crossorigin="anonymous"></video>
-    </div>
-  </div>
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
   <script>
-    const logBox = document.getElementById('logBox');
-    const video = document.getElementById('tuiVideo');
-    const badge = document.getElementById('streamBadge');
-    let hls = null;
+    // Configured with your new Cloudflare Worker URL
+    const WORKER_URL = "https://polished-boat-4522.nortmirro.workers.dev";
+    const player = videojs('site-player');
+    let isEmbedMode = false;
 
-    function log(msg, type = '') {
-      const span = document.createElement('div');
-      if (type) span.className = `log-${type}`;
-      span.textContent = `> ${msg}`;
-      logBox.appendChild(span);
-      logBox.scrollTop = logBox.scrollHeight;
-    }
+    async function loadMovie() {
+      const imdbId = document.getElementById("imdb-input").value.trim();
+      if (!imdbId) return;
 
-    async function runScraper() {
-      const tmdbId = document.getElementById('tmdbId').value.trim();
-      const provider = document.getElementById('providerSelect').value;
+      const listDiv = document.getElementById("stream-list-container");
+      listDiv.innerHTML = "<p style='color: #94a3b8;'>Resolving stream links from MovieBox engine...</p>";
 
-      logBox.innerHTML = '';
-      badge.textContent = 'STATUS: SCRAPING...';
-      log(`Initializing [${provider.toUpperCase()}] extractor for TMDB:${tmdbId}...`);
+      // Fallback iframe
+      document.getElementById("embed-frame").src = `https://vidsrc.to/embed/movie/${imdbId}`;
 
       try {
-        // 1. In production, replace this with your backend/worker scraper API:
-        // const res = await fetch(`https://your-scraper-worker.dev/scrape?tmdbId=${tmdbId}&provider=${provider}`);
-        // const data = await res.json();
+        const res = await fetch(`${WORKER_URL}?id=${imdbId}`);
+        const data = await res.json();
 
-        // Simulated TUI scraping sequence:
-        await new Promise(r => setTimeout(r, 400));
-        log(`Fetching metadata from TMDB...`, 'warn');
-        await new Promise(r => setTimeout(r, 500));
-        log(`Bypassing provider token obfuscation...`);
-        await new Promise(r => setTimeout(r, 600));
-        log(`Extracted master.m3u8 manifest! (1080p, 720p, 480p)`, 'success');
+        document.getElementById("movie-title").innerText = data.title || imdbId;
 
-        // Demo HLS stream (Big Buck Bunny / Sintel test stream)
-        const scrapedM3u8Url = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
+        if (!data.streams || data.streams.length === 0) {
+          listDiv.innerHTML = "<p style='color: #f59e0b;'>No direct streams found right now. Switched to embed server fallback above.</p>";
+          showEmbed();
+          return;
+        }
 
-        loadStream(scrapedM3u8Url);
+        renderStreams(data.streams);
       } catch (err) {
-        log(`Scraper Error: ${err.message}`, 'err');
-        badge.textContent = 'STATUS: ERROR';
+        listDiv.innerHTML = `<p style='color: #ef4444;'>Failed to resolve: ${err.message}. Switched to Embed mode.</p>`;
+        showEmbed();
       }
     }
 
-    function loadStream(m3u8Url) {
-      log(`Mounting HLS stream into native player...`);
-      badge.textContent = 'STREAM: DIRECT HLS (AD-FREE)';
+    function renderStreams(streams) {
+      const listDiv = document.getElementById("stream-list-container");
+      listDiv.innerHTML = "<h3 style='font-size: 0.95rem; margin-bottom: 12px; color: #cbd5e1;'>Available Streams:</h3>";
 
-      if (Hls.isSupported()) {
-        if (hls) hls.destroy();
-        hls = new Hls();
-        hls.loadSource(m3u8Url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-          log(`Loaded ${data.levels.length} quality levels. Playing...`, 'success');
-          video.play();
-        });
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = m3u8Url;
-        video.play();
+      streams.forEach((s) => {
+        const item = document.createElement("div");
+        item.className = "stream-item";
+        item.innerHTML = `
+          <div class="stream-meta">
+            <strong>${s.name}</strong>
+            <small>${s.details}</small>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="playOnline('${encodeURIComponent(s.url)}')">▶ Play on Site</button>
+            <button class="btn btn-vlc" onclick="openVLC('${encodeURIComponent(s.url)}')">Open in VLC</button>
+          </div>
+        `;
+        listDiv.appendChild(item);
+      });
+
+      if (streams.length > 0 && !isEmbedMode) {
+        playOnline(encodeURIComponent(streams[0].url));
       }
     }
+
+    // Play inside browser via Worker CORS proxy
+    function playOnline(encodedUrl) {
+      showWebPlayer();
+      const rawUrl = decodeURIComponent(encodedUrl);
+      const proxiedUrl = `${WORKER_URL}?proxy=${encodeURIComponent(rawUrl)}`;
+
+      const isHls = rawUrl.includes(".m3u8");
+      player.src({
+        src: proxiedUrl,
+        type: isHls ? "application/x-mpegURL" : "video/mp4"
+      });
+      player.play().catch(() => {});
+    }
+
+    // Launch VLC with the direct stream link
+    function openVLC(encodedUrl) {
+      const targetUrl = decodeURIComponent(encodedUrl);
+      const ua = navigator.userAgent || "";
+
+      if (/android/i.test(ua)) {
+        const cleanUrl = targetUrl.replace(/^https?:\/\//, "");
+        const scheme = targetUrl.startsWith("https") ? "https" : "http";
+        window.location.href = `intent://${cleanUrl}#Intent;scheme=${scheme};package=org.videolan.vlc;type=video/*;end`;
+      } else if (/iPad|iPhone|iPod/.test(ua)) {
+        window.location.href = "vlc-x-callback://x-callback-url/stream?url=" + encodeURIComponent(targetUrl);
+      } else {
+        window.location.href = "vlc://" + targetUrl;
+      }
+    }
+
+    function toggleEmbedMode() {
+      if (isEmbedMode) {
+        showWebPlayer();
+      } else {
+        showEmbed();
+      }
+    }
+
+    function showEmbed() {
+      isEmbedMode = true;
+      player.pause();
+      document.getElementById("site-player").style.display = "none";
+      document.getElementById("embed-frame").style.display = "block";
+      document.getElementById("player-mode").innerText = "Mode: Embed Server";
+    }
+
+    function showWebPlayer() {
+      isEmbedMode = false;
+      document.getElementById("embed-frame").style.display = "none";
+      document.getElementById("site-player").style.display = "block";
+      document.getElementById("player-mode").innerText = "Mode: Direct Site Player";
+    }
+
+    // Initialize on first load
+    loadMovie();
   </script>
 </body>
 </html>
