@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movie Streamer & VLC Launcher</title>
+  <title>Direct Stream Player & Search</title>
 
   <!-- Video.js Player CSS -->
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
@@ -27,15 +27,13 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
     }
     .player-screen {
-      position: relative;
       width: 100%;
       height: 480px;
       background: #000;
     }
-    .video-js, .embed-frame {
+    .video-js {
       width: 100%;
       height: 100%;
-      border: none;
     }
     .content-area { padding: 22px; }
     .header-row {
@@ -59,9 +57,11 @@
       display: flex;
       gap: 8px;
       margin-bottom: 16px;
+      flex-wrap: wrap;
     }
     input {
       flex: 1;
+      min-width: 220px;
       background: #0b1120;
       border: 1px solid #23314e;
       border-radius: 6px;
@@ -81,14 +81,13 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      text-decoration: none;
       transition: opacity 0.2s;
     }
     .btn:hover { opacity: 0.9; }
     .btn-primary { background: #2563eb; }
     .btn-vlc { background: #ea580c; }
-    .btn-alt { background: #334155; }
-    .stream-box {
+    .btn-secondary { background: #334155; }
+    .results-box {
       border-top: 1px solid #23314e;
       margin-top: 16px;
       padding-top: 16px;
@@ -106,8 +105,8 @@
       gap: 10px;
     }
     .stream-meta { max-width: 65%; }
-    .stream-meta strong { color: #38bdf8; display: block; font-size: 0.95rem; }
-    .stream-meta small { color: #94a3b8; font-size: 0.8rem; line-height: 1.4; }
+    .stream-meta strong { color: #38bdf8; display: block; font-size: 0.95rem; margin-bottom: 2px; }
+    .stream-meta small { color: #94a3b8; font-size: 0.8rem; }
     .btn-group { display: flex; gap: 8px; }
   </style>
 </head>
@@ -115,113 +114,148 @@
 
   <div class="container">
     <div class="player-card">
+      <!-- Direct HTML5 Player (No Embed Iframes) -->
       <div class="player-screen">
-        <!-- Direct Clean HTML5 Player -->
         <video id="site-player" class="video-js vjs-big-play-centered" controls preload="auto" playsinline></video>
-        <!-- Fallback Embed Server -->
-        <iframe id="embed-frame" class="embed-frame" style="display: none;" allowfullscreen></iframe>
       </div>
 
       <div class="content-area">
         <div class="header-row">
-          <div>
-            <h2 id="movie-title">Direct Stream Player</h2>
-            <span id="player-mode" class="badge">Mode: Direct Site Player</span>
-          </div>
-          <button class="btn btn-alt" onclick="toggleEmbedMode()">⇄ Switch to Embed Server</button>
+          <h2 id="current-title">Direct Media Player</h2>
+          <span class="badge">Embed-Free • Native HTML5 & VLC</span>
         </div>
 
+        <!-- Search by Movie Name -->
         <div class="input-row">
-          <input type="text" id="imdb-input" value="tt0816692" placeholder="IMDb ID (e.g. tt0816692)" />
-          <button class="btn btn-primary" onclick="loadMovie()">Search & Resolve</button>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search movie title (e.g., Night of the Living Dead, Sintel, Big Buck Bunny)..." 
+            value="Night of the Living Dead"
+            onkeydown="if(event.key==='Enter') searchByName()"
+          />
+          <button class="btn btn-primary" onclick="searchByName()">Search Title</button>
         </div>
 
-        <div id="stream-list-container" class="stream-box">
-          <p style="color: #94a3b8;">Resolving streams...</p>
+        <!-- Custom Direct Stream Input -->
+        <div class="input-row">
+          <input 
+            type="text" 
+            id="custom-url" 
+            placeholder="Or paste any direct .m3u8 / .mp4 URL here..." 
+          />
+          <button class="btn btn-secondary" onclick="loadCustomUrl()">Play Direct URL</button>
+        </div>
+
+        <!-- Search & Stream Results -->
+        <div id="results-container" class="results-box">
+          <p style="color: #94a3b8;">Searching catalog...</p>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Video.js Script -->
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
   <script>
-    // Configured with your new Cloudflare Worker URL
-    const WORKER_URL = "https://polished-boat-4522.nortmirro.workers.dev";
     const player = videojs('site-player');
-    let isEmbedMode = false;
 
-    async function loadMovie() {
-      const imdbId = document.getElementById("imdb-input").value.trim();
-      if (!imdbId) return;
+    // Search open-access feature films and media by title via Internet Archive API
+    async function searchByName() {
+      const query = document.getElementById("search-input").value.trim();
+      if (!query) return;
 
-      const listDiv = document.getElementById("stream-list-container");
-      listDiv.innerHTML = "<p style='color: #94a3b8;'>Resolving stream links from MovieBox engine...</p>";
-
-      // Fallback iframe
-      document.getElementById("embed-frame").src = `https://vidsrc.to/embed/movie/${imdbId}`;
+      const resultsDiv = document.getElementById("results-container");
+      resultsDiv.innerHTML = `<p style="color: #94a3b8;">Searching playable streams for "${query}"...</p>`;
 
       try {
-        const res = await fetch(`${WORKER_URL}?id=${imdbId}`);
+        const searchUrl = `https://archive.org/advancedsearch.php?q=title:(${encodeURIComponent(query)})+AND+mediatype:(movies)&fl[]=identifier,title,year,description&sort[]=downloads+desc&rows=8&page=1&output=json`;
+        const res = await fetch(searchUrl);
         const data = await res.json();
+        const docs = data?.response?.docs || [];
 
-        document.getElementById("movie-title").innerText = data.title || imdbId;
-
-        if (!data.streams || data.streams.length === 0) {
-          listDiv.innerHTML = "<p style='color: #f59e0b;'>No direct streams found right now. Switched to embed server fallback above.</p>";
-          showEmbed();
+        if (docs.length === 0) {
+          resultsDiv.innerHTML = `<p style="color: #f59e0b;">No playable open-access streams found for "${query}". Try another title or paste a direct .m3u8/.mp4 link above.</p>`;
           return;
         }
 
-        renderStreams(data.streams);
+        resultsDiv.innerHTML = `<h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #cbd5e1;">Search Results (Click to Play):</h3>`;
+
+        docs.forEach((doc) => {
+          const item = document.createElement("div");
+          item.className = "stream-item";
+          const year = doc.year ? `(${doc.year})` : "";
+          item.innerHTML = `
+            <div class="stream-meta">
+              <strong>${doc.title} ${year}</strong>
+              <small>ID: ${doc.identifier}</small>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary" onclick="resolveArchiveStream('${doc.identifier}', '${ doc.title.replace(/'/g, "\\'") }')">▶ Play on Site</button>
+              <button class="btn btn-vlc" onclick="resolveArchiveStream('${doc.identifier}', '${ doc.title.replace(/'/g, "\\'") }', true)">Open in VLC</button>
+            </div>
+          `;
+          resultsDiv.appendChild(item);
+        });
+
+        // Auto-load the first result
+        resolveArchiveStream(docs[0].identifier, docs[0].title, false);
+
       } catch (err) {
-        listDiv.innerHTML = `<p style='color: #ef4444;'>Failed to resolve: ${err.message}. Switched to Embed mode.</p>`;
-        showEmbed();
+        resultsDiv.innerHTML = `<p style="color: #ef4444;">Search error: ${err.message}</p>`;
       }
     }
 
-    function renderStreams(streams) {
-      const listDiv = document.getElementById("stream-list-container");
-      listDiv.innerHTML = "<h3 style='font-size: 0.95rem; margin-bottom: 12px; color: #cbd5e1;'>Available Streams:</h3>";
+    // Fetches the exact .mp4 file from the item's metadata
+    async function resolveArchiveStream(identifier, title, launchInVlc = false) {
+      try {
+        const metaRes = await fetch(`https://archive.org/metadata/${identifier}`);
+        const meta = await metaRes.json();
+        const files = meta?.files || [];
 
-      streams.forEach((s) => {
-        const item = document.createElement("div");
-        item.className = "stream-item";
-        item.innerHTML = `
-          <div class="stream-meta">
-            <strong>${s.name}</strong>
-            <small>${s.details}</small>
-          </div>
-          <div class="btn-group">
-            <button class="btn btn-primary" onclick="playOnline('${encodeURIComponent(s.url)}')">▶ Play on Site</button>
-            <button class="btn btn-vlc" onclick="openVLC('${encodeURIComponent(s.url)}')">Open in VLC</button>
-          </div>
-        `;
-        listDiv.appendChild(item);
-      });
+        // Find playable MP4 file
+        const videoFile = files.find(f => f.name.endsWith(".mp4")) || files.find(f => f.format === "h.264" || f.format === "MPEG4");
 
-      if (streams.length > 0 && !isEmbedMode) {
-        playOnline(encodeURIComponent(streams[0].url));
+        if (!videoFile) {
+          alert("No direct MP4 stream available for this entry.");
+          return;
+        }
+
+        const directUrl = `https://archive.org/download/${identifier}/${encodeURIComponent(videoFile.name)}`;
+        document.getElementById("current-title").innerText = title;
+        document.getElementById("custom-url").value = directUrl;
+
+        if (launchInVlc) {
+          openVLC(directUrl);
+        } else {
+          playDirectStream(directUrl);
+        }
+      } catch (err) {
+        alert("Failed to load video stream: " + err.message);
       }
     }
 
-    // Play inside browser via Worker CORS proxy
-    function playOnline(encodedUrl) {
-      showWebPlayer();
-      const rawUrl = decodeURIComponent(encodedUrl);
-      const proxiedUrl = `${WORKER_URL}?proxy=${encodeURIComponent(rawUrl)}`;
+    // Play any custom .m3u8 or .mp4 URL
+    function loadCustomUrl() {
+      const url = document.getElementById("custom-url").value.trim();
+      if (!url) return;
+      document.getElementById("current-title").innerText = "Custom Direct Stream";
+      playDirectStream(url);
+    }
 
-      const isHls = rawUrl.includes(".m3u8");
+    function playDirectStream(url) {
+      const isHls = url.includes(".m3u8");
       player.src({
-        src: proxiedUrl,
+        src: url,
         type: isHls ? "application/x-mpegURL" : "video/mp4"
       });
       player.play().catch(() => {});
     }
 
-    // Launch VLC with the direct stream link
-    function openVLC(encodedUrl) {
-      const targetUrl = decodeURIComponent(encodedUrl);
+    // Launch external VLC player on Android, iOS, or Desktop
+    function openVLC(targetUrl) {
+      if (!targetUrl) return;
       const ua = navigator.userAgent || "";
 
       if (/android/i.test(ua)) {
@@ -235,31 +269,8 @@
       }
     }
 
-    function toggleEmbedMode() {
-      if (isEmbedMode) {
-        showWebPlayer();
-      } else {
-        showEmbed();
-      }
-    }
-
-    function showEmbed() {
-      isEmbedMode = true;
-      player.pause();
-      document.getElementById("site-player").style.display = "none";
-      document.getElementById("embed-frame").style.display = "block";
-      document.getElementById("player-mode").innerText = "Mode: Embed Server";
-    }
-
-    function showWebPlayer() {
-      isEmbedMode = false;
-      document.getElementById("embed-frame").style.display = "none";
-      document.getElementById("site-player").style.display = "block";
-      document.getElementById("player-mode").innerText = "Mode: Direct Site Player";
-    }
-
-    // Initialize on first load
-    loadMovie();
+    // Run initial search on load
+    searchByName();
   </script>
 </body>
 </html>
